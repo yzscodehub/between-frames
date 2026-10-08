@@ -1,0 +1,5 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import {learningPaths,resource} from '../../lib/content/catalog';
+---
+<Layout title="学习路线"><div class="catalog-shell"><header class="catalog-page-head"><span class="catalog-kicker">READING PATHS / 学习路线</span><h1>跟着一个问题，<br/>跨过主题的边界。</h1><p>推荐顺序是一条可选择的路径，不是课程门槛。已经理解某个概念，就从下一站继续。</p></header><div class="path-list">{learningPaths.map(p=><a class="path-card" href={'/learn/'+p.id+'/'}><span class="path-number mono">{p.number}</span><div><span class="catalog-kicker">{p.steps.length} 站</span><h2>{p.name}</h2><p>{p.description}</p><div class="path-preview">{p.steps.slice(0,3).map((id,i)=><><span>{resource(id).title}</span>{Math.min(2,p.steps.length-1) > i&&<span aria-hidden="true">→</span>}</>)}{p.steps.length>3&&<span>…</span>}</div></div><span class="catalog-arrow" aria-hidden="true">↗</span></a>)}</div></div></Layout>

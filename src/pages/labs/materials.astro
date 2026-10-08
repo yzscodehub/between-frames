@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PbrLab from '../../components/pbr/PbrLab';
+---
+<Layout title="PBR 材质实验室" description="逐像素检查 GGX、Fresnel、金属度与独立 CPU 半球积分。">
+ <div class="lab-page"><span class="eyebrow">MATERIAL LAB / D · F · G</span><h1>材质参数改变了哪一部分反射？</h1><p>固定入射光，比较粗糙度与金属度。显示映射、真实线性读数和独立积分分别记录。</p><PbrLab client:load/><noscript><p>交互实验需要 JavaScript。<a href="/articles/pbr/">PBR 正文</a>保留完整公式、三个实验步骤、边界和运行源码。</p></noscript></div>
+</Layout>

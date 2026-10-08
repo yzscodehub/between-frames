@@ -1,0 +1,90 @@
+import RayArticleLayout from '../../layouts/RayArticleLayout.astro';
+import RayLab from '../../components/ray/RayLab';
+import Formula from '../../components/Formula.astro';
+import {rayLabHref} from '../../lib/ray/catalog';
+
+<RayArticleLayout lesson="shadows" chapters={[
+ ['segment','01 阴影是一段查询'],['area','02 面光源与软阴影'],['lab','03 光源变大之后'],['samples','04 噪声与半影'],['maps','05 三种表示的边界'],['reference','06 参考说明']
+]}>
+
+光线与求交给出了“碰到什么”的答案。阴影只需要其中一部分：**从表面到光源之间，有没有遮挡物？** 将查询限制成线段，并使用 any-hit 提前结束，就能计算一次可见性。
+
+本篇比较 Shadow Map（面板中的“中心光图”）、PCSS 与完整几何光线查询。先把目标说清：RT 估计矩形光源的**面积平均可见度**，1 为完全可见，0 为完全遮挡。它便于隔离阴影现象，但不是已经乘上光源辐亮度、距离和两端余弦的物理直接光照。
+
+<p className="ray-source-note">如果还不熟悉光图如何生成，先读<a href="/articles/shadow-mapping/">阴影贴图</a>和<a href="/articles/pcf-pcss/">PCF / PCSS</a>。那两篇使用实际光栅深度纹理；本篇中心光图由软件求交生成，用于比较信息近似，不能据此评价光栅性能。</p>
+
+<h2 id="segment">01 / 不能把射线无限延长</h2>
+
+从接收点 p 向灯面上一个点 y 发出单位方向光线，最大距离设在 y 之前。起点沿几何法线作小幅偏移，避免浮点误差让光线立刻撞回自身；终点也留出数值间隔，避免把灯面本身当作遮挡物。
+
+<Formula tex={'V(p,y)=\\begin{cases}1,&\\text{线段 }p\\rightarrow y\\text{ 内无其他表面}\\\\0,&\\text{线段内有遮挡}\\end{cases}'} />
+
+光源背后的物体不应造成阴影。反过来，过大的起点偏移也可能跨过真实的近处遮挡。偏移是数值策略，不能用来代替正确的几何范围；这些约定延续自前两篇的查询底座。
+
+<h2 id="area">02 / 软阴影，是部分光源仍然可见</h2>
+
+点光源只有一个方向，面光源则包含许多可见性可能不同的点。将矩形面积记为 A，均匀采样 N 个点，得到：
+
+<Formula tex={'\\bar V_A(p)=\\frac{1}{A}\\int_A V(p,y)\\,dA_y\\;\\approx\\;\\frac{1}{N}\\sum_{i=1}^N V(p,y_i),\\qquad y_i\\sim\\mathrm{Uniform}(A)'} />
+
+这是面积测度下的平均，不需要在平均可见度里额外乘入灯面余弦。若目标改成直接光照，就必须带上几何项、BSDF 和正确的采样概率；[PBRT 的面光源接口](https://pbr-book.org/4ed/Light_Sources/Area_Lights)讨论的是更完整的光照采样问题。
+
+<h2 id="lab">03 / 实验一：让光源变大，阴影会怎样？</h2>
+
+<RayLab client:visible lesson="shadows" embedded />
+
+<section className="ray-task" aria-labelledby="shadow-task-one">
+<h3 id="shadow-task-one">实验 1 / 半影为什么有宽度？</h3>
+<dl>
+<dt>问题</dt><dd>固定遮挡物与接收面，改变矩形光源尺寸会怎样改变阴影边缘？</dd>
+<dt>预测</dt><dd>在合适的接收区域，较大的光源会让部分可见的过渡带变宽；贴近接触处仍可能很窄。</dd>
+<dt>操作</dt><dd>保持相机、遮挡板高度和样本数不变，只调整“矩形光源尺寸倍率”；在同一接收面上观察阴影核心、过渡带与无遮挡区。</dd>
+<dt>证据</dt><dd>观察 RT 过渡区域的位置与宽度，再点击像素，检查一次样本对应的表面到光源查询；单个样本只返回一次可见性。</dd>
+<dt>结论</dt><dd>软阴影来自灯面被部分遮挡，不是把一个硬阴影任意模糊后的新颜色。</dd>
+<dt>边界</dt><dd>增大灯面会改变整个可见性问题；不能承诺每个像素都变亮，也不能由此推断物理照度不变。</dd>
+</dl>
+</section>
+
+<h2 id="samples">04 / 实验二：增加采样，不应改变光源</h2>
+
+一个样本只能返回 0 或 1；很多样本的平均才逐渐揭示中间可见度。相机、几何与灯面都固定时，增加 spp 改变的是估计质量。它不应像调整 lightSize 那样改变阴影的目标形状。
+
+<section className="ray-task" aria-labelledby="shadow-task-two">
+<h3 id="shadow-task-two">实验 2 / 变平滑的是噪声，还是半影？</h3>
+<dl>
+<dt>问题</dt><dd>同一个阴影边缘从 1 spp 累积到更多样本，会改变什么？</dd>
+<dt>预测</dt><dd>颗粒波动通常减小，面积平均可见度趋于稳定；单次运行的每个像素不保证单调接近参考。</dd>
+<dt>操作</dt><dd>固定光源尺寸和遮挡板高度，依次设置“目标样本数”为 1、16、64、256 spp；打开“并排对照”，冻结当前条件生成 1024 样本参考。</dd>
+<dt>证据</dt><dd>观察同一区域的过渡与颗粒，并检查 RT 对参考的整体 MAE、RMSE 和有效覆盖；确认双方使用相同灯面和几何快照。</dd>
+<dt>结论</dt><dd>样本数量控制随机误差；光源尺寸控制被估计的可见性分布，两者不能互相替代。</dd>
+<dt>边界</dt><dd>高样本结果仍是有限采样估计；默认相机没有亚像素抖动，增加 spp 不会自动消除几何锯齿。</dd>
+</dl>
+</section>
+
+<h2 id="maps">05 / 实验三：一张深度图能够保留多少信息？</h2>
+
+Shadow Map 从光源中心的视角保存一层深度，再比较接收点是否在这层表面之后。它对应中心方向的二值可见性。PCSS 先搜索遮挡者，利用平均遮挡深度估计半影宽度，再过滤深度比较结果。它是有几何依据的近似，仍不是逐一检查灯面上所有位置。[NVIDIA 的 PCSS 原始白皮书](https://developer.download.nvidia.com/whitepapers/2008/PCSS_Integration.pdf)解释了这几个步骤。
+
+这里的光源深度图也由共用求交器生成，以保持三角形与解析球的几何一致；因此本实验比较的是可见性表示与近似误差，不能用其时间代表传统光栅化 Shadow Map 的性能。
+
+<section className="ray-task" aria-labelledby="shadow-task-three">
+<h3 id="shadow-task-three">实验 3 / PCSS 与 RT 都柔和，为何仍有差异？</h3>
+<dl>
+<dt>问题</dt><dd>相同场景下，柔和的边缘是否意味着相同的可见度？</dd>
+<dt>预测</dt><dd>中心 Shadow Map 保留硬边；PCSS 可产生软边，但多个遮挡深度或复杂轮廓会暴露近似差异。</dd>
+<dt>操作</dt><dd>固定灯面、相机和遮挡板高度，打开“并排对照”，查看中心光图、PCSS、RT 与已生成的高样本 RT 参考；重点看薄板附近遮挡轮廓交叠处。随后保持几何不变，将阴影表面偏移倍率分别设为 0、1、4，检查起点偏移怎样改变近处遮挡。</dd>
+<dt>证据</dt><dd>观察对应区域的阴影差异，区分光图覆盖之外的特殊显示与无遮挡区域。面板 MAE/RMSE 衡量 RT 对高样本参考，不是 PCSS 的自动评分。</dd>
+<dt>结论</dt><dd>柔和外观不足以证明面积可见度正确，必须对齐估计目标并检查局部误差。</dd>
+<dt>边界</dt><dd>PCSS 的平均遮挡深度与滤波近似不可由增加 RT 样本修复；光图覆盖之外也不能填成“参考全亮”。</dd>
+</dl>
+</section>
+
+<div className="ray-counterexample"><strong>反例：近处细遮挡与远处大遮挡同时出现。</strong><p>二者可能需要不同的半影尺度。用一个平均遮挡深度概括它们，会丢失这种区别；即使过滤结果十分平滑，也可能与完整几何的面积可见度不同。</p></div>
+
+<h2 id="reference">06 / 参考必须属于同一个问题</h2>
+
+参考统计使用双方有效输出的线性数值；光图没有覆盖的区域只用于表示方法边界，不能当成已验证的无遮挡。调整遮挡板高度、光源尺寸或相机后，旧参考立即失效。生成参考的样本数、状态和有效覆盖必须一起保留，不能只保留一张看似更干净的图片。
+
+继续实验可进入<a href={rayLabHref('shadows',{learning:{article:'ray-shadows',chapter:'maps'}})}>光追阴影实验室</a>。本篇不包含透明阴影、介质吸收或多光源选择；这些都需要改变可见性与采样模型。
+
+</RayArticleLayout>

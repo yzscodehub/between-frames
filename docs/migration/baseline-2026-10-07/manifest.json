@@ -1,0 +1,152 @@
+{
+  "version": 1,
+  "date": "2026-10-07",
+  "note": "原 WebGL2 算法与状态的迁移前基线；历史验证不是 WebGPU 验收。",
+  "files": [
+    {
+      "path": "package.json",
+      "sha256": "7f4b75eb2d3a6f2ead16de744b2ede58ca97aa265dba64f618e88305a4005c28",
+      "archivedPath": "source/package.json.snapshot"
+    },
+    {
+      "path": "src/lib/lighting/state.ts",
+      "sha256": "eba4762f61f6676faf65b7a8743f4ea932c5ab41e500f29f1aa03dce9cb7d062",
+      "archivedPath": "source/src/lib/lighting/state.ts.snapshot"
+    },
+    {
+      "path": "src/lib/pbr/state.ts",
+      "sha256": "02499b93903a85e90f35e2d9e0cdffdb8ccb028ea894b40fa63110ccf2b40f65",
+      "archivedPath": "source/src/lib/pbr/state.ts.snapshot"
+    },
+    {
+      "path": "src/lib/ray/state.ts",
+      "sha256": "6606856ce6ae3002d4f36a899400b9bde3c5edc0b9e86d8c7bea21c20e6ec7b6",
+      "archivedPath": "source/src/lib/ray/state.ts.snapshot"
+    },
+    {
+      "path": "src/lib/shadow/state.ts",
+      "sha256": "39b417df09be2ba79e551f1270a60e74821c4f9bad70470efa75015588ddd9ad",
+      "archivedPath": "source/src/lib/shadow/state.ts.snapshot"
+    },
+    {
+      "path": "src/lib/ssr/state.ts",
+      "sha256": "e2583a2a40560f6ef9dda0ee2acbf054217ff73e7a014e78d7d53cdbaa31434c",
+      "archivedPath": "source/src/lib/ssr/state.ts.snapshot"
+    },
+    {
+      "path": "src/lib/state.ts",
+      "sha256": "d6da92c026e897e59472f7ec60d6c855fc9ebe06fbb3232d64885cf0a21b95a9",
+      "archivedPath": "source/src/lib/state.ts.snapshot"
+    },
+    {
+      "path": "src/lib/taa/state.ts",
+      "sha256": "d0762537f511c06970c33abe1f1a8209e1eb62abcc51477e183f7fa2d7d1e652",
+      "archivedPath": "source/src/lib/taa/state.ts.snapshot"
+    },
+    {
+      "path": "src/shaders/ao.glsl",
+      "sha256": "749db8dca6c3487e2c002e501f297881dbcbb214436b5f8814316c15629a2407",
+      "archivedPath": "source/src/shaders/ao.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/lighting/ibl.glsl",
+      "sha256": "9a412d8c4da090270ceb373cc74afbf79698722ae7cb7829669ee488bf874e30",
+      "archivedPath": "source/src/shaders/lighting/ibl.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/lighting/transparency.glsl",
+      "sha256": "69461e7526fa1b69c5a80c9b85b1d340c08159f9465695bcb4704acfa68d43db",
+      "archivedPath": "source/src/shaders/lighting/transparency.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/pbr/brdf.glsl",
+      "sha256": "10803689212c486ff9ef5285ba22a340234b32147d947f98f5cea65fb3c13058",
+      "archivedPath": "source/src/shaders/pbr/brdf.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/pbr/scene.glsl",
+      "sha256": "ef2e1b696384aaec30463b403c2cc17bcbb2f0c37a14d3072e5f6c79de33f674",
+      "archivedPath": "source/src/shaders/pbr/scene.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/ray/effects.glsl",
+      "sha256": "3d8bd84b0d26cd4f9880d27e30d074b010441605671078e45f5bd29b6af20454",
+      "archivedPath": "source/src/shaders/ray/effects.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/ray/lighting.glsl",
+      "sha256": "06b4d52be05a67473fed138929b16e8d2e6b5be10caedd90f02c0e0604993293",
+      "archivedPath": "source/src/shaders/ray/lighting.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/ray/query.glsl",
+      "sha256": "27133b5b0b4d0556c1407552e541921c014b44a65c02d85be5023b051480ec0f",
+      "archivedPath": "source/src/shaders/ray/query.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/ray/trace.glsl",
+      "sha256": "f633d8e5b65029419ff20ee79616bb1be8d4d926aa02cbb59995b21417e74957",
+      "archivedPath": "source/src/shaders/ray/trace.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/ray/transport.glsl",
+      "sha256": "6fd27b983405873db98e4f2a487f54b65e1189011f4da9a41383f1549884d0d6",
+      "archivedPath": "source/src/shaders/ray/transport.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/reference.glsl",
+      "sha256": "6d1e5e14a305c32bf0c1b37d4609fc8497b60203cd86bb36c4d24556ca2e56f9",
+      "archivedPath": "source/src/shaders/reference.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/shadow/depth.frag.glsl",
+      "sha256": "d8e3f182b0d821ccf53c0cd22d70be7bc74fef4d0bfa2e32cbf265ebc3b579b9",
+      "archivedPath": "source/src/shaders/shadow/depth.frag.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/shadow/gbuffer.frag.glsl",
+      "sha256": "cdbd397489b74cf241f6862f31cd8d468bebbd540b23489cbf44773cc6ec8dda",
+      "archivedPath": "source/src/shaders/shadow/gbuffer.frag.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/shadow/mesh.vert.glsl",
+      "sha256": "01693aad81fd06518a7c90c7247b38323cfd1f3f6c4479b2ecd664bdfa84bdb8",
+      "archivedPath": "source/src/shaders/shadow/mesh.vert.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/shadow/resolve.glsl",
+      "sha256": "b7b1b2f8869dd8cba9c044d3d6799ed25b31581354ed17a94dab0a066922fcbb",
+      "archivedPath": "source/src/shaders/shadow/resolve.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/ssr/gbuffer.frag.glsl",
+      "sha256": "acb7232e4c16f15a1a26f189977a34fb9702ef632b0fc3e683bcdb0226b17f89",
+      "archivedPath": "source/src/shaders/ssr/gbuffer.frag.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/ssr/mesh.vert.glsl",
+      "sha256": "2ac25c1d8308485e8282f8c835e3ca997a20be5a98da198304d41749d62a8026",
+      "archivedPath": "source/src/shaders/ssr/mesh.vert.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/ssr/resolve.glsl",
+      "sha256": "4c6e8c335ebbc7d04e38bbb769915b43612fdde43c6f5142d810d547a4d912f5",
+      "archivedPath": "source/src/shaders/ssr/resolve.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/taa/mesh.frag.glsl",
+      "sha256": "dc865852ddb2c611dfb4732d484a59df64f4d2138e83e4c3e898c8ef1a7685c4",
+      "archivedPath": "source/src/shaders/taa/mesh.frag.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/taa/mesh.vert.glsl",
+      "sha256": "b79838c8550e17e7d4283027b727df0a01c341bee649a433b31a2ef5ed4431ac",
+      "archivedPath": "source/src/shaders/taa/mesh.vert.glsl.snapshot"
+    },
+    {
+      "path": "src/shaders/taa/resolve.glsl",
+      "sha256": "b6f45b8e4dd641580144b0269749ca1e71b97f026a2cbba9772877dd4d4d5123",
+      "archivedPath": "source/src/shaders/taa/resolve.glsl.snapshot"
+    }
+  ]
+}

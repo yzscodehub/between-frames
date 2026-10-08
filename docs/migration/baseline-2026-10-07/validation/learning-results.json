@@ -1,0 +1,256 @@
+{
+  "passed": [
+    {
+      "name": "contact profile exposes only lift and no-AO controls",
+      "detail": {
+        "lift": "0",
+        "profiles": 2
+      }
+    },
+    {
+      "name": "sampling profile follows actual SSAO samples without algorithm controls",
+      "detail": {
+        "initialSamples": 8,
+        "observations": [
+          {
+            "sample": 1,
+            "data": "采样纹素 UV\n0.352, 0.482\n表面距离\n0.371\n深度判定\n可见",
+            "verdict": "本样本未判为遮挡\ns.z = -8.242，q.z = -7.879，深度偏移 = 0.012。最终还检查作用半径。"
+          },
+          {
+            "sample": 2,
+            "data": "采样纹素 UV\n0.394, 0.601\n表面距离\n1.068\n深度判定\n可见",
+            "verdict": "本样本未判为遮挡\ns.z = -7.657，q.z = -7.276，深度偏移 = 0.012。最终还检查作用半径。"
+          },
+          {
+            "sample": 3,
+            "data": "采样纹素 UV\n0.311, 0.525\n表面距离\n1.226\n深度判定\n可见",
+            "verdict": "本样本未判为遮挡\ns.z = -8.817，q.z = -7.488，深度偏移 = 0.012。最终还检查作用半径。"
+          },
+          {
+            "sample": 4,
+            "data": "采样纹素 UV\n0.365, 0.510\n表面距离\n0.379\n深度判定\n遮挡",
+            "verdict": "候选点落在深度表面之后\ns.z = -7.869，q.z = -7.998，深度偏移 = 0.012。最终还检查作用半径。"
+          },
+          {
+            "sample": 5,
+            "data": "采样纹素 UV\n0.357, 0.461\n表面距离\n0.074\n深度判定\n可见",
+            "verdict": "本样本未判为遮挡\ns.z = -7.992，q.z = -7.754，深度偏移 = 0.012。最终还检查作用半径。"
+          },
+          {
+            "sample": 6,
+            "data": "采样纹素 UV\n0.268, 0.584\n表面距离\n2.982\n深度判定\n可见",
+            "verdict": "本样本未判为遮挡\ns.z = -10.220，q.z = -8.007，深度偏移 = 0.012。最终还检查作用半径。"
+          },
+          {
+            "sample": 7,
+            "data": "采样纹素 UV\n0.418, 0.512\n表面距离\n0.781\n深度判定\n可见",
+            "verdict": "本样本未判为遮挡\ns.z = -8.203，q.z = -7.936，深度偏移 = 0.012。最终还检查作用半径。"
+          },
+          {
+            "sample": 8,
+            "data": "采样纹素 UV\n0.328, 0.442\n表面距离\n0.302\n深度判定\n可见",
+            "verdict": "本样本未判为遮挡\ns.z = -7.778，q.z = -7.589，深度偏移 = 0.012。最终还检查作用半径。"
+          }
+        ]
+      }
+    },
+    {
+      "name": "fixed visible domain changes cosine contribution and agrees with numerical integration",
+      "detail": {
+        "away": [
+          0.920044,
+          0.091011,
+          0.091011
+        ],
+        "toward": [
+          0.920044,
+          0.820384,
+          0.820384
+        ],
+        "half": [
+          0.920044,
+          0.410192,
+          0.410192
+        ],
+        "rotated": [
+          0.920044,
+          0.360115,
+          0.360115
+        ]
+      }
+    },
+    {
+      "name": "deep slice diagram retains its full domain at 75 and 180 degree extremes",
+      "detail": {
+        "geometry": {
+          "bounds": {
+            "x": 60,
+            "y": 14.749858856201172,
+            "width": 341.7296142578125,
+            "height": 339.19464111328125
+          },
+          "view": {
+            "x": 0,
+            "y": 0,
+            "width": 460,
+            "height": 365
+          },
+          "polygonBottom": 310.3999938964844
+        },
+        "integrals": [
+          1.523213,
+          1.523213
+        ]
+      }
+    },
+    {
+      "name": "article lab links preserve the learning task and return chapter",
+      "detail": [
+        {
+          "chapter": "contact",
+          "lesson": "contact",
+          "scene": "contact"
+        },
+        {
+          "chapter": "ssao",
+          "lesson": "noise",
+          "scene": "bench"
+        },
+        {
+          "chapter": "horizon",
+          "lesson": "thin",
+          "scene": "thin"
+        },
+        {
+          "chapter": "limits",
+          "lesson": "room",
+          "scene": "room"
+        }
+      ]
+    },
+    {
+      "name": "hydrated article and lab remain within a 390px viewport",
+      "detail": {
+        "article": {
+          "viewport": 390,
+          "width": 390,
+          "overflowing": [
+            {
+              "tag": "semantics",
+              "className": null
+            },
+            {
+              "tag": "mrow",
+              "className": null
+            },
+            {
+              "tag": "mi",
+              "className": null
+            },
+            {
+              "tag": "mo",
+              "className": null
+            },
+            {
+              "tag": "mn",
+              "className": null
+            },
+            {
+              "tag": "mo",
+              "className": null
+            },
+            {
+              "tag": "mi",
+              "className": null
+            },
+            {
+              "tag": "mo",
+              "className": null
+            },
+            {
+              "tag": "mi",
+              "className": null
+            },
+            {
+              "tag": "mo",
+              "className": null
+            },
+            {
+              "tag": "mtext",
+              "className": null
+            },
+            {
+              "tag": "mi",
+              "className": null
+            }
+          ]
+        },
+        "lab": {
+          "viewport": 390,
+          "width": 390,
+          "overflowing": []
+        }
+      }
+    },
+    {
+      "name": "without JavaScript the 390px article retains readable teaching content",
+      "detail": {
+        "viewport": 390,
+        "width": 390,
+        "overflowing": [
+          {
+            "tag": "semantics",
+            "className": null
+          },
+          {
+            "tag": "mrow",
+            "className": null
+          },
+          {
+            "tag": "mi",
+            "className": null
+          },
+          {
+            "tag": "mo",
+            "className": null
+          },
+          {
+            "tag": "mn",
+            "className": null
+          },
+          {
+            "tag": "mo",
+            "className": null
+          },
+          {
+            "tag": "mi",
+            "className": null
+          },
+          {
+            "tag": "mo",
+            "className": null
+          },
+          {
+            "tag": "mi",
+            "className": null
+          },
+          {
+            "tag": "mo",
+            "className": null
+          },
+          {
+            "tag": "mtext",
+            "className": null
+          },
+          {
+            "tag": "mi",
+            "className": null
+          }
+        ]
+      }
+    }
+  ],
+  "failures": [],
+  "browserErrors": []
+}

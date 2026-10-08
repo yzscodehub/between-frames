@@ -1,0 +1,694 @@
+{
+  "passed": [
+    "all five transport lessons render real paths and four-panel comparisons",
+    "static accumulation pause, single step, display retention and quality rebuild",
+    "estimator changes clear old integrand and frozen selected path",
+    "fixed reference can be cancelled without publishing stale results",
+    "completed frozen reference publishes finite matching-target metrics",
+    "same-frame view is pure presentation; sequence pause and share replay are deterministic",
+    "WebGL failure keeps the article readable and offers retry",
+    "mobile controls and all articles remain readable without JavaScript"
+  ],
+  "errors": [],
+  "records": [
+    {
+      "lesson": "shadows",
+      "quality": "low",
+      "samples": 1,
+      "selectedPath": {
+        "sample": 0,
+        "frame": 0,
+        "mode": 1,
+        "radiance": [
+          0,
+          0,
+          0
+        ],
+        "status": 0,
+        "rayCounts": [
+          1,
+          0,
+          1,
+          2
+        ],
+        "nodes": 6,
+        "tests": 14,
+        "scattering": 0,
+        "termination": 8,
+        "truncated": false,
+        "events": [
+          {
+            "origin": [
+              5,
+              4.800000190734863,
+              6.400000095367432
+            ],
+            "direction": [
+              -0.5256063938140869,
+              -0.4502427279949188,
+              -0.7218167781829834
+            ],
+            "generatedPdf": 0,
+            "position": [
+              -0.6034460067749023,
+              0,
+              -1.2952280044555664
+            ],
+            "primitiveId": 1,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "objectId": 0,
+            "beta": [
+              1,
+              1,
+              1
+            ],
+            "materialId": 4,
+            "lightPdf": 15.309492111206055,
+            "bsdfPdf": 0,
+            "misWeight": 0,
+            "termination": 0,
+            "distance": 10.660916328430176,
+            "nodes": 3,
+            "tests": 8,
+            "contribution": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "origin": [
+              -0.6034460067749023,
+              0.00011999999696854502,
+              -1.2952280044555664
+            ],
+            "direction": [
+              0.26303794980049133,
+              0.9423941969871521,
+              0.20664989948272705
+            ],
+            "generatedPdf": 0,
+            "position": [
+              -0.5325444936752319,
+              0.2541410028934479,
+              -1.2395257949829102
+            ],
+            "primitiveId": 12,
+            "normal": [
+              0.4911240339279175,
+              -0.7010105848312378,
+              -0.5170891880989075
+            ],
+            "objectId": 6,
+            "beta": [
+              1,
+              1,
+              1
+            ],
+            "materialId": 0,
+            "lightPdf": 0,
+            "bsdfPdf": 0,
+            "misWeight": 0,
+            "termination": 8,
+            "distance": 0.26954853534698486,
+            "nodes": 3,
+            "tests": 6,
+            "contribution": [
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      "stats": "实际图元\n8\n节点 / 深度\n3 / 2\nCPU 构建\n0.20 ms\n上传提交\n73.60 ms\n渲染提交\n1338.10 ms\nGPU 核心执行\n12257.04 ms"
+    },
+    {
+      "lesson": "reflections",
+      "quality": "low",
+      "samples": 1,
+      "selectedPath": {
+        "sample": 0,
+        "frame": 0,
+        "mode": 2,
+        "radiance": [
+          0.39872923493385315,
+          0.4174197018146515,
+          0.4485704302787781
+        ],
+        "status": 0,
+        "rayCounts": [
+          1,
+          0,
+          0,
+          1
+        ],
+        "nodes": 7,
+        "tests": 14,
+        "scattering": 0,
+        "termination": 8,
+        "truncated": false,
+        "events": [
+          {
+            "origin": [
+              0,
+              2.299999952316284,
+              8.800000190734863
+            ],
+            "direction": [
+              0.004142079968005419,
+              -0.01858002319931984,
+              -0.999818742275238
+            ],
+            "generatedPdf": 0,
+            "position": [
+              0.04888540506362915,
+              2.0807158946990967,
+              -3
+            ],
+            "primitiveId": 2,
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "objectId": 1,
+            "beta": [
+              1,
+              1,
+              1
+            ],
+            "materialId": 0,
+            "lightPdf": 0,
+            "bsdfPdf": 0,
+            "misWeight": 0,
+            "termination": 8,
+            "distance": 11.802139282226562,
+            "nodes": 7,
+            "tests": 14,
+            "contribution": [
+              0.39872923493385315,
+              0.4174197018146515,
+              0.4485704302787781
+            ]
+          }
+        ]
+      },
+      "stats": "实际图元\n14\n节点 / 深度\n7 / 3\nCPU 构建\n0.20 ms\n上传提交\n28.40 ms\n渲染提交\n1362.60 ms\nGPU 核心执行\n12156.42 ms"
+    },
+    {
+      "lesson": "path",
+      "quality": "low",
+      "samples": 1,
+      "selectedPath": {
+        "sample": 0,
+        "frame": 0,
+        "mode": 0,
+        "radiance": [
+          0,
+          0,
+          0
+        ],
+        "status": 0,
+        "rayCounts": [
+          1,
+          2,
+          0,
+          3
+        ],
+        "nodes": 21,
+        "tests": 42,
+        "scattering": 2,
+        "termination": 1,
+        "truncated": false,
+        "events": [
+          {
+            "origin": [
+              0,
+              2.299999952316284,
+              8.800000190734863
+            ],
+            "direction": [
+              0.004142079968005419,
+              -0.01858002319931984,
+              -0.999818742275238
+            ],
+            "generatedPdf": 0,
+            "position": [
+              0.04888540506362915,
+              2.0807158946990967,
+              -3
+            ],
+            "primitiveId": 2,
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "objectId": 1,
+            "beta": [
+              1,
+              1,
+              1
+            ],
+            "materialId": 0,
+            "lightPdf": 0,
+            "bsdfPdf": 0.25002872943878174,
+            "misWeight": 0,
+            "termination": 0,
+            "distance": 11.802139282226562,
+            "nodes": 7,
+            "tests": 14,
+            "contribution": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "origin": [
+              0.04888540506362915,
+              2.0807158946990967,
+              -2.999880075454712
+            ],
+            "direction": [
+              0.4542490243911743,
+              -0.42031633853912354,
+              0.7854885458946228
+            ],
+            "generatedPdf": 0.25002872943878174,
+            "position": [
+              2.2975802421569824,
+              0,
+              0.888568639755249
+            ],
+            "primitiveId": 0,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "objectId": 0,
+            "beta": [
+              0.6399999856948853,
+              0.6700000166893005,
+              0.7200000286102295
+            ],
+            "materialId": 4,
+            "lightPdf": 0,
+            "bsdfPdf": 0.10471216589212418,
+            "misWeight": 0,
+            "termination": 0,
+            "distance": 4.950356960296631,
+            "nodes": 7,
+            "tests": 14,
+            "contribution": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "origin": [
+              2.2975802421569824,
+              0.00011999999696854502,
+              0.888568639755249
+            ],
+            "direction": [
+              -0.44102874398231506,
+              0.3289629817008972,
+              0.8350312113761902
+            ],
+            "generatedPdf": 0.10471216589212418,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "primitiveId": -1,
+            "normal": [
+              0,
+              0,
+              0
+            ],
+            "objectId": -1,
+            "beta": [
+              0.5824000239372253,
+              0.6164000034332275,
+              0.6840000748634338
+            ],
+            "materialId": -1,
+            "lightPdf": 0,
+            "bsdfPdf": 0,
+            "misWeight": 0,
+            "termination": 1,
+            "distance": -1,
+            "nodes": 7,
+            "tests": 14,
+            "contribution": [
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      "stats": "实际图元\n14\n节点 / 深度\n7 / 3\nCPU 构建\n0.30 ms\n上传提交\n22.50 ms\n渲染提交\n1363.40 ms\nGPU 核心执行\n12387.52 ms"
+    },
+    {
+      "lesson": "mis",
+      "quality": "low",
+      "samples": 1,
+      "selectedPath": {
+        "sample": 0,
+        "frame": 0,
+        "mode": 0,
+        "radiance": [
+          0.24994626641273499,
+          0.23250925540924072,
+          0.2091725766658783
+        ],
+        "status": 0,
+        "rayCounts": [
+          1,
+          2,
+          2,
+          5
+        ],
+        "nodes": 35,
+        "tests": 70,
+        "scattering": 2,
+        "termination": 1,
+        "truncated": false,
+        "events": [
+          {
+            "origin": [
+              0,
+              2.299999952316284,
+              8.800000190734863
+            ],
+            "direction": [
+              0.004142079968005419,
+              -0.01858002319931984,
+              -0.999818742275238
+            ],
+            "generatedPdf": 0,
+            "position": [
+              0.04888540506362915,
+              2.0807158946990967,
+              -3
+            ],
+            "primitiveId": 2,
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "objectId": 1,
+            "beta": [
+              1,
+              1,
+              1
+            ],
+            "materialId": 0,
+            "lightPdf": 12.26030445098877,
+            "bsdfPdf": 0.25002872943878174,
+            "misWeight": 0.9996839761734009,
+            "termination": 0,
+            "distance": 11.802139282226562,
+            "nodes": 7,
+            "tests": 14,
+            "contribution": [
+              0.1478929966688156,
+              0.13696101307868958,
+              0.12158511579036713
+            ]
+          },
+          {
+            "origin": [
+              0.04888540506362915,
+              2.0807158946990967,
+              -2.999880075454712
+            ],
+            "direction": [
+              0.4542490243911743,
+              -0.42031633853912354,
+              0.7854885458946228
+            ],
+            "generatedPdf": 0.25002872943878174,
+            "position": [
+              2.2975802421569824,
+              0,
+              0.888568639755249
+            ],
+            "primitiveId": 0,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "objectId": 0,
+            "beta": [
+              0.6399999856948853,
+              0.6700000166893005,
+              0.7200000286102295
+            ],
+            "materialId": 4,
+            "lightPdf": 20.265029907226562,
+            "bsdfPdf": 0.10471216589212418,
+            "misWeight": 0.9998182654380798,
+            "termination": 0,
+            "distance": 4.950356960296631,
+            "nodes": 7,
+            "tests": 14,
+            "contribution": [
+              0.10205326974391937,
+              0.09554824233055115,
+              0.08758746832609177
+            ]
+          },
+          {
+            "origin": [
+              2.2975802421569824,
+              0.00011999999696854502,
+              0.888568639755249
+            ],
+            "direction": [
+              -0.44102874398231506,
+              0.3289629817008972,
+              0.8350312113761902
+            ],
+            "generatedPdf": 0.10471216589212418,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "primitiveId": -1,
+            "normal": [
+              0,
+              0,
+              0
+            ],
+            "objectId": -1,
+            "beta": [
+              0.5824000239372253,
+              0.6164000034332275,
+              0.6840000748634338
+            ],
+            "materialId": -1,
+            "lightPdf": 0,
+            "bsdfPdf": 0,
+            "misWeight": 0,
+            "termination": 1,
+            "distance": -1,
+            "nodes": 7,
+            "tests": 14,
+            "contribution": [
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      "stats": "实际图元\n14\n节点 / 深度\n7 / 3\nCPU 构建\n0.20 ms\n上传提交\n2.20 ms\n渲染提交\n1418.80 ms\nGPU 核心执行\n12451.99 ms"
+    },
+    {
+      "lesson": "denoise",
+      "quality": "low",
+      "samples": 1,
+      "selectedPath": {
+        "sample": 0,
+        "frame": 0,
+        "mode": 3,
+        "radiance": [
+          0.1594582349061966,
+          0.14260932803153992,
+          0.12164925038814545
+        ],
+        "status": 0,
+        "rayCounts": [
+          1,
+          2,
+          1,
+          4
+        ],
+        "nodes": 28,
+        "tests": 56,
+        "scattering": 2,
+        "termination": 1,
+        "truncated": false,
+        "events": [
+          {
+            "origin": [
+              0,
+              2.299999952316284,
+              8.800000190734863
+            ],
+            "direction": [
+              0.004142079968005419,
+              -0.01858002319931984,
+              -0.999818742275238
+            ],
+            "generatedPdf": 0,
+            "position": [
+              0.04888540506362915,
+              2.0807158946990967,
+              -3
+            ],
+            "primitiveId": 2,
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "objectId": 1,
+            "beta": [
+              1,
+              1,
+              1
+            ],
+            "materialId": 0,
+            "lightPdf": 0,
+            "bsdfPdf": 0.25002872943878174,
+            "misWeight": 0,
+            "termination": 0,
+            "distance": 11.802139282226562,
+            "nodes": 7,
+            "tests": 14,
+            "contribution": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "origin": [
+              0.04888540506362915,
+              2.0807158946990967,
+              -2.999880075454712
+            ],
+            "direction": [
+              0.4542490243911743,
+              -0.42031633853912354,
+              0.7854885458946228
+            ],
+            "generatedPdf": 0.25002872943878174,
+            "position": [
+              2.2975802421569824,
+              0,
+              0.888568639755249
+            ],
+            "primitiveId": 0,
+            "normal": [
+              0,
+              1,
+              0
+            ],
+            "objectId": 0,
+            "beta": [
+              1,
+              1,
+              1
+            ],
+            "materialId": 4,
+            "lightPdf": 20.265029907226562,
+            "bsdfPdf": 0.10471216589212418,
+            "misWeight": 0.9998182654380798,
+            "termination": 0,
+            "distance": 4.950356960296631,
+            "nodes": 7,
+            "tests": 14,
+            "contribution": [
+              0.1594582349061966,
+              0.14260932803153992,
+              0.12164925038814545
+            ]
+          },
+          {
+            "origin": [
+              2.2975802421569824,
+              0.00011999999696854502,
+              0.888568639755249
+            ],
+            "direction": [
+              -0.44102874398231506,
+              0.3289629817008972,
+              0.8350312113761902
+            ],
+            "generatedPdf": 0.10471216589212418,
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "primitiveId": -1,
+            "normal": [
+              0,
+              0,
+              0
+            ],
+            "objectId": -1,
+            "beta": [
+              0.9100000262260437,
+              0.9200000166893005,
+              0.9500000476837158
+            ],
+            "materialId": -1,
+            "lightPdf": 0,
+            "bsdfPdf": 0,
+            "misWeight": 0,
+            "termination": 1,
+            "distance": -1,
+            "nodes": 7,
+            "tests": 14,
+            "contribution": [
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      "stats": "实际图元\n14\n节点 / 深度\n7 / 3\nCPU 构建\n0.40 ms\n上传提交\n30.20 ms\n渲染提交\n1502.10 ms\nGPU 核心执行\n13779.08 ms"
+    },
+    {
+      "reference": {
+        "mae": 0.001876526003004983,
+        "rmse": 0.016243561086747346,
+        "convergence": 0.00019451894614030607,
+        "coverage": 1,
+        "samples": 1024,
+        "component": "光源面积可见比例",
+        "status": "valid",
+        "invalidPixels": 0
+      }
+    }
+  ],
+  "environment": "System Chrome with SwiftShader; software execution, no hardware-performance claim"
+}

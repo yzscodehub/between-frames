@@ -1,0 +1,267 @@
+{
+  "passed": 9,
+  "results": [
+    {
+      "fixture": "center-floor",
+      "algorithm": "gtao",
+      "dimensions": [
+        888,
+        555
+      ],
+      "uv": [
+        0.5005630630630631,
+        0.5
+      ],
+      "world": [
+        0.001669383025728166,
+        -0.00028246173766000027,
+        1.99943507652468
+      ],
+      "raw": 0.9999918341636658,
+      "validSamples": 144,
+      "maxPlaneResidual": 0.00029411041293680995,
+      "maxTexelCenterError": 0.000026226043701171875,
+      "maxSurfaceProjectionError": 0.000013210838572419448,
+      "maxDistanceError": 2.903392481989897e-8,
+      "maxCandidateTexelOffset": 0,
+      "maxHorizonTangentError": 0.00016057181117568042,
+      "maxHorizonTransportError": 0.00007426645162195156,
+      "maxLocalPlaneResidual": 0.000011648675276809684,
+      "minOnePixelPlaneShift": 0.0023209653493690354,
+      "maxLegacyMixedUvPlaneResidual": 0.0017107209571824988
+    },
+    {
+      "fixture": "center-floor",
+      "algorithm": "hbao",
+      "dimensions": [
+        888,
+        555
+      ],
+      "uv": [
+        0.5005630630630631,
+        0.5
+      ],
+      "world": [
+        0.001669383025728166,
+        -0.00028246173766000027,
+        1.99943507652468
+      ],
+      "raw": 0.9999634027481079,
+      "validSamples": 144,
+      "maxPlaneResidual": 0.00029411041293680995,
+      "maxTexelCenterError": 0.000026226043701171875,
+      "maxSurfaceProjectionError": 0.000013210838572419448,
+      "maxDistanceError": 2.903392481989897e-8,
+      "maxCandidateTexelOffset": 0,
+      "maxHorizonTangentError": 0.00016057181117568042,
+      "maxHorizonTransportError": 0.00007426645162195156,
+      "maxLocalPlaneResidual": 0.000011648675276809684,
+      "minOnePixelPlaneShift": 0.0023209653493690354,
+      "maxLegacyMixedUvPlaneResidual": 0.0017107209571824988
+    },
+    {
+      "fixture": "center-floor",
+      "algorithm": "ssao",
+      "dimensions": [
+        888,
+        555
+      ],
+      "uv": [
+        0.5005630630630631,
+        0.5
+      ],
+      "world": [
+        0.001669383025728166,
+        -0.00028246173766000027,
+        1.99943507652468
+      ],
+      "raw": 1,
+      "validSamples": 140,
+      "maxPlaneResidual": 0.00029411041293680995,
+      "maxTexelCenterError": 0.000026226043701171875,
+      "maxSurfaceProjectionError": 0.000014440217848132875,
+      "maxDistanceError": 3.599672637744078e-8,
+      "maxCandidateTexelOffset": 0.49925090639228786,
+      "maxHorizonTangentError": 0,
+      "maxHorizonTransportError": 0,
+      "maxLocalPlaneResidual": 0.000011648675276809684,
+      "minOnePixelPlaneShift": 0.002794290333531502,
+      "maxLegacyMixedUvPlaneResidual": 0
+    },
+    {
+      "fixture": "oblique-floor",
+      "algorithm": "gtao",
+      "dimensions": [
+        888,
+        555
+      ],
+      "uv": [
+        0.44988738738738737,
+        0.5
+      ],
+      "world": [
+        -0.07208560878110848,
+        -0.00019574030726143832,
+        2.2220643972130913
+      ],
+      "raw": 1,
+      "validSamples": 138,
+      "maxPlaneResidual": 0.0002026815806166482,
+      "maxTexelCenterError": 0.00002384185791015625,
+      "maxSurfaceProjectionError": 0.000017548075547324515,
+      "maxDistanceError": 3.498544032254358e-8,
+      "maxCandidateTexelOffset": 0,
+      "maxHorizonTangentError": 0.00012015063994308406,
+      "maxHorizonTransportError": 0.00006427598530100997,
+      "maxLocalPlaneResidual": 0.000007889762429602598,
+      "minOnePixelPlaneShift": 0.0028068007357779615,
+      "maxLegacyMixedUvPlaneResidual": 0.0017588919938313907
+    },
+    {
+      "fixture": "oblique-floor",
+      "algorithm": "hbao",
+      "dimensions": [
+        888,
+        555
+      ],
+      "uv": [
+        0.44988738738738737,
+        0.5
+      ],
+      "world": [
+        -0.07208560878110848,
+        -0.00019574030726143832,
+        2.2220643972130913
+      ],
+      "raw": 0.9999622702598572,
+      "validSamples": 138,
+      "maxPlaneResidual": 0.0002026815806166482,
+      "maxTexelCenterError": 0.00002384185791015625,
+      "maxSurfaceProjectionError": 0.000017548075547324515,
+      "maxDistanceError": 3.498544032254358e-8,
+      "maxCandidateTexelOffset": 0,
+      "maxHorizonTangentError": 0.00012015063994308406,
+      "maxHorizonTransportError": 0.00006427598530100997,
+      "maxLocalPlaneResidual": 0.000007889762429602598,
+      "minOnePixelPlaneShift": 0.0028068007357779615,
+      "maxLegacyMixedUvPlaneResidual": 0.0017588919938313907
+    },
+    {
+      "fixture": "oblique-floor",
+      "algorithm": "ssao",
+      "dimensions": [
+        888,
+        555
+      ],
+      "uv": [
+        0.44988738738738737,
+        0.5
+      ],
+      "world": [
+        -0.07208560878110848,
+        -0.00019574030726143832,
+        2.2220643972130913
+      ],
+      "raw": 1,
+      "validSamples": 142,
+      "maxPlaneResidual": 0.0002034551201326451,
+      "maxTexelCenterError": 0.000024318695068359375,
+      "maxSurfaceProjectionError": 0.000014104804206271915,
+      "maxDistanceError": 4.0290229486039664e-8,
+      "maxCandidateTexelOffset": 0.49812309009080347,
+      "maxHorizonTangentError": 0,
+      "maxHorizonTransportError": 0,
+      "maxLocalPlaneResidual": 0.000007714812871206789,
+      "minOnePixelPlaneShift": 0.003049263154454994,
+      "maxLegacyMixedUvPlaneResidual": 0
+    },
+    {
+      "fixture": "grazing-floor",
+      "algorithm": "gtao",
+      "dimensions": [
+        888,
+        555
+      ],
+      "uv": [
+        0.5501126126126126,
+        0.48018018018018016
+      ],
+      "world": [
+        0.025467491736708314,
+        -0.0002932759872833479,
+        2.635981775591194
+      ],
+      "raw": 1,
+      "validSamples": 128,
+      "maxPlaneResidual": 0.00031059397550392553,
+      "maxTexelCenterError": 0.000026226043701171875,
+      "maxSurfaceProjectionError": 0.000016025007835374083,
+      "maxDistanceError": 3.2755581247378984e-8,
+      "maxCandidateTexelOffset": 0,
+      "maxHorizonTangentError": 0.00013748098770138828,
+      "maxHorizonTransportError": 0.00014163722825533132,
+      "maxLocalPlaneResidual": 0.00001792459930338719,
+      "minOnePixelPlaneShift": 0.002154998391121647,
+      "maxLegacyMixedUvPlaneResidual": 0.0015013352401387348
+    },
+    {
+      "fixture": "grazing-floor",
+      "algorithm": "hbao",
+      "dimensions": [
+        888,
+        555
+      ],
+      "uv": [
+        0.5501126126126126,
+        0.48018018018018016
+      ],
+      "world": [
+        0.025467491736708314,
+        -0.0002932759872833479,
+        2.635981775591194
+      ],
+      "raw": 0.999956488609314,
+      "validSamples": 128,
+      "maxPlaneResidual": 0.00031059397550392553,
+      "maxTexelCenterError": 0.000026226043701171875,
+      "maxSurfaceProjectionError": 0.000016025007835374083,
+      "maxDistanceError": 3.2755581247378984e-8,
+      "maxCandidateTexelOffset": 0,
+      "maxHorizonTangentError": 0.00013748098770138828,
+      "maxHorizonTransportError": 0.00014163722825533132,
+      "maxLocalPlaneResidual": 0.00001792459930338719,
+      "minOnePixelPlaneShift": 0.002154998391121647,
+      "maxLegacyMixedUvPlaneResidual": 0.0015013352401387348
+    },
+    {
+      "fixture": "grazing-floor",
+      "algorithm": "ssao",
+      "dimensions": [
+        888,
+        555
+      ],
+      "uv": [
+        0.5501126126126126,
+        0.48018018018018016
+      ],
+      "world": [
+        0.025467491736708314,
+        -0.0002932759872833479,
+        2.635981775591194
+      ],
+      "raw": 1,
+      "validSamples": 106,
+      "maxPlaneResidual": 0.00031183365005216235,
+      "maxTexelCenterError": 0.000026226043701171875,
+      "maxSurfaceProjectionError": 0.000019722161615831624,
+      "maxDistanceError": 2.533957638162221e-8,
+      "maxCandidateTexelOffset": 0.49940493897499394,
+      "maxHorizonTangentError": 0,
+      "maxHorizonTransportError": 0,
+      "maxLocalPlaneResidual": 0.00001855766276881443,
+      "minOnePixelPlaneShift": 0.0029062731503448455,
+      "maxLegacyMixedUvPlaneResidual": 0
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,9 @@
+---
+import {Code} from 'astro:components';
+import shared from '../../shaders/gpu/pbr.wgsl?raw';
+const scene=shared;
+const section=(source:string,id:string)=>source.split('// @snippet '+id+'-start')[1]?.split('// @snippet '+id+'-end')[0].trim();
+const ggx=section(shared,'ggx'),material=section(scene,'material');
+if(!ggx||!material)throw Error('PBR runtime source markers are missing');
+---
+<section class="pbr-runtime-source"><h2>实现对照 / 实际执行源码</h2><p>以下为本页实际执行的 WGSL。定义与旧 PBR / RT06 约定一致，图像与异步检查使用同一 shade 函数；RT06 尚待迁移。</p><details><summary>查看共享 GGX 定义</summary><Code code={ggx} lang="wgsl" theme="github-light"/></details><details><summary>查看金属工作流与 diffuse/specular</summary><Code code={material} lang="wgsl" theme="github-light"/></details></section>

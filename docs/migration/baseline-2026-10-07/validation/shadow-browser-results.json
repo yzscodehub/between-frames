@@ -1,0 +1,6271 @@
+{
+  "passed": [
+    "guided tasks activate only when loaded and reset restores each exact task state",
+    "three mesh scenes and three algorithms expose matching real GPU and CPU records",
+    "zero PCF radius and zero-size PCSS reproduce the same hard lookup",
+    "actual blocker distances generate nonzero, state-dependent penumbra radii",
+    "out-of-map or incomplete filter coverage is explicit and not presented as fully lit",
+    "selected-point 1024 reference agrees with independent geometry and survives algorithm changes",
+    "reference cancellation and geometry invalidation reject stale asynchronous completion",
+    "paused edits clear old inspections and a single step computes the edited state",
+    "sharing restores the complete state including an actually dragged camera",
+    "rapid geometry edits and offscreen changes resume without stale data",
+    "four panels and mobile inspection fit the page",
+    "both articles and extracted running shader code remain readable without JavaScript",
+    "a device without WebGL retains explicit fallback and static explanation"
+  ],
+  "evidence": [
+    {
+      "taskReset": {
+        "mapping": {
+          "version": 1,
+          "lesson": "mapping",
+          "preset": "steps",
+          "algorithm": "hard",
+          "resolution": 512,
+          "fov": 75,
+          "bias": 0,
+          "planeCorrection": false,
+          "filterRadius": 2,
+          "lightSize": 0.5,
+          "height": 0.8,
+          "seed": 17,
+          "view": "lit",
+          "compare": false,
+          "camera": {
+            "position": [
+              7,
+              5.5,
+              8
+            ],
+            "target": [
+              0,
+              0.6,
+              0
+            ]
+          }
+        },
+        "filtering": {
+          "version": 1,
+          "lesson": "filtering",
+          "preset": "steps",
+          "algorithm": "pcf",
+          "resolution": 256,
+          "fov": 75,
+          "bias": 0.002,
+          "planeCorrection": true,
+          "filterRadius": 2,
+          "lightSize": 0.5,
+          "height": 0.8,
+          "seed": 17,
+          "view": "visibility",
+          "compare": false,
+          "camera": {
+            "position": [
+              7,
+              5.5,
+              8
+            ],
+            "target": [
+              0,
+              0.6,
+              0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scene": "contact",
+      "method": "hard",
+      "uv": [
+        0.5015625,
+        0.4525
+      ],
+      "position": [
+        1.1238588094711304,
+        0.9399999976158142,
+        1.2531837224960327
+      ],
+      "normal": [
+        4.253081726801611e-7,
+        1,
+        4.86067790461675e-7
+      ],
+      "mapDepthError": 0.0000031396981868825335,
+      "mathError": 0,
+      "visibility": 1
+    },
+    {
+      "scene": "contact",
+      "method": "pcf",
+      "uv": [
+        0.5015625,
+        0.4525
+      ],
+      "position": [
+        1.1238588094711304,
+        0.9399999976158142,
+        1.2531837224960327
+      ],
+      "normal": [
+        4.253081726801611e-7,
+        1,
+        4.86067790461675e-7
+      ],
+      "mapDepthError": 0.0000031396981868825335,
+      "mathError": 0,
+      "visibility": 1
+    },
+    {
+      "scene": "contact",
+      "method": "pcss",
+      "uv": [
+        0.5015625,
+        0.4525
+      ],
+      "position": [
+        1.1238588094711304,
+        0.9399999976158142,
+        1.2531837224960327
+      ],
+      "normal": [
+        4.253081726801611e-7,
+        1,
+        4.86067790461675e-7
+      ],
+      "mapDepthError": 0.0000031396981868825335,
+      "mathError": 0,
+      "visibility": 1
+    },
+    {
+      "scene": "steps",
+      "method": "hard",
+      "uv": [
+        0.5015625,
+        0.4525
+      ],
+      "position": [
+        0.7299998998641968,
+        0.6353418827056885,
+        0.798961341381073
+      ],
+      "normal": [
+        0.9999999403953552,
+        -1.6124795942928927e-10,
+        8.83366169546207e-7
+      ],
+      "mapDepthError": 8.930008082996821e-7,
+      "mathError": 0,
+      "visibility": 0
+    },
+    {
+      "scene": "steps",
+      "method": "pcf",
+      "uv": [
+        0.5015625,
+        0.4525
+      ],
+      "position": [
+        0.7299998998641968,
+        0.6353418827056885,
+        0.798961341381073
+      ],
+      "normal": [
+        0.9999999403953552,
+        -1.6124795942928927e-10,
+        8.83366169546207e-7
+      ],
+      "mapDepthError": 8.930008082996821e-7,
+      "mathError": 0,
+      "visibility": 0
+    },
+    {
+      "scene": "steps",
+      "method": "pcss",
+      "uv": [
+        0.5015625,
+        0.4525
+      ],
+      "position": [
+        0.7299998998641968,
+        0.6353418827056885,
+        0.798961341381073
+      ],
+      "normal": [
+        0.9999999403953552,
+        -1.6124795942928927e-10,
+        8.83366169546207e-7
+      ],
+      "mapDepthError": 8.930008082996821e-7,
+      "mathError": 0,
+      "visibility": 0
+    },
+    {
+      "scene": "layers",
+      "method": "hard",
+      "uv": [
+        0.5015625,
+        0.4525
+      ],
+      "position": [
+        0.4517558813095093,
+        0.4200000464916229,
+        0.48188260197639465
+      ],
+      "normal": [
+        2.9461943995556794e-7,
+        1,
+        -6.410712671822694e-7
+      ],
+      "mapDepthError": 0.000003677772108745536,
+      "mathError": 0,
+      "visibility": 1
+    },
+    {
+      "scene": "layers",
+      "method": "pcf",
+      "uv": [
+        0.5015625,
+        0.4525
+      ],
+      "position": [
+        0.4517558813095093,
+        0.4200000464916229,
+        0.48188260197639465
+      ],
+      "normal": [
+        2.9461943995556794e-7,
+        1,
+        -6.410712671822694e-7
+      ],
+      "mapDepthError": 0.000003677772108745536,
+      "mathError": 2.9434392700977696e-9,
+      "visibility": 0.604938268661499
+    },
+    {
+      "scene": "layers",
+      "method": "pcss",
+      "uv": [
+        0.5015625,
+        0.4525
+      ],
+      "position": [
+        0.4517558813095093,
+        0.4200000464916229,
+        0.48188260197639465
+      ],
+      "normal": [
+        2.9461943995556794e-7,
+        1,
+        -6.410712671822694e-7
+      ],
+      "mapDepthError": 0.000003677772108745536,
+      "mathError": 2.9434392700977696e-9,
+      "visibility": 0.604938268661499
+    },
+    {
+      "penumbra": {
+        "first": {
+          "uv": [
+            0.5296875,
+            0.3025
+          ],
+          "position": [
+            1.9249200820922852,
+            -3.597637712284468e-16,
+            1.6202319860458374
+          ],
+          "normal": [
+            0,
+            0.9999999403953552,
+            2.220445916901415e-16
+          ],
+          "objectId": 0,
+          "lightUv": [
+            0.6401994824409485,
+            0.4957994818687439
+          ],
+          "receiverDepth": 0.9635063409805298,
+          "storedDepth": 0.9634438753128052,
+          "receiverDistance": 8.966387748718262,
+          "storedDistance": 8.956565856933594,
+          "visibility": 1,
+          "blockerCount": 1,
+          "blockerDistance": 8.428027153015137,
+          "radiusTexels": 0.7295075058937073,
+          "searchRadiusTexels": 10.85523509979248,
+          "covered": true,
+          "samples": [
+            {
+              "uv": [
+                0.6181640625,
+                0.4736328125
+              ],
+              "depth": 0.9614661931991577,
+              "receiver": 0.9614521861076355,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6240234375,
+                0.4736328125
+              ],
+              "depth": 0.9614662528038025,
+              "receiver": 0.9614521265029907,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6298828125,
+                0.4736328125
+              ],
+              "depth": 0.9614663124084473,
+              "receiver": 0.9614521265029907,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.4736328125
+              ],
+              "depth": 0.961466372013092,
+              "receiver": 0.9614521861076355,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4736328125
+              ],
+              "depth": 0.961466372013092,
+              "receiver": 0.9614521265029907,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.4736328125
+              ],
+              "depth": 0.9614664316177368,
+              "receiver": 0.9614521265029907,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4736328125
+              ],
+              "depth": 0.9614664912223816,
+              "receiver": 0.9614521861076355,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6552734375,
+                0.4736328125
+              ],
+              "depth": 0.9614665508270264,
+              "receiver": 0.9614521265029907,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6611328125,
+                0.4736328125
+              ],
+              "depth": 0.9614665508270264,
+              "receiver": 0.9614521861076355,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6181640625,
+                0.4794921875
+              ],
+              "depth": 0.9620054960250854,
+              "receiver": 0.9619917869567871,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6240234375,
+                0.4794921875
+              ],
+              "depth": 0.9620055556297302,
+              "receiver": 0.9619917869567871,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6298828125,
+                0.4794921875
+              ],
+              "depth": 0.962005615234375,
+              "receiver": 0.9619917869567871,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.4794921875
+              ],
+              "depth": 0.9620056748390198,
+              "receiver": 0.9619917869567871,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4794921875
+              ],
+              "depth": 0.9620056748390198,
+              "receiver": 0.9619917869567871,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.4794921875
+              ],
+              "depth": 0.9620057344436646,
+              "receiver": 0.9619917869567871,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4794921875
+              ],
+              "depth": 0.9620057940483093,
+              "receiver": 0.9619917869567871,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6552734375,
+                0.4794921875
+              ],
+              "depth": 0.9620058536529541,
+              "receiver": 0.9619917869567871,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6611328125,
+                0.4794921875
+              ],
+              "depth": 0.9620058536529541,
+              "receiver": 0.9619917869567871,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6181640625,
+                0.4853515625
+              ],
+              "depth": 0.9625447988510132,
+              "receiver": 0.9625314474105835,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6240234375,
+                0.4853515625
+              ],
+              "depth": 0.962544858455658,
+              "receiver": 0.9625314474105835,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6298828125,
+                0.4853515625
+              ],
+              "depth": 0.9625449180603027,
+              "receiver": 0.9625313878059387,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.4853515625
+              ],
+              "depth": 0.9625449776649475,
+              "receiver": 0.9625314474105835,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4853515625
+              ],
+              "depth": 0.9625449776649475,
+              "receiver": 0.9625313878059387,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.4853515625
+              ],
+              "depth": 0.9625450372695923,
+              "receiver": 0.9625314474105835,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4853515625
+              ],
+              "depth": 0.9625450968742371,
+              "receiver": 0.9625314474105835,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6552734375,
+                0.4853515625
+              ],
+              "depth": 0.9625451564788818,
+              "receiver": 0.9625314474105835,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6611328125,
+                0.4853515625
+              ],
+              "depth": 0.9625451564788818,
+              "receiver": 0.9625313878059387,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6181640625,
+                0.4912109375
+              ],
+              "depth": 0.9630841016769409,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6240234375,
+                0.4912109375
+              ],
+              "depth": 0.9630841612815857,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6298828125,
+                0.4912109375
+              ],
+              "depth": 0.9630842208862305,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.4912109375
+              ],
+              "depth": 0.9630842804908752,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4912109375
+              ],
+              "depth": 0.9630842804908752,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.4912109375
+              ],
+              "depth": 0.96308434009552,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4912109375
+              ],
+              "depth": 0.9630843997001648,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6552734375,
+                0.4912109375
+              ],
+              "depth": 0.9630844593048096,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6611328125,
+                0.4912109375
+              ],
+              "depth": 0.9630844593048096,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6181640625,
+                0.4951171875
+              ],
+              "depth": 0.9634436964988708,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6240234375,
+                0.4951171875
+              ],
+              "depth": 0.9634437561035156,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6298828125,
+                0.4951171875
+              ],
+              "depth": 0.9634438157081604,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4951171875
+              ],
+              "depth": 0.9634439945220947,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6552734375,
+                0.4951171875
+              ],
+              "depth": 0.9634440541267395,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6611328125,
+                0.4951171875
+              ],
+              "depth": 0.9634440541267395,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6181640625,
+                0.5009765625
+              ],
+              "depth": 0.9639829993247986,
+              "receiver": 0.9639703631401062,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6240234375,
+                0.5009765625
+              ],
+              "depth": 0.9639830589294434,
+              "receiver": 0.9639703631401062,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6298828125,
+                0.5009765625
+              ],
+              "depth": 0.9639831185340881,
+              "receiver": 0.9639703631401062,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.5009765625
+              ],
+              "depth": 0.9639831781387329,
+              "receiver": 0.963970422744751,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5009765625
+              ],
+              "depth": 0.9639831781387329,
+              "receiver": 0.9639703631401062,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.5009765625
+              ],
+              "depth": 0.9639832377433777,
+              "receiver": 0.963970422744751,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.5009765625
+              ],
+              "depth": 0.9639832973480225,
+              "receiver": 0.963970422744751,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6552734375,
+                0.5009765625
+              ],
+              "depth": 0.9639833569526672,
+              "receiver": 0.9639703631401062,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6611328125,
+                0.5009765625
+              ],
+              "depth": 0.9639833569526672,
+              "receiver": 0.963970422744751,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6181640625,
+                0.5068359375
+              ],
+              "depth": 0.9645223021507263,
+              "receiver": 0.9645100235939026,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6240234375,
+                0.5068359375
+              ],
+              "depth": 0.9645223617553711,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6298828125,
+                0.5068359375
+              ],
+              "depth": 0.9645224213600159,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.5068359375
+              ],
+              "depth": 0.9645224809646606,
+              "receiver": 0.9645100235939026,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5068359375
+              ],
+              "depth": 0.9645224809646606,
+              "receiver": 0.9645100235939026,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.5068359375
+              ],
+              "depth": 0.9645225405693054,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.5068359375
+              ],
+              "depth": 0.9645226001739502,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6552734375,
+                0.5068359375
+              ],
+              "depth": 0.964522659778595,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6611328125,
+                0.5068359375
+              ],
+              "depth": 0.964522659778595,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6181640625,
+                0.5107421875
+              ],
+              "depth": 0.9648818373680115,
+              "receiver": 0.9648697376251221,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6240234375,
+                0.5107421875
+              ],
+              "depth": 0.9648818969726562,
+              "receiver": 0.9648697376251221,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6298828125,
+                0.5107421875
+              ],
+              "depth": 0.964881956577301,
+              "receiver": 0.9648697376251221,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.5107421875
+              ],
+              "depth": 0.9648820161819458,
+              "receiver": 0.9648697376251221,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5107421875
+              ],
+              "depth": 0.9648820161819458,
+              "receiver": 0.9648697376251221,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.5107421875
+              ],
+              "depth": 0.9648820757865906,
+              "receiver": 0.9648697376251221,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.5107421875
+              ],
+              "depth": 0.9648821353912354,
+              "receiver": 0.9648697376251221,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6552734375,
+                0.5107421875
+              ],
+              "depth": 0.9648821949958801,
+              "receiver": 0.9648697376251221,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6611328125,
+                0.5107421875
+              ],
+              "depth": 0.9648821949958801,
+              "receiver": 0.9648697376251221,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6181640625,
+                0.5166015625
+              ],
+              "depth": 0.9598715901374817,
+              "receiver": 0.9654093384742737,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6240234375,
+                0.5166015625
+              ],
+              "depth": 0.965421199798584,
+              "receiver": 0.9654093384742737,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6298828125,
+                0.5166015625
+              ],
+              "depth": 0.9654212594032288,
+              "receiver": 0.9654093384742737,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.5166015625
+              ],
+              "depth": 0.9654213190078735,
+              "receiver": 0.9654093384742737,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5166015625
+              ],
+              "depth": 0.9654213190078735,
+              "receiver": 0.9654093384742737,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.5166015625
+              ],
+              "depth": 0.9654213786125183,
+              "receiver": 0.9654093384742737,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.5166015625
+              ],
+              "depth": 0.9654214382171631,
+              "receiver": 0.9654093384742737,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6552734375,
+                0.5166015625
+              ],
+              "depth": 0.9654214978218079,
+              "receiver": 0.9654093384742737,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6611328125,
+                0.5166015625
+              ],
+              "depth": 0.9654214978218079,
+              "receiver": 0.9654093384742737,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            }
+          ],
+          "cpuMapDepth": 0.963443503698187,
+          "mapDepthError": 3.71614618188687e-7,
+          "cpuVisibility": 1,
+          "mathError": 0
+        },
+        "larger": {
+          "uv": [
+            0.5296875,
+            0.3025
+          ],
+          "position": [
+            1.9249200820922852,
+            -3.597637712284468e-16,
+            1.6202319860458374
+          ],
+          "normal": [
+            0,
+            0.9999999403953552,
+            2.220445916901415e-16
+          ],
+          "objectId": 0,
+          "lightUv": [
+            0.6401994824409485,
+            0.4957994818687439
+          ],
+          "receiverDepth": 0.9635063409805298,
+          "storedDepth": 0.9634438753128052,
+          "receiverDistance": 8.966387748718262,
+          "storedDistance": 8.956565856933594,
+          "visibility": 1,
+          "blockerCount": 8,
+          "blockerDistance": 8.41025447845459,
+          "radiusTexels": 1.6991616487503052,
+          "searchRadiusTexels": 24.42427635192871,
+          "covered": true,
+          "samples": [
+            {
+              "uv": [
+                0.5927734375,
+                0.4482421875
+              ],
+              "depth": 0.9591289758682251,
+              "receiver": 0.9591137766838074,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.4482421875
+              ],
+              "depth": 0.9591290354728699,
+              "receiver": 0.9591138362884521,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.4482421875
+              ],
+              "depth": 0.9591291546821594,
+              "receiver": 0.9591137766838074,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.4482421875
+              ],
+              "depth": 0.959129273891449,
+              "receiver": 0.9591138362884521,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4482421875
+              ],
+              "depth": 0.9591293334960938,
+              "receiver": 0.9591138362884521,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4482421875
+              ],
+              "depth": 0.9591294527053833,
+              "receiver": 0.9591138362884521,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.4482421875
+              ],
+              "depth": 0.9591295719146729,
+              "receiver": 0.9591137766838074,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.4482421875
+              ],
+              "depth": 0.9591296911239624,
+              "receiver": 0.9591137766838074,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.4482421875
+              ],
+              "depth": 0.9591297507286072,
+              "receiver": 0.9591138362884521,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.4599609375
+              ],
+              "depth": 0.9602075815200806,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.4599609375
+              ],
+              "depth": 0.9602076411247253,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.4599609375
+              ],
+              "depth": 0.9602077603340149,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.4599609375
+              ],
+              "depth": 0.9602078795433044,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4599609375
+              ],
+              "depth": 0.9602079391479492,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4599609375
+              ],
+              "depth": 0.9602080583572388,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.4599609375
+              ],
+              "depth": 0.9602081775665283,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.4599609375
+              ],
+              "depth": 0.9602082967758179,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.4599609375
+              ],
+              "depth": 0.9602083563804626,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.4716796875
+              ],
+              "depth": 0.9612862467765808,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.4716796875
+              ],
+              "depth": 0.9612863063812256,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.4716796875
+              ],
+              "depth": 0.9612864255905151,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.4716796875
+              ],
+              "depth": 0.9612865447998047,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4716796875
+              ],
+              "depth": 0.9612866044044495,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4716796875
+              ],
+              "depth": 0.961286723613739,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.4716796875
+              ],
+              "depth": 0.9612868428230286,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.4716796875
+              ],
+              "depth": 0.9612869620323181,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.4716796875
+              ],
+              "depth": 0.9612870216369629,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.4833984375
+              ],
+              "depth": 0.9623648524284363,
+              "receiver": 0.9623515009880066,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.4833984375
+              ],
+              "depth": 0.962364912033081,
+              "receiver": 0.9623515605926514,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.4833984375
+              ],
+              "depth": 0.9623650312423706,
+              "receiver": 0.9623515009880066,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.4833984375
+              ],
+              "depth": 0.9623651504516602,
+              "receiver": 0.9623515009880066,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4833984375
+              ],
+              "depth": 0.9623652100563049,
+              "receiver": 0.9623515605926514,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4833984375
+              ],
+              "depth": 0.9623653292655945,
+              "receiver": 0.9623515009880066,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.4833984375
+              ],
+              "depth": 0.962365448474884,
+              "receiver": 0.9623515605926514,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.4833984375
+              ],
+              "depth": 0.9623655676841736,
+              "receiver": 0.9623515009880066,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.4833984375
+              ],
+              "depth": 0.9623656272888184,
+              "receiver": 0.9623515009880066,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.4951171875
+              ],
+              "depth": 0.9634435176849365,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.4951171875
+              ],
+              "depth": 0.9634435772895813,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.4951171875
+              ],
+              "depth": 0.9634436964988708,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.4951171875
+              ],
+              "depth": 0.9634438157081604,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4951171875
+              ],
+              "depth": 0.9634439945220947,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.4951171875
+              ],
+              "depth": 0.9634441137313843,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.4951171875
+              ],
+              "depth": 0.9634442329406738,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.4951171875
+              ],
+              "depth": 0.9634442925453186,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.5068359375
+              ],
+              "depth": 0.9579182863235474,
+              "receiver": 0.9645100235939026,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.5068359375
+              ],
+              "depth": 0.9590935707092285,
+              "receiver": 0.9645099639892578,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.5068359375
+              ],
+              "depth": 0.9645223021507263,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.5068359375
+              ],
+              "depth": 0.9645224213600159,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5068359375
+              ],
+              "depth": 0.9645224809646606,
+              "receiver": 0.9645100235939026,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.5068359375
+              ],
+              "depth": 0.9645226001739502,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.5068359375
+              ],
+              "depth": 0.9645227193832397,
+              "receiver": 0.9645100235939026,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.5068359375
+              ],
+              "depth": 0.9645228385925293,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.5068359375
+              ],
+              "depth": 0.9645228981971741,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.5205078125
+              ],
+              "depth": 0.9593254327774048,
+              "receiver": 0.9657690525054932,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.5205078125
+              ],
+              "depth": 0.9593261480331421,
+              "receiver": 0.9657690525054932,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.5205078125
+              ],
+              "depth": 0.9593269228935242,
+              "receiver": 0.9657690525054932,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.5205078125
+              ],
+              "depth": 0.9657807946205139,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5205078125
+              ],
+              "depth": 0.9657808542251587,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.5205078125
+              ],
+              "depth": 0.9657809734344482,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.5205078125
+              ],
+              "depth": 0.9657810926437378,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.5205078125
+              ],
+              "depth": 0.9657812118530273,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.5205078125
+              ],
+              "depth": 0.9657812714576721,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.5322265625
+              ],
+              "depth": 0.9605315327644348,
+              "receiver": 0.9668483138084412,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.5322265625
+              ],
+              "depth": 0.9605322480201721,
+              "receiver": 0.9668482542037964,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.5322265625
+              ],
+              "depth": 0.9668593406677246,
+              "receiver": 0.9668483138084412,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.5322265625
+              ],
+              "depth": 0.9668594598770142,
+              "receiver": 0.9668482542037964,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5322265625
+              ],
+              "depth": 0.9668595194816589,
+              "receiver": 0.9668482542037964,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.5322265625
+              ],
+              "depth": 0.9668596386909485,
+              "receiver": 0.9668483138084412,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.5322265625
+              ],
+              "depth": 0.966859757900238,
+              "receiver": 0.9668482542037964,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.5322265625
+              ],
+              "depth": 0.9668598771095276,
+              "receiver": 0.9668482542037964,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.5322265625
+              ],
+              "depth": 0.9668599367141724,
+              "receiver": 0.9668482542037964,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.5439453125
+              ],
+              "depth": 0.9617376327514648,
+              "receiver": 0.9679274559020996,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.5439453125
+              ],
+              "depth": 0.9679378271102905,
+              "receiver": 0.9679274559020996,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.5439453125
+              ],
+              "depth": 0.9679379463195801,
+              "receiver": 0.9679275155067444,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.5439453125
+              ],
+              "depth": 0.9679380655288696,
+              "receiver": 0.9679275155067444,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5439453125
+              ],
+              "depth": 0.9679381251335144,
+              "receiver": 0.9679274559020996,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.5439453125
+              ],
+              "depth": 0.967938244342804,
+              "receiver": 0.9679274559020996,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.5439453125
+              ],
+              "depth": 0.9679383635520935,
+              "receiver": 0.9679274559020996,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.5439453125
+              ],
+              "depth": 0.9679384827613831,
+              "receiver": 0.9679275155067444,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.5439453125
+              ],
+              "depth": 0.9679385423660278,
+              "receiver": 0.9679274559020996,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4990234375
+              ],
+              "depth": 0.9638034701347351,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4990234375
+              ],
+              "depth": 0.9638034701347351,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4990234375
+              ],
+              "depth": 0.9638034701347351,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4990234375
+              ],
+              "depth": 0.9638034701347351,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4990234375
+              ],
+              "depth": 0.9638034701347351,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4990234375
+              ],
+              "depth": 0.9638034701347351,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4990234375
+              ],
+              "depth": 0.9638034701347351,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4990234375
+              ],
+              "depth": 0.9638034701347351,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            }
+          ],
+          "cpuMapDepth": 0.963443503698187,
+          "mapDepthError": 3.71614618188687e-7,
+          "cpuVisibility": 1,
+          "mathError": 0
+        },
+        "higher": {
+          "uv": [
+            0.5296875,
+            0.3025
+          ],
+          "position": [
+            1.9249200820922852,
+            -3.597637712284468e-16,
+            1.6202319860458374
+          ],
+          "normal": [
+            0,
+            0.9999999403953552,
+            2.220445916901415e-16
+          ],
+          "objectId": 0,
+          "lightUv": [
+            0.6401994824409485,
+            0.4957994818687439
+          ],
+          "receiverDepth": 0.9635063409805298,
+          "storedDepth": 0.9634438753128052,
+          "receiverDistance": 8.966387748718262,
+          "storedDistance": 8.956565856933594,
+          "visibility": 1,
+          "blockerCount": 7,
+          "blockerDistance": 7.808106422424316,
+          "radiusTexels": 3.8118276596069336,
+          "searchRadiusTexels": 24.42427635192871,
+          "covered": true,
+          "samples": [
+            {
+              "uv": [
+                0.5927734375,
+                0.4482421875
+              ],
+              "depth": 0.9591289758682251,
+              "receiver": 0.9591137766838074,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.4482421875
+              ],
+              "depth": 0.9591290354728699,
+              "receiver": 0.9591138362884521,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.4482421875
+              ],
+              "depth": 0.9591291546821594,
+              "receiver": 0.9591137766838074,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.4482421875
+              ],
+              "depth": 0.959129273891449,
+              "receiver": 0.9591138362884521,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4482421875
+              ],
+              "depth": 0.9591293334960938,
+              "receiver": 0.9591138362884521,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4482421875
+              ],
+              "depth": 0.9591294527053833,
+              "receiver": 0.9591138362884521,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.4482421875
+              ],
+              "depth": 0.9591295719146729,
+              "receiver": 0.9591137766838074,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.4482421875
+              ],
+              "depth": 0.9591296911239624,
+              "receiver": 0.9591137766838074,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.4482421875
+              ],
+              "depth": 0.9591297507286072,
+              "receiver": 0.9591138362884521,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.4599609375
+              ],
+              "depth": 0.9602075815200806,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.4599609375
+              ],
+              "depth": 0.9602076411247253,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.4599609375
+              ],
+              "depth": 0.9602077603340149,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.4599609375
+              ],
+              "depth": 0.9602078795433044,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4599609375
+              ],
+              "depth": 0.9602079391479492,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4599609375
+              ],
+              "depth": 0.9602080583572388,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.4599609375
+              ],
+              "depth": 0.9602081775665283,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.4599609375
+              ],
+              "depth": 0.9602082967758179,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.4599609375
+              ],
+              "depth": 0.9602083563804626,
+              "receiver": 0.9601930379867554,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.4716796875
+              ],
+              "depth": 0.9612862467765808,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.4716796875
+              ],
+              "depth": 0.9612863063812256,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.4716796875
+              ],
+              "depth": 0.9612864255905151,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.4716796875
+              ],
+              "depth": 0.9612865447998047,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4716796875
+              ],
+              "depth": 0.9612866044044495,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4716796875
+              ],
+              "depth": 0.961286723613739,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.4716796875
+              ],
+              "depth": 0.9612868428230286,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.4716796875
+              ],
+              "depth": 0.9612869620323181,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.4716796875
+              ],
+              "depth": 0.9612870216369629,
+              "receiver": 0.9612722992897034,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.4833984375
+              ],
+              "depth": 0.9623648524284363,
+              "receiver": 0.9623515009880066,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.4833984375
+              ],
+              "depth": 0.962364912033081,
+              "receiver": 0.9623515605926514,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.4833984375
+              ],
+              "depth": 0.9623650312423706,
+              "receiver": 0.9623515009880066,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.4833984375
+              ],
+              "depth": 0.9623651504516602,
+              "receiver": 0.9623515009880066,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4833984375
+              ],
+              "depth": 0.9623652100563049,
+              "receiver": 0.9623515605926514,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4833984375
+              ],
+              "depth": 0.9623653292655945,
+              "receiver": 0.9623515009880066,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.4833984375
+              ],
+              "depth": 0.962365448474884,
+              "receiver": 0.9623515605926514,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.4833984375
+              ],
+              "depth": 0.9623655676841736,
+              "receiver": 0.9623515009880066,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.4833984375
+              ],
+              "depth": 0.9623656272888184,
+              "receiver": 0.9623515009880066,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.4951171875
+              ],
+              "depth": 0.9634435176849365,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.4951171875
+              ],
+              "depth": 0.9634435772895813,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.4951171875
+              ],
+              "depth": 0.9634436964988708,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.4951171875
+              ],
+              "depth": 0.9634438157081604,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.4951171875
+              ],
+              "depth": 0.9634439945220947,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.4951171875
+              ],
+              "depth": 0.9634441137313843,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.4951171875
+              ],
+              "depth": 0.9634442329406738,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.4951171875
+              ],
+              "depth": 0.9634442925453186,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.5068359375
+              ],
+              "depth": 0.964522123336792,
+              "receiver": 0.9645100235939026,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.5068359375
+              ],
+              "depth": 0.9645221829414368,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.5068359375
+              ],
+              "depth": 0.9645223021507263,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.5068359375
+              ],
+              "depth": 0.9645224213600159,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5068359375
+              ],
+              "depth": 0.9645224809646606,
+              "receiver": 0.9645100235939026,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.5068359375
+              ],
+              "depth": 0.9645226001739502,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.5068359375
+              ],
+              "depth": 0.9645227193832397,
+              "receiver": 0.9645100235939026,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.5068359375
+              ],
+              "depth": 0.9645228385925293,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.5068359375
+              ],
+              "depth": 0.9645228981971741,
+              "receiver": 0.9645099639892578,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.5205078125
+              ],
+              "depth": 0.9540528655052185,
+              "receiver": 0.9657690525054932,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.5205078125
+              ],
+              "depth": 0.9657805562019348,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.5205078125
+              ],
+              "depth": 0.9657806754112244,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.5205078125
+              ],
+              "depth": 0.9657807946205139,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5205078125
+              ],
+              "depth": 0.9657808542251587,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.5205078125
+              ],
+              "depth": 0.9657809734344482,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.5205078125
+              ],
+              "depth": 0.9657810926437378,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.5205078125
+              ],
+              "depth": 0.9657812118530273,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.5205078125
+              ],
+              "depth": 0.9657812714576721,
+              "receiver": 0.9657690525054932,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.5322265625
+              ],
+              "depth": 0.9541857838630676,
+              "receiver": 0.9668483138084412,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.5322265625
+              ],
+              "depth": 0.9541861414909363,
+              "receiver": 0.9668482542037964,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.5322265625
+              ],
+              "depth": 0.9668593406677246,
+              "receiver": 0.9668483138084412,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.5322265625
+              ],
+              "depth": 0.9668594598770142,
+              "receiver": 0.9668482542037964,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5322265625
+              ],
+              "depth": 0.9668595194816589,
+              "receiver": 0.9668482542037964,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.5322265625
+              ],
+              "depth": 0.9668596386909485,
+              "receiver": 0.9668483138084412,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.5322265625
+              ],
+              "depth": 0.966859757900238,
+              "receiver": 0.9668482542037964,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.5322265625
+              ],
+              "depth": 0.9668598771095276,
+              "receiver": 0.9668482542037964,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.5322265625
+              ],
+              "depth": 0.9668599367141724,
+              "receiver": 0.9668482542037964,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.5927734375,
+                0.5439453125
+              ],
+              "depth": 0.9555200934410095,
+              "receiver": 0.9679274559020996,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6044921875,
+                0.5439453125
+              ],
+              "depth": 0.9555204510688782,
+              "receiver": 0.9679274559020996,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6162109375,
+                0.5439453125
+              ],
+              "depth": 0.9555208683013916,
+              "receiver": 0.9679275155067444,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6279296875,
+                0.5439453125
+              ],
+              "depth": 0.9563949108123779,
+              "receiver": 0.9679275155067444,
+              "visible": 0,
+              "valid": true,
+              "blocker": true,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5439453125
+              ],
+              "depth": 0.9679381251335144,
+              "receiver": 0.9679274559020996,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6513671875,
+                0.5439453125
+              ],
+              "depth": 0.967938244342804,
+              "receiver": 0.9679274559020996,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6630859375,
+                0.5439453125
+              ],
+              "depth": 0.9679383635520935,
+              "receiver": 0.9679274559020996,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6767578125,
+                0.5439453125
+              ],
+              "depth": 0.9679384827613831,
+              "receiver": 0.9679275155067444,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6884765625,
+                0.5439453125
+              ],
+              "depth": 0.9679385423660278,
+              "receiver": 0.9679274559020996,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "search"
+            },
+            {
+              "uv": [
+                0.6318359375,
+                0.4892578125
+              ],
+              "depth": 0.9629044532775879,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6337890625,
+                0.4892578125
+              ],
+              "depth": 0.9629045128822327,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.4892578125
+              ],
+              "depth": 0.9629045128822327,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4892578125
+              ],
+              "depth": 0.9629045128822327,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4892578125
+              ],
+              "depth": 0.9629045128822327,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4892578125
+              ],
+              "depth": 0.9629045724868774,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4892578125
+              ],
+              "depth": 0.9629045724868774,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.4892578125
+              ],
+              "depth": 0.9629045724868774,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6474609375,
+                0.4892578125
+              ],
+              "depth": 0.9629045724868774,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6318359375,
+                0.4892578125
+              ],
+              "depth": 0.9629044532775879,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6337890625,
+                0.4892578125
+              ],
+              "depth": 0.9629045128822327,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.4892578125
+              ],
+              "depth": 0.9629045128822327,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4892578125
+              ],
+              "depth": 0.9629045128822327,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4892578125
+              ],
+              "depth": 0.9629045128822327,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4892578125
+              ],
+              "depth": 0.9629045724868774,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4892578125
+              ],
+              "depth": 0.9629045724868774,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.4892578125
+              ],
+              "depth": 0.9629045724868774,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6474609375,
+                0.4892578125
+              ],
+              "depth": 0.9629045724868774,
+              "receiver": 0.962891161441803,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6318359375,
+                0.4912109375
+              ],
+              "depth": 0.9630842208862305,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6337890625,
+                0.4912109375
+              ],
+              "depth": 0.9630842804908752,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.4912109375
+              ],
+              "depth": 0.9630842804908752,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4912109375
+              ],
+              "depth": 0.9630842804908752,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4912109375
+              ],
+              "depth": 0.9630842804908752,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4912109375
+              ],
+              "depth": 0.96308434009552,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4912109375
+              ],
+              "depth": 0.96308434009552,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.4912109375
+              ],
+              "depth": 0.96308434009552,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6474609375,
+                0.4912109375
+              ],
+              "depth": 0.96308434009552,
+              "receiver": 0.9630710482597351,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6318359375,
+                0.4931640625
+              ],
+              "depth": 0.963263988494873,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6337890625,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4931640625
+              ],
+              "depth": 0.9632640480995178,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6474609375,
+                0.4931640625
+              ],
+              "depth": 0.9632641077041626,
+              "receiver": 0.9632509350776672,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6318359375,
+                0.4951171875
+              ],
+              "depth": 0.9634438157081604,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6337890625,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4951171875
+              ],
+              "depth": 0.9634438753128052,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6474609375,
+                0.4951171875
+              ],
+              "depth": 0.96344393491745,
+              "receiver": 0.9634307622909546,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6318359375,
+                0.4970703125
+              ],
+              "depth": 0.963623583316803,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6337890625,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636107087135315,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4970703125
+              ],
+              "depth": 0.9636236429214478,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6474609375,
+                0.4970703125
+              ],
+              "depth": 0.9636237025260925,
+              "receiver": 0.9636106491088867,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6318359375,
+                0.4990234375
+              ],
+              "depth": 0.9638033509254456,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6337890625,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.4990234375
+              ],
+              "depth": 0.9638034105300903,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.4990234375
+              ],
+              "depth": 0.9638034701347351,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.4990234375
+              ],
+              "depth": 0.9638034701347351,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.4990234375
+              ],
+              "depth": 0.9638034701347351,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6474609375,
+                0.4990234375
+              ],
+              "depth": 0.9638034701347351,
+              "receiver": 0.9637904763221741,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6318359375,
+                0.5009765625
+              ],
+              "depth": 0.9639831185340881,
+              "receiver": 0.963970422744751,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6337890625,
+                0.5009765625
+              ],
+              "depth": 0.9639831781387329,
+              "receiver": 0.9639703631401062,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.5009765625
+              ],
+              "depth": 0.9639831781387329,
+              "receiver": 0.963970422744751,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.5009765625
+              ],
+              "depth": 0.9639831781387329,
+              "receiver": 0.9639703631401062,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5009765625
+              ],
+              "depth": 0.9639831781387329,
+              "receiver": 0.9639703631401062,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.5009765625
+              ],
+              "depth": 0.9639832377433777,
+              "receiver": 0.9639703631401062,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.5009765625
+              ],
+              "depth": 0.9639832377433777,
+              "receiver": 0.9639703631401062,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.5009765625
+              ],
+              "depth": 0.9639832377433777,
+              "receiver": 0.963970422744751,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6474609375,
+                0.5009765625
+              ],
+              "depth": 0.9639832377433777,
+              "receiver": 0.9639703631401062,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6318359375,
+                0.5029296875
+              ],
+              "depth": 0.9641628861427307,
+              "receiver": 0.9641503095626831,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6337890625,
+                0.5029296875
+              ],
+              "depth": 0.9641629457473755,
+              "receiver": 0.9641501903533936,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6357421875,
+                0.5029296875
+              ],
+              "depth": 0.9641629457473755,
+              "receiver": 0.9641501903533936,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6376953125,
+                0.5029296875
+              ],
+              "depth": 0.9641629457473755,
+              "receiver": 0.9641503095626831,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6396484375,
+                0.5029296875
+              ],
+              "depth": 0.9641629457473755,
+              "receiver": 0.9641503095626831,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6416015625,
+                0.5029296875
+              ],
+              "depth": 0.9641630053520203,
+              "receiver": 0.9641503095626831,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6435546875,
+                0.5029296875
+              ],
+              "depth": 0.9641630053520203,
+              "receiver": 0.9641501903533936,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6455078125,
+                0.5029296875
+              ],
+              "depth": 0.9641630053520203,
+              "receiver": 0.9641503095626831,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            },
+            {
+              "uv": [
+                0.6474609375,
+                0.5029296875
+              ],
+              "depth": 0.9641630053520203,
+              "receiver": 0.9641503095626831,
+              "visible": 1,
+              "valid": true,
+              "blocker": false,
+              "stage": "filter"
+            }
+          ],
+          "cpuMapDepth": 0.963443503698187,
+          "mapDepthError": 3.71614618188687e-7,
+          "cpuVisibility": 1,
+          "mathError": 0
+        }
+      }
+    },
+    {
+      "uncovered": {
+        "uv": [
+          0.5015625,
+          0.2025
+        ],
+        "lightUv": [
+          1.0874061584472656,
+          0.41424280405044556
+        ],
+        "samples": 0
+      }
+    },
+    {
+      "reference": {
+        "selected": [
+          0.5015625,
+          0.4525
+        ],
+        "state": {
+          "version": 1,
+          "lesson": "filtering",
+          "preset": "contact",
+          "algorithm": "hard",
+          "resolution": 256,
+          "fov": 90,
+          "bias": 0.002,
+          "planeCorrection": true,
+          "filterRadius": 2,
+          "lightSize": 0.9,
+          "height": 1.2,
+          "seed": 17,
+          "view": "visibility",
+          "compare": false,
+          "camera": {
+            "position": [
+              7,
+              5.5,
+              8
+            ],
+            "target": [
+              0,
+              0.6,
+              0
+            ]
+          }
+        },
+        "reference": {
+          "value": 0.76171875,
+          "checkpoint": 0.76171875,
+          "convergence": 0,
+          "samples": 1024
+        }
+      }
+    }
+  ],
+  "errors": []
+}

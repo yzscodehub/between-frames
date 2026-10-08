@@ -1,0 +1,7 @@
+import type {Vec3} from '../ray/types';
+export interface SSRState {version:1;preset:'gallery'|'thin'|'hidden';method:'screen'|'view';steps:number;stride:number;viewStep:number;thickness:number;range:number;offset:number;epsilon:number;shading:'flat'|'local';view:'reflection'|'status'|'depth';compare:boolean;camera:{position:Vec3;target:Vec3};learning?:{article:'ssr';chapter:string}}
+export interface SSRSample {uv:[number,number];rayDepth:number;sceneDepth:number;t:number;delta:number;kind:number;objectId:number}
+export interface SSRInspection {uv:[number,number];position:Vec3;normal:Vec3;objectId:number;origin:Vec3;direction:Vec3;status:number;steps:number;hitPosition:Vec3;hitObjectId:number;hitUv:[number,number];hitDistance:number;depthDelta:number;color:Vec3;reference:{status:number;position:Vec3;objectId:number;t:number;color:Vec3};cpu:{hit:boolean;position:Vec3|null;objectId:number;t:number;color:Vec3};referencePositionError:number|null;referenceColorError:number;samples:SSRSample[]}
+export interface SSRReport {state?:SSRState;ready?:boolean;pending?:boolean;paused?:boolean;error?:string;inspection?:SSRInspection|null;cpuMs?:number;gpuMs?:number|null;triangles?:number;device?:string}
+export const ssrStatuses=['非镜面','深度命中','离开屏幕','到达相机近面','没有可用深度','达到距离范围','步数预算耗尽','无效数据'] as const;
+export const sampleKinds=['没有深度','位于深度前','发现跨越','细化后命中','起始镜面排除','屏幕之外','厚度检查未通过','近面 / 无效'] as const;

@@ -1,0 +1,23 @@
+.ray-reading .ray-series-back{display:inline-block;margin-bottom:28px;color:var(--muted);font-size:13px;border-bottom:1px solid var(--line);padding-bottom:5px}
+.ray-reading .reading-head .eyebrow{color:#277970}
+.ray-reading .ray-runtime-note{display:flex;flex-direction:column;gap:8px;border-left:3px solid #328c7f;background:#edf5f2;padding:19px 22px;margin:0 0 30px;max-width:740px;font-size:14px;line-height:1.85}
+.ray-reading .ray-runtime-note span{color:#486f68}
+.ray-reading .ray-toc-lab{margin-top:16px;border-top:1px solid var(--line);padding-top:18px}
+.ray-reading .ray-toc-note{font-size:12px;line-height:1.8;color:var(--muted)}
+.ray-reading .ray-task{max-width:740px;margin:27px 0 34px;padding:24px 26px;background:#fff;border:1px solid var(--line);border-radius:6px}
+.ray-reading .ray-task h3{font-size:19px;margin:0 0 17px}
+.ray-reading .ray-task dl{margin:0;display:grid;grid-template-columns:48px minmax(0,1fr);gap:10px 14px;font-size:14px;line-height:1.85}
+.ray-reading .ray-task dt{font-size:12px;font-weight:650;color:#277970;padding-top:2px}
+.ray-reading .ray-task dd{margin:0;min-width:0}
+.ray-reading .ray-table-wrap{max-width:100%;overflow-x:auto;margin:25px 0}
+.ray-reading .ray-table-wrap table{min-width:510px}
+.ray-reading .ray-counterexample{max-width:740px;padding:17px 22px;margin:24px 0;border-left:3px solid var(--orange);background:#fff7ec}
+.ray-reading .ray-counterexample p{font-size:15px;margin:7px 0;line-height:1.9}
+.ray-reading .ray-counterexample strong{font-size:14px;color:#80551d}
+.ray-reading .ray-article-pagination{display:grid;grid-template-columns:1fr 1fr;gap:24px;border-top:1px solid var(--line);margin-top:56px;padding-top:26px;max-width:740px}
+.ray-reading .ray-article-pagination a,.ray-reading .ray-article-pagination>div{border:0;line-height:1.7}
+.ray-reading .ray-article-pagination small{display:block;color:var(--muted);font-size:11px;margin-bottom:9px}
+.ray-reading .ray-article-pagination span{font-size:15px}
+.ray-reading .ray-article-pagination>div span{color:var(--muted)}
+.ray-reading .ray-source-note{max-width:740px;font-size:13px!important;line-height:1.8!important;color:var(--muted);border-top:1px solid var(--line);padding-top:18px;margin-top:30px}
+@media(max-width:700px){.ray-reading .meta{flex-wrap:wrap;gap:10px}.ray-reading .ray-task{padding:20px 17px}.ray-reading .ray-task dl{grid-template-columns:38px minmax(0,1fr);gap:9px 10px}.ray-reading .ray-runtime-note{padding:17px}.ray-reading .ray-article-pagination{grid-template-columns:1fr;gap:22px}}

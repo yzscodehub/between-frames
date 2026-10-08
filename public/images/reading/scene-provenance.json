@@ -1,0 +1,139 @@
+{
+  "date": "2026-10-07",
+  "purpose": "实际默认场景截图；不是性能或高样本参考",
+  "records": [
+    {
+      "kind": "csm",
+      "inspection": null,
+      "state": {
+        "version": 2,
+        "sceneId": "gallery",
+        "sceneRevision": 1,
+        "seed": 0,
+        "frame": 0,
+        "quality": "standard",
+        "lambda": 0.6,
+        "stable": true,
+        "blend": true,
+        "debug": false,
+        "task": 0,
+        "camera": {
+          "position": [
+            8.499999999999998,
+            6.8000000000000025,
+            9.999999999999998
+          ],
+          "target": [
+            0,
+            1.4,
+            -0.6
+          ]
+        }
+      },
+      "pending": false,
+      "gpuMs": 1.507328,
+      "ready": true,
+      "width": 1280,
+      "height": 720,
+      "quality": "standard",
+      "adapter": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "description": "",
+        "fallback": false,
+        "timestamp": true
+      },
+      "objects": 38,
+      "triangles": 8736,
+      "resources": {
+        "used": 94591728,
+        "limit": 402653184,
+        "count": 15
+      },
+      "cpuMs": 2.600000001490116,
+      "splits": [
+        8.3490977538167,
+        17.717056274847717,
+        33.03544742340735,
+        80
+      ],
+      "cascades": [
+        {
+          "near": 0.1,
+          "far": 8.3490977538167,
+          "radius": 7.882697947214076,
+          "texel": 0.0076979472140762464
+        },
+        {
+          "near": 7.52418797843503,
+          "far": 17.717056274847717,
+          "radius": 15.13978494623656,
+          "texel": 0.01478494623655914
+        },
+        {
+          "near": 16.780260422744615,
+          "far": 33.03544742340735,
+          "radius": 27.839687194525904,
+          "texel": 0.027187194525904203
+        },
+        {
+          "near": 31.503608308551385,
+          "far": 80,
+          "radius": 68.81720430107526,
+          "texel": 0.06720430107526881
+        }
+      ]
+    },
+    {
+      "kind": "hdr",
+      "gpuMs": 0.851968,
+      "ready": true,
+      "width": 1280,
+      "height": 720,
+      "quality": "standard",
+      "adapter": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "description": "",
+        "fallback": false,
+        "timestamp": true
+      },
+      "objects": 38,
+      "triangles": 8736,
+      "resources": {
+        "used": 42416384,
+        "limit": 402653184,
+        "count": 15
+      },
+      "cpuMs": 0,
+      "pending": false,
+      "state": {
+        "version": 2,
+        "sceneId": "gallery",
+        "sceneRevision": 1,
+        "seed": 0,
+        "frame": 0,
+        "quality": "standard",
+        "threshold": 1,
+        "strength": 0.6,
+        "exposure": 0,
+        "wrongOrder": false,
+        "view": "composite",
+        "task": 0,
+        "camera": {
+          "position": [
+            8.499999999999998,
+            6.8000000000000025,
+            9.999999999999998
+          ],
+          "target": [
+            0,
+            1.4,
+            -0.6
+          ]
+        }
+      },
+      "inspection": null
+    }
+  ]
+}

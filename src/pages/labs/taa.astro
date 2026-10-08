@@ -1,0 +1,5 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TAALab from '../../components/taa/TAALab';
+---
+<Layout title="TAA 实验室" description="真实光栅亚像素采样、时域重投影与冻结同帧64样本参考。"><div class="lab-page"><span class="eyebrow">TEMPORAL AA / SAME-FRAME REFERENCE</span><h1>先确认历史属于谁，再决定留下多少。</h1><p>0–120 帧受控序列。分享和拖动帧号会从起点重放；同帧参考不会混合运动前后的世界。</p><TAALab client:load/><noscript><p>交互需要 JavaScript；<a href="/articles/taa/">TAA 正文</a>提供完整静态论证与运行源码。</p></noscript></div></Layout>

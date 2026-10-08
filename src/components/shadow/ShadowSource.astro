@@ -1,0 +1,9 @@
+---
+import {Code} from 'astro:components';
+import source from '../../shaders/gpu/shadow-resolve.wgsl?raw';
+const {lesson='mapping'}=Astro.props;
+const section=lesson==='mapping'?'compare':'pcss';
+const code=source.split(`// @snippet ${section}-start`)[1]?.split(`// @snippet ${section}-end`)[0].trim();
+if(!code)throw Error('Missing runtime shadow source: '+section);
+---
+<section class="shadow-runtime-source"><h2>实现对照 / 从运行 Shader 提取</h2><p>这段代码直接来自实验中的 shadow-resolve.wgsl。检查面板与图像共用这一计算过程；片段依赖完整源码中的采样、投影与坐标约定。</p><details><summary>{lesson==='mapping'?'查看实际深度比较':'查看遮挡距离与半影计算'}</summary><Code code={code} lang="wgsl" theme="github-light"/></details></section>

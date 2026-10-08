@@ -1,0 +1,24 @@
+---
+import {Code} from 'astro:components';
+import query from '../../shaders/ray/query.glsl?raw';
+import transport from '../../shaders/ray/transport.glsl?raw';
+import {compose} from '../../shaders/ray/reconstruction';
+import type {RayLesson} from '../../lib/ray/state';
+const {lesson}=Astro.props as {lesson:RayLesson};
+function extract(source:string,from:string,to:string){const start=source.indexOf(from),end=source.indexOf(to,start);if(start<0||end<start)throw new Error('Runtime excerpt marker missing: '+from);return source.slice(start,end).trim();}
+const snippets={
+ rays:{file:'query.glsl',title:'射线与 AABB 的有效区间',code:extract(query,'bool rtAabb(','bool rtNode(')},
+ bvh:{file:'query.glsl',title:'实际遍历栈、节点日志与剪枝（循环开头）',code:extract(query,'  int stack[RT_STACK_CAPACITY];','    if (leaf) {')},
+ shadows:{file:'transport.glsl',title:'有限阴影射线排除光源端点',code:extract(transport,'bool ptShadowRay(','PTResult ptPath(')},
+ reflections:{file:'transport.glsl',title:'镜面方向与次级命中着色',code:extract(transport,'  result.scattering = 1;','PTResult ptDirect(')},
+ path:{file:'transport.glsl',title:'BSDF 的采样权重',code:extract(transport,'bool ptSampleBsdf(','float ptLightArea()')},
+ mis:{file:'transport.glsl',title:'统一到立体角 PDF，再计算 power heuristic',code:extract(transport,'float ptLightPdf(','bool ptCoveredEmitter(')+'\n\n'+extract(transport,'float ptPower(','vec3 ptFrame(')},
+ denoise:{file:'reconstruction.ts / compose',title:'过滤 B 后乘回反照率',code:compose.trim()},
+};
+const snippet=snippets[lesson];
+---
+<section class="ray-runtime-source">
+<h2>实现对照 / {snippet.title}</h2>
+<p>以下片段在构建时从实际运行源码提取。它展示本节关键步骤；完整内核和独立验证脚本随本地项目提供。</p>
+<details><summary>展开运行源码 · {snippet.file}</summary><Code code={snippet.code} lang="glsl" theme="github-light"/></details>
+</section>

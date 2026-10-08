@@ -1,0 +1,6 @@
+---
+import {Code} from 'astro:components';
+import source from '../../shaders/taa/resolve.glsl?raw';
+const pieces=['reprojection','clipping'].map(section=>{const code=source.split('// @snippet '+section+'-start')[1]?.split('// @snippet '+section+'-end')[0]?.trim();if(!code)throw Error('Missing TAA source '+section);return {section,code};});
+---
+<section class="taa-source"><h2>运行源码 / 验证之后，才混合历史</h2><p>代码直接从实际 resolve.glsl 提取。四格图、历史写入和小缓冲点检查共用此内核。</p>{pieces.map(({section,code})=><details><summary>{section==='reprojection'?'查看实际重投影与四邻居验证':'查看实际 RGB 约束与混合'}</summary><Code code={code} lang="glsl" theme="github-light"/></details>)}</section>

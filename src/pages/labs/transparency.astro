@@ -1,0 +1,5 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import LightingLab from '../../components/lighting/LightingLab';
+---
+<Layout title="透明与 WBOIT 实验室"><div class="lab-page"><span class="eyebrow">COMPOSITING LAB</span><h1>顺序稳定，是否等于颜色正确？</h1><p>相交平面、逐像素排序参考与实际 GPU 双遍 WBOIT。</p><LightingLab kind="transparency" client:load/><noscript><p><a href="/articles/transparency/">阅读透明正文、公式与静态步骤</a>。</p></noscript></div></Layout>

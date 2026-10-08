@@ -1,0 +1,98 @@
+import RayArticleLayout from '../../layouts/RayArticleLayout.astro';
+import RayLab from '../../components/ray/RayLab';
+import Formula from '../../components/Formula.astro';
+import {rayLabHref} from '../../lib/ray/catalog';
+
+<RayArticleLayout lesson="mis" chapters={[
+ ['pdf','01 样本与概率必须成对'],['lab','02 均匀与余弦'],['light','03 主动寻找光源'],['mis','04 组合两种策略'],['roughness','05 尖锐分布与反例'],['validation','06 怎样公平比较']
+]}>
+
+路径追踪已经能把光传过多个表面，但随机方向经常走向贡献很小的区域。改变方向分布，或者直接在光源上取样，可以把计算放到更有希望的地方。关键不是“只保留亮的样本”，而是让概率与权重仍然构成正确的估计。
+
+本篇保持同一个有限散射目标，比较均匀半球、余弦半球、BSDF-only、NEE 与 MIS。对照 NEE/MIS 时环境固定为黑色；矩形发光面是本阶段唯一被显式采样的光源。
+
+<p className="ray-source-note">材质直觉与 GGX 的 D / F / G 分项可先阅读<a href="/articles/pbr/">PBR</a>。本篇的 GGX 材质只评估镜面项；PBR 的金属工作流还包含漫反射耦合，比较时要保持相同模型与积分目标。</p>
+
+<h2 id="pdf">01 / 抽样规则变了，分母也必须变</h2>
+
+对于 Lambert 表面，均匀半球密度为 1/(2π)，余弦密度为 cosθ/π。二者都可以估计同一半球积分，但每次贡献必须分别除以实际使用的密度。
+
+<Formula tex={'\\widehat L=\\frac{1}{N}\\sum_i\\frac{f(\\omega_i)L_i(\\omega_i)\\cos\\theta_i}{p_\\omega(\\omega_i)}'} />
+
+这里所有方向 PDF 都以立体角为测度。灯面采样开始时使用面积密度；用它和 BSDF 密度比较之前，要转换到同一个接收点的立体角。面积均匀采样的矩形满足：
+
+<Formula tex={'p_\\omega(y)=\\frac{\\|y-p\\|^2}{A\\,|n_L\\cdot(-\\omega_i)|}'} />
+
+灯面背向接收点或余弦为零时，该方向没有有效发射支持，不能硬除一个接近零的数。这些采样测度与光源接口可参照 [PBRT 的 Area Lights](https://pbr-book.org/4ed/Light_Sources/Area_Lights)。
+
+<h2 id="lab">02 / 实验一：改变方向分布，目标仍应相同</h2>
+
+<RayLab client:visible lesson="mis" embedded />
+
+<section className="ray-task" aria-labelledby="mis-task-one">
+<h3 id="mis-task-one">实验 1 / 余弦分布改变了亮度，还是改变了方差？</h3>
+<dl>
+<dt>问题</dt><dd>同一 Lambert 表面，为什么两种采样会产生不同颗粒但相同目标？</dd>
+<dt>预测</dt><dd>正确配对 PDF 后，高样本平均值应相容；余弦分布更贴近漫反射余弦因子，但不保证适合全部入射光分布。</dd>
+<dt>操作</dt><dd>选择“估计器”为 BSDF-only，保持本篇的黑色环境与固定散射预算，在同一漫反射区域切换“Lambert 方向采样”的 uniform/cosine，并使用相同 spp。</dd>
+<dt>证据</dt><dd>查看方向、PDF 与相邻事件的 β；Lambert 余弦采样的一次散射权重应化为该表面的 ρ。</dd>
+<dt>结论</dt><dd>重要性采样通过改变样本分配降低方差，不能通过遗漏概率补偿来改变期望亮度。</dd>
+<dt>边界</dt><dd>uniform/cosine 控制只针对 Lambert 分支；GGX 与理想镜面有各自的采样规则。</dd>
+</dl>
+</section>
+
+<h2 id="light">03 / 实验二：光源太小，为什么要主动去找？</h2>
+
+BSDF-only 让延续光线自己碰到发光面。小灯面可能很难被随机方向碰到，偶然命中却贡献很大。下一事件估计（NEE）在表面上额外选择一个灯面点，发出阴影线段，并把该样本的直接光照加入结果。
+
+NEE 仍然继续采样 BSDF，以传递间接光。它还要处理重复计数：对于被灯面采样覆盖、且前一跳不是 delta 的发光面命中，本实验的 NEE 分支不再重复添加同一直接项；相机直接看到的发光面及镜面路径另行处理。
+
+<section className="ray-task" aria-labelledby="mis-task-two">
+<h3 id="mis-task-two">实验 2 / 一个很小的灯面，值得专门取样吗？</h3>
+<dl>
+<dt>问题</dt><dd>增加一条指向灯面的查询，能否减少“很少命中却很亮”的波动？</dd>
+<dt>预测</dt><dd>小灯面照亮的漫反射区域通常更受益于 NEE；代价是额外的可见性查询。</dd>
+<dt>操作</dt><dd>固定较小的“矩形光源尺寸倍率”，切换估计器，比较 BSDF-only 与 NEE 的同 spp 图像；再放大灯面，重新在相同状态下比较。</dd>
+<dt>证据</dt><dd>记录样本数、阴影射线数、局部噪声与参考差异，检查灯面 PDF 及遮挡判断。</dd>
+<dt>结论</dt><dd>主动采样光源能减少部分稀有命中的方差，但一条路径样本可能包含更多实际查询。</dd>
+<dt>边界</dt><dd>相同 spp 不等于相同计算量；光源尺寸改变后，必须重新生成对应参考。</dd>
+</dl>
+</section>
+
+<h2 id="mis">04 / 不能把两份直接光照直接相加</h2>
+
+BSDF 采样善于跟随材质方向分布，灯面采样善于找到光源。多重重要性采样（MIS）对两种策略都能生成的贡献加权，避免重复计算，并压低“不擅长的策略偶然生成的大贡献”。本实现采用两策略各一个样本、指数为 2 的 power heuristic：
+
+<Formula tex={'w_a(\\omega)=\\frac{p_a(\\omega)^2}{p_a(\\omega)^2+p_b(\\omega)^2},\\qquad w_b(\\omega)=1-w_a(\\omega)'} />
+
+这两个密度必须在**同一个顶点、同一个方向、同一种测度**下求值。加权既发生在主动采到光源时，也发生在 BSDF 延续射线最终碰到被覆盖的发光面时。MIS 的权重条件和效率取舍见 [PBRT 的 Improving Efficiency](https://pbr-book.org/4ed/Monte_Carlo_Integration/Improving_Efficiency)。
+
+理想镜面是 delta 事件，不能把它虚构成一个普通有限方向 PDF 再套上这个式子。本实验单独处理其确定方向，并保留镜面路径到达发光面的贡献。
+
+<h2 id="roughness">05 / 实验三：材质方向越来越尖锐</h2>
+
+GGX 分支使用各向同性微表面模型。本实验把感知粗糙度映射为 α=roughness²，按普通 GGX 法线分布（NDF）抽取半程向量 h，再反射成出射方向。方向密度要包含从 h 到反射方向的雅可比因子，不能直接把法线密度当成方向密度。
+
+它不是可见法线 VNDF 采样；采出的无效方向可能产生零贡献，也不能无补偿地反复重抽。更完整的微表面定义见 [PBRT 的 Roughness Using Microfacet Theory](https://pbr-book.org/4ed/Reflection_Models/Roughness_Using_Microfacet_Theory)。
+
+<section className="ray-task" aria-labelledby="mis-task-three">
+<h3 id="mis-task-three">实验 3 / MIS 会在每个像素都胜过单一策略吗？</h3>
+<dl>
+<dt>问题</dt><dd>GGX 高光随粗糙度收窄时，两种采样策略的相对优势如何变化？</dd>
+<dt>预测</dt><dd>光源与材质分布的重叠决定有效样本；MIS 往往更稳健，但不保证每个设置下方差最低。</dd>
+<dt>操作</dt><dd>选中右侧 GGX 球，固定灯面与相机，在两个“GGX 粗糙度”设置下分别切换 BSDF-only、NEE、MIS；一次只改变一种条件。</dd>
+<dt>证据</dt><dd>读取灯面 PDF、BSDF PDF、MIS 权重和线性贡献，对照同一目标的高样本参考与实际查询数。</dd>
+<dt>结论</dt><dd>MIS 是协调不同采样策略的估计方法，不是每个像素都选出最佳方法的预言器。</dd>
+<dt>边界</dt><dd>本阶段不支持多光源选择、环境重要性采样或 VNDF；低粗糙度也不等于理想镜面的 delta 分支。</dd>
+</dl>
+</section>
+
+<div className="ray-counterexample"><strong>反例：同时保留完整 NEE 与完整 BSDF 发光命中。</strong><p>图像可能更亮、更容易“看到光”，但同一类直接路径被算了两遍。漂亮外观不能替代 PDF 与权重检查；也不能用调低曝光掩盖重复计数。</p></div>
+
+<h2 id="validation">06 / 公平比较要同时固定目标与报告代价</h2>
+
+固定几何、帧号、相机、光源、散射预算与黑色环境，再改变采样方式。比较多档 spp，区分有限样本的波动与持续偏移；GPU 调试中的 PDF、β 和终止原因用于解释具体样本，均值与成本则需要整体统计。
+
+高样本只能减少当前像素射线上的随机传输误差。默认相机没有抖动，因此几何轮廓上的锯齿不应被归因于 MIS 没有收敛。完整参数与分享入口在<a href={rayLabHref('mis',{learning:{article:'ray-mis',chapter:'mis'}})}>采样与 MIS 实验室</a>。
+
+</RayArticleLayout>

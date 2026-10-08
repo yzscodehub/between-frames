@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import {topics,topicArticles,labs,learningPaths,topicHref} from '../../lib/content/catalog';
+import ArticleList from '../../components/navigation/ArticleList.astro';
+import TopicArt from '../../components/navigation/TopicArt.astro';
+export function getStaticPaths(){return topics.map(topic=>({params:{topic:topic.id},props:{topic}}));}
+const {topic}=Astro.props,items=topicArticles(topic.id);
+const experiments=labs.filter(l=>l.articles.some(id=>items.some(a=>a.id===id)));
+const paths=learningPaths.filter(p=>p.steps.some(id=>items.some(a=>a.id===id)));
+---
+<Layout title={topic.name} description={topic.description}><div class="catalog-shell topic-detail" style={'--accent:'+topic.color}>
+<div class="catalog-breadcrumb"><a href="/topics/">主题地图</a><span>/</span><span>{topic.name}</span></div>
+<header class="topic-detail-hero"><div><span class="catalog-kicker">{topic.number} / {topic.english}</span><h1>{topic.name}</h1><h2>{topic.question}</h2><p>{topic.description}</p><span class="catalog-badge">{items.length?`${items.length} 篇可阅读文章 · ${experiments.length} 个实验入口`:'主题筹备中 · 暂无独立文章'}</span></div><TopicArt topic={topic.id} id={'detail-'+topic.id}/></header>
+{topic.id==='visibility'&&<section class="catalog-section"><div class="catalog-section-heading"><h2>两条支线，两个不同的问题</h2></div><div class="catalog-mini-grid"><a class="catalog-mini-card" href="/articles/shadow-mapping/"><span class="catalog-kicker">建议入门 / 直接光源</span><h3>阴影贴图 → PCF / PCSS → 光追阴影</h3><p>从指定光源或灯面看，接收点是否被挡住？先理解深度比较，再比较过滤与几何查询。</p></a><a class="catalog-mini-card" href="/articles/gtao/"><span class="catalog-kicker">另一条支线 / 环境可见性</span><h3>半球采样 → 地平线 → GTAO</h3><p>表面周围一片方向还剩多少可见？它不能替代指定光源的阴影，GTAO 也没有脱离屏幕空间。</p></a></div></section>}
+{items.length>0&&<section class="catalog-section"><div class="catalog-section-heading"><h2>文章与核心问题</h2><span class="section-aside">主题归类，不代表必须逐篇顺读</span></div><ArticleList items={items}/></section>}
+{experiments.length>0&&<section class="catalog-section"><div class="catalog-section-heading"><h2>动手观察</h2><a href="/labs/">全部实验室 ↗</a></div><div class="catalog-mini-grid">{experiments.map(l=><a class="catalog-mini-card" href={l.href}><span class="catalog-kicker">INTERACTIVE LAB</span><h3>{l.name} ↗</h3><p>{l.description}</p></a>)}</div></section>}
+{paths.length>0&&<section class="catalog-section"><div class="catalog-section-heading"><h2>把这个主题接起来</h2><a href="/learn/">全部学习路线 ↗</a></div><div class="catalog-mini-grid">{paths.map(p=><a class="catalog-mini-card" href={'/learn/'+p.id+'/'}><span class="catalog-kicker">{p.steps.length} 站 / READING PATH</span><h3>{p.name} →</h3><p>{p.description}</p></a>)}</div></section>}
+<section class="catalog-planned"><span class="mono">后续选题 · 尚未交付</span><p>{topic.future.join(' / ')}</p>{!items.length&&<a href={topicHref('transport')}>先探索已开放的光输运主题 →</a>}</section>
+</div></Layout>

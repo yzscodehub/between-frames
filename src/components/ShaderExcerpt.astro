@@ -1,0 +1,9 @@
+---
+import {Code} from 'astro:components';
+import source from '../shaders/ao.glsl?raw';
+const {section='slice'}=Astro.props;
+const excerpt=source.split(`// @snippet ${section}-start\n`)[1]?.split(`// @snippet ${section}-end`)[0].trim();
+if(!excerpt)throw new Error(`Missing runtime shader excerpt: ${section}`);
+const labels:Record<string,string>={slice:'GTAO 切片积分',horizon:'HBAO 思路：角域累计',ssao:'SSAO：候选点与深度比较'};
+---
+<figure class="source-excerpt"><figcaption class="fine">运行源码 · ao.glsl / {labels[section]} · 构建时直接提取</figcaption><Code code={excerpt} lang="glsl" theme="github-light"/></figure>

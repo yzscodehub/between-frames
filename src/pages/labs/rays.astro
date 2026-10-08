@@ -1,0 +1,5 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import RayLab from '../../components/ray/RayLab';
+---
+<Layout title="光线与 BVH 实验室"><div class="lab-page"><span class="eyebrow">RAY LAB / SOFTWARE INTERSECTION</span><h1>看清一条射线，经过了什么。</h1><p>固定几何快照，对照 GPU 暴力遍历、BVH 与独立 CPU 求交。</p><RayLab client:load lesson="bvh"/></div></Layout>

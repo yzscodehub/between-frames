@@ -1,0 +1,5 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import RayLab from '../../components/ray/RayLab';
+---
+<Layout title="光追效果实验室"><div class="lab-page"><span class="eyebrow">RAY EFFECTS / VISIBILITY & REFLECTION</span><h1>从几何查询，走向阴影与反射。</h1><p>固定相同场景与输出定义，再比较近似方法和完整几何查询。</p><RayLab client:load lesson="shadows"/></div></Layout>

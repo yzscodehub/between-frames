@@ -1,0 +1,6 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import {topics,articles} from '../../lib/content/catalog';
+import TopicCard from '../../components/navigation/TopicCard.astro';
+---
+<Layout title="主题地图"><div class="catalog-shell"><header class="catalog-page-head"><span class="catalog-kicker">THE FIELD GUIDE / 主题地图</span><h1>把复杂画面，<br/>拆成可以理解的问题。</h1><p>{articles.length} 篇文章，分属 {topics.filter(t=>t.status==='open').length} 个已开放主题。每篇有一个主要归属，相关知识通过标签与学习路线连接。</p></header><div class="topic-grid">{topics.filter(t=>t.status==='open').map((topic,i)=><TopicCard topic={topic} featured={i===0}/>)}</div><section class="catalog-planned"><span class="mono">后续方向</span><p>透明与 WBOIT 已可阅读；体积、大气与水面继续保留为后续选题。</p><a href="/topics/media/">查看规划 →</a></section><div class="catalog-start"><div><h2>不确定从哪篇开始？</h2><p>学习路线提供推荐顺序，基础说明可以按需补充。</p></div><a class="catalog-button" href="/learn/">选择学习路线 ↗</a></div></div></Layout>

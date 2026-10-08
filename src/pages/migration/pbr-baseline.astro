@@ -1,0 +1,5 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PbrMigration from '../../components/pbr/PbrMigration';
+---
+<Layout title="PBR 历史 WebGL2 基线"><div class="lab-page"><h1>历史基线：仅供迁移对照</h1><p>此处保留迁移前 WebGL2 实现，用来生成相同相机和参数的配对读数；正式材质实验已使用 WebGPU。本页将在整体迁移完成后退出运行入口。</p><PbrMigration backend="legacy" client:load/></div></Layout>

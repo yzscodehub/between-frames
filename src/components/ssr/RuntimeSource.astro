@@ -1,0 +1,6 @@
+---
+import {Code} from 'astro:components';
+import source from '../../shaders/ssr/resolve.glsl?raw';
+function extract(name:string){const text=source.split(`// @snippet ${name}-start`)[1]?.split(`// @snippet ${name}-end`)[0];if(!text)throw new Error('SSR source marker missing: '+name);return text.trim();}
+---
+<section class="ssr-runtime-source"><h2>实现对照 / 运行中的透视步进与跨越细化</h2><p>以下内容直接从 resolve.glsl 提取，检查面板与画面执行同一段代码。它是单层深度教学实现，不是论文完整源码的移植。</p><details><summary>展开实际 Shader 源码</summary><Code code={extract('dda')+'\n\n'+extract('crossing')} lang="glsl" theme="github-light"/></details></section>

@@ -1,0 +1,25 @@
+{
+  "passed": [
+    "article explains evolution and embeds runtime snippets and step experiment",
+    "horizon walk responds to steps, slab gap, and position",
+    "advanced controls start collapsed and main scene is a structured test bench",
+    "guided tasks load exact scene and budget presets",
+    "GTAO shader debug integral and final visibility agree",
+    "SSAO debug surfaces match texel centers and candidates stay within half a texel",
+    "selected sample stays synchronized after recompute",
+    "HBAO teaching output agrees with horizon-minus-tangent accumulation",
+    "comparison shares camera and exposes three algorithms plus baseline",
+    "full reference finishes and fills fourth comparison pane",
+    "paused algorithm changes hide old metrics until a new frame",
+    "paused radius change hides stale reference and geometry changes leave benchmark",
+    "selection follows the same surface after changing height or explicitly invalidates",
+    "six scenes render and the application preset shows room geometry",
+    "version 2 links preserve comparison and version 1 links explicitly reset",
+    "same-document shared scene restores the supplied camera without a refresh",
+    "pause, step, offscreen resume and mobile layout",
+    "read-only WebMCP contract and invalid input",
+    "article without JavaScript retains explanation, formulas and new experiment",
+    "missing WebGL degrades to a static explanation and retry"
+  ],
+  "errors": []
+}

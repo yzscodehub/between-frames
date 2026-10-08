@@ -1,0 +1,14 @@
+{
+  "passed": [
+    "shared GGX axis peak at r=.03, grazing Smith and Schlick",
+    "actual scene pixel D/F/G, diffuse, specular and linear radiance agree with independent CPU",
+    "incident-light scaling changes radiance, not BRDF",
+    "rendered diffuse plus specular equals linear beauty"
+  ],
+  "errors": [],
+  "validPixels": 50,
+  "peakRelativeError": 8.3787527915824e-8,
+  "maskingError": 7.724881867510192e-8,
+  "fresnelError": 9.864950173410492e-8,
+  "pixelRelativeError": 3.6356115801217115e-7
+}

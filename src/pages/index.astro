@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import {topics,articles,labs,learningPaths,getArticle} from '../lib/content/catalog';
+import TopicCard from '../components/navigation/TopicCard.astro';
+import TopicArt from '../components/navigation/TopicArt.astro';
+import ArticleList from '../components/navigation/ArticleList.astro';
+---
+<Layout title="看懂画面，也看懂计算">
+<div class="catalog-shell">
+<section class="catalog-hero">
+<div class="hero-copy"><span class="catalog-kicker">一帧之间 / 交互式实时渲染笔记</span><h1>看懂画面，<br/>也看懂<span>计算。</span></h1><p>从一个像素、一束光、一次采样开始。<br/>在可以操作的实验里，让直觉与数学相遇。</p><div class="hero-actions"><a class="catalog-button dark" href="/topics/">按主题探索 <span aria-hidden="true">↗</span></a><a class="catalog-text-link" href="/learn/first-frame/">第一次来？从这里开始 →</a></div><div class="hero-stats"><span><b>{articles.length}</b> 篇文章</span><span><b>{labs.length}</b> 个实验室</span><span><b>{topics.filter(t=>t.status==='open').length}</b> 个开放主题</span></div></div>
+<div class="hero-illustration"><div class="hero-art-label mono">FIG. 01 — LIGHT & VISIBILITY</div><TopicArt topic="visibility" id="hero"/><div class="hero-art-foot"><span>表面 · 方向 · 可见性</span><span class="mono">原理示意 / 可交互实验见正文</span></div><div class="hero-note">画面里的每一个答案，<br/>都有值得追问的过程。</div></div>
+</section>
+<aside class="catalog-planned"><span class="mono">WEBGPU / P0</span><p>PBR、IBL、透明与阴影已迁移，新增 CSM 与 HDR 实验，风格化展厅原型开放查看；完整计划仍在推进。</p><a href="/migration/">查看实施进度 →</a></aside>
+<section class="catalog-section" id="shadow-series"><div class="catalog-section-heading"><div><span class="catalog-kicker">01 / EXPLORE BY TOPIC</span><h2>从你关心的问题出发</h2></div><a href="/topics/">查看主题地图 ↗</a></div><div class="topic-grid">{topics.filter(t=>t.status==='open').map((topic,index)=><TopicCard topic={topic} featured={index===0}/>)}</div><div class="catalog-planned"><span class="mono">COMING LATER</span><p>后续方向：多光源组织、几何调度、体积与水面。</p><a href="/topics/media/">查看后续方向 →</a></div></section>
+<section class="catalog-section learning-feature" id="ray-series"><div><span class="catalog-kicker">02 / FOLLOW A QUESTION</span><h2>主题可以分开，<br/>理解需要连接。</h2><p>学习路线把不同主题的文章串起来。<br/>已有经验，可以随时跳到你需要的一站。</p><a class="catalog-text-link" href="/learn/">查看全部 {learningPaths.length} 条路线 →</a></div><div class="featured-paths">{learningPaths.filter(p=>['shadows','ray-tracing','reconstruction'].includes(p.id)).map(p=><a href={'/learn/'+p.id+'/'}><span class="mono">{p.number}</span><div><h3>{p.name}</h3><p>{p.steps.length} 站 · {p.description}</p></div><span aria-hidden="true">↗</span></a>)}</div></section>
+<section class="catalog-section" id="material-screen-series"><div class="catalog-section-heading"><div><span class="catalog-kicker">03 / RECENTLY ADDED</span><h2>最近加入书架</h2></div><span class="section-aside">正文 · 实验 · 可核对的实现</span></div><ArticleList items={['csm','hdr','pbr','ssr','taa'].map(getArticle)} showTopic/></section>
+<section class="catalog-start"><div><span class="catalog-kicker">KEEP THE FUNDAMENTALS CLOSE</span><h2>不必一次理解所有概念。</h2><p>需要时，回到坐标、法线、深度与颜色的基本约定。</p></div><a class="catalog-button" href="/foundations/">打开基础说明 ↗</a></section>
+</div>
+</Layout>

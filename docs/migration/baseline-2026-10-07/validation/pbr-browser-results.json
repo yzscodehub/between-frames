@@ -1,0 +1,15 @@
+{
+  "passed": [
+    "actual GPU pixel and independent CPU oracle agree",
+    "all three tasks load and reset their own starting conditions",
+    "dielectric F0 stays neutral and metal removes diffuse",
+    "exposure alters display only, without corrupting linear inspection",
+    "paused parameter edits hide old readback until explicit step",
+    "hemisphere integration completes and cancels without stale results",
+    "share roundtrip preserves camera, material and selected task",
+    "offscreen updates wait and resume when the viewport returns",
+    "component diagnostics, mobile layout and old-state fallback",
+    "no-JavaScript article and failed-WebGL fallback remain usable"
+  ],
+  "errors": []
+}

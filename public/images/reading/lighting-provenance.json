@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-07",
+  "purpose": "实际默认 GPU 阅读预览，不是基准参考",
+  "records": [
+    {
+      "kind": "ibl",
+      "device": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "state": {
+        "version": 1,
+        "kind": "ibl",
+        "task": 0,
+        "roughness": 0.52,
+        "environment": 1,
+        "rotation": 0,
+        "diffuse": true,
+        "exposure": 0,
+        "alpha": 0.45,
+        "crossing": true,
+        "reverse": false,
+        "power": 3
+      },
+      "pending": false,
+      "inspection": null,
+      "referenceRunning": false,
+      "ready": true,
+      "cpuMs": 48.30000000447035,
+      "atlasBuilds": 1
+    },
+    {
+      "kind": "transparency",
+      "device": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "state": {
+        "version": 1,
+        "kind": "transparency",
+        "task": 0,
+        "roughness": 0.52,
+        "environment": 1,
+        "rotation": 0,
+        "diffuse": false,
+        "exposure": 0,
+        "alpha": 0.45,
+        "crossing": true,
+        "reverse": false,
+        "power": 0
+      },
+      "pending": false,
+      "inspection": null,
+      "referenceRunning": false,
+      "ready": true,
+      "cpuMs": 26.30000000447035,
+      "atlasBuilds": 0
+    }
+  ]
+}

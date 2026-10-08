@@ -1,0 +1,126 @@
+import RayArticleLayout from '../../layouts/RayArticleLayout.astro';
+import RayLab from '../../components/ray/RayLab';
+import Formula from '../../components/Formula.astro';
+import {rayLabHref} from '../../lib/ray/catalog';
+
+<RayArticleLayout lesson="rays" chapters={[
+ ['ray-contract','01 一条光线的约定'],['first-hit','02 找到第一次相交'],['lab','03 检查真实查询'],['interval','04 限制查询区间'],['edges','05 边界与反例'],['verification','06 怎样确认答案']
+]}>
+
+光线追踪首先是一个几何问题：从位置 **o** 沿方向 **d** 前进，最先碰到哪个表面？把这个问题答对，才有条件继续讨论阴影、反射和间接光。
+
+在[从 SSAO 到 GTAO](/articles/gtao/)中，我们查询的是相机深度图里的可见表面。本篇把一组完整的三维图元交给求交器；被前景遮住、没有直接出现在画面里的图元仍然在数据中。这里的“完整”只指实验所载入的几何，不意味着已经模拟完整的光传输。
+
+本文按三次检查前进：**先核对一个命中，再收短查询区间，最后从命中表面重新发射。** 每个检查都使用同一份场景快照，比较 GPU 查询与 CPU 暴力参考；共有边和近似平行的情况则帮助我们检查边界。
+
+<span id="ray" aria-hidden="true"></span>
+<h2 id="ray-contract">01 / 一条光线，需要四个量</h2>
+
+<Formula tex={'r(t)=o+t\\,d,\\qquad t\\in[t_{\\min},t_{\\max}]'} />
+
+起点 **o** 决定从哪里出发，方向 **d** 决定朝哪里前进；最小、最大参数限定这次查询关心哪一段。**t 是光线的参数，只有方向长度等于 1 时，t 才同时表示沿光线行进的距离。** 缩放方向却不调整 t 的范围，会改变真正查询的空间区间。这也是 [PBRT 的 Ray 定义](https://pbr-book.org/4ed/Geometry_and_Transformations/Rays)中需要区分的两件事。
+
+<div className="ray-table-wrap">
+<table>
+<thead><tr><th>读数</th><th>本实验的含义</th><th>比较时要保持什么</th></tr></thead>
+<tbody>
+<tr><td>origin / position</td><td>世界空间位置，场景长度单位</td><td>同一场景版本与坐标系</td></tr>
+<tr><td>direction</td><td>世界空间单位方向，无量纲</td><td>CPU 与 GPU 使用同一条光线</td></tr>
+<tr><td>tMin / tMax / t</td><td>光线参数；本实验单位方向下等于场景距离</td><td>相同起点阈值与最大距离</td></tr>
+<tr><td>normal</td><td>世界空间单位法线，无量纲</td><td>几何法线、朝向规则必须一致</td></tr>
+<tr><td>barycentric</td><td>三角形三个顶点的权重，无量纲</td><td>顶点顺序与图元身份一致</td></tr>
+</tbody>
+</table>
+</div>
+
+实验没有把场景长度指定为米。不要把画面上的长度或起点偏移直接解释成真实物体的物理尺寸。相机主射线从相机出发，方向经过所选像素；选中另一个像素，就是在询问另一条光线。GPU 面板会读回实际使用的 origin 与 direction。
+
+<h2 id="first-hit">02 / 三角形与球，返回同一种命中记录</h2>
+
+对于三角形，我们同时求出光线参数 t，以及交点相对于三个顶点的权重。设顶点为 a、b、c，便有：
+
+<Formula tex={'o+td=(1-u-v)a+ub+vc,\\qquad u\\geq0,\\ v\\geq0,\\ u+v\\leq1'} />
+
+检查面板同时显示 GPU 与独立 CPU 的三个重心权重。它们之和应约为 1；某一权重接近零，表示交点靠近相应对边。移动三角形后重新选择同一像素，用当前顶点与权重重建位置。解析球没有三角形重心坐标。
+
+满足重心约束还不够：t 也必须在有效区间内。三角形的几何法线来自两条边的叉积，再归一化；顶点顺序反转，法线方向也会反转。球体则把光线代入球面方程，从有效根中选择符合查询语义的交点。两种图元最终都返回位置、t、法线与稳定的图元 ID，便于使用同一套检查面板。
+
+**最近命中（closest）**必须找出有效区间中最近的交点。**任意命中（any）**只回答区间里是否存在交点，可以在找到有效交点时结束。any 返回的第一个结果依赖遍历顺序，不能当作最近表面的距离。
+
+几何法线描述表面的真实朝向；着色法线供后续光照使用。它们在平面三角形上可以相同，概念上却不能混为一谈。`frontFace` 说明光线从哪一侧接近表面，也不能仅凭“显示的法线朝向相机”反推原始顶点顺序。求交器应把这些约定单独保留下来。[PBRT 的三角形讨论](https://pbr-book.org/4ed/Shapes/Triangle_Meshes)还解释了共有边附近为什么需要特别的数值处理。
+
+<h2 id="lab">03 / 实验一：点击一个像素，检查一个答案</h2>
+
+下面的画面是 GPU 软件光追的结果。先用“三角形与解析球”场景、暴力遍历、“最近命中 closest-hit”查询，点击三角形内部，再点击球体内部。先从远离轮廓的位置开始，暂时不讨论边界。
+
+<RayLab client:visible lesson="rays" embedded />
+
+<section className="ray-task" aria-labelledby="ray-task-one">
+<h3 id="ray-task-one">实验 1 / 图像里的表面，对应哪个交点？</h3>
+<dl>
+<dt>问题</dt><dd>GPU 显示的命中，能否由同一条光线独立核对？</dd>
+<dt>预测</dt><dd>远离轮廓时，两端应命中同一图元；t、位置和法线的差异应处于数值容差内。</dd>
+<dt>操作</dt><dd>保持场景与区间不变，依次选择三角形内部、球体内部和背景像素。每次读完一条查询，再换像素。</dd>
+<dt>证据</dt><dd>记录 GPU 与 CPU 的命中状态、图元 ID、t 和法线；确认背景返回 miss，而不是把 t=0 当作表面。</dd>
+<dt>结论</dt><dd>能对照同一条光线的命中记录，比只看“画得像不像”更容易定位求交问题。</dd>
+<dt>边界</dt><dd>CPU 参考不是无限精度真值；画面差异也可能来自相机射线、数据上传或显示变换。</dd>
+</dl>
+</section>
+
+GPU 面板读的是实际查询输出，CPU 面板读的是同一场景快照的独立遍历结果。浏览器中的 JavaScript 运算通常比 Shader 的浮点运算保留更多精度，因此逐字段比较需要容差。共享同一份错误的几何数据仍然可能让两者一起答错；确定性几何例子还要单独验证。
+
+<h2 id="interval">04 / 实验二：找到物体之前，光线可以先结束</h2>
+
+先在重叠场景里选择一个有命中的像素，记下 closest 返回的距离 t。将 tMax 收短到这个值之前，查询应不再接受那个表面。延长到交点之后，它才重新进入有效区间。起点附近的排除阈值 tMin 则处理区间的另一端。
+
+<section className="ray-task" aria-labelledby="ray-task-two">
+<h3 id="ray-task-two">实验 2 / 这个交点，属于当前查询吗？</h3>
+<dl>
+<dt>问题</dt><dd>同一条几何射线，为什么可以从 hit 变成 miss？</dd>
+<dt>预测</dt><dd>当 tMax 短于最近交点距离时，范围内没有命中；延长区间后恢复。</dd>
+<dt>操作</dt><dd>固定相机起点模式、像素、几何与 tMin，先记录 closest 的 t，再调 tMax 跨过它；恢复足够长的区间后，切换 any。</dd>
+<dt>证据</dt><dd>把 hit/miss 与 tMin、tMax 一起记录。比较 closest 和 any 的存在性结果、返回距离及图元测试数。</dd>
+<dt>结论</dt><dd>求交是一个带范围、带语义的查询；any 的提前结束适合存在性问题，closest 才提供最近表面。</dd>
+<dt>边界</dt><dd>any 不保证与 closest 返回相同 ID 或 t；两者偶尔相同，也不代表两种查询等价。</dd>
+</dl>
+</section>
+
+**反例：一个遮挡物位于灯的后方。** 无限制延长的射线会碰到它，但从表面到灯的有限线段不应被它遮挡。这个例子只说明查询区间的必要性；本篇没有把命中演示称作已经完成的阴影算法。
+
+<h2 id="edges">05 / 实验三：从刚刚碰到的表面重新出发</h2>
+
+二次光线的起点往往就是上一次命中位置。这个位置有浮点误差，求交器可能立刻再次碰到原表面，产生自相交。增大 tMin 会跳过光线开头一小段；沿几何法线偏移 origin 则实际移动了光线。两种操作影响不同，不能用同一个含糊的“bias”解释。
+
+在“射线区间与数值边界”中，把起点模式设为“从主命中表面发射”（surface）。实验先用相机光线找到表面，再沿固定方向发射查询。“表面偏移倍率”控制沿几何法线的起点偏移；“最小距离 tMin”独立控制有效区间。在这个模式下，画面表达的是表面查询结果，不是普通相机直接看见的物体颜色。
+
+<section className="ray-task" aria-labelledby="ray-task-three">
+<h3 id="ray-task-three">实验 3 / 怎样区分自相交与真实的近处表面？</h3>
+<dl>
+<dt>问题</dt><dd>从命中表面发出的光线，为什么还要检查起点与有效区间？</dd>
+<dt>预测</dt><dd>起点附近的数值命中可能随合理偏移消失；过大的 tMin 或偏移也可能排除真实的近处几何。</dd>
+<dt>操作</dt><dd>选择表面像素并切换“从主命中表面发射”。固定 tMin，比较“表面偏移倍率”为 0 与默认值；恢复默认偏移后，再单独调 tMin。</dd>
+<dt>证据</dt><dd>核对实际 origin、direction、t、命中 ID 和 CPU 对照。确认光线究竟移动了起点，还是仅改变了接受交点的范围。</dd>
+<dt>结论</dt><dd>起点偏移与 tMin 是不同的几何操作；“小距离命中消失”本身不能证明删掉的都是错误命中。</dd>
+<dt>边界</dt><dd>某个像素没有自相交不代表算法在所有尺度下可靠；默认偏移是本场景尺度下的教学策略。</dd>
+</dl>
+</section>
+
+再把起点模式切换到“从解析球内部发射”（inside）：查询从第一个球体的中心向外发出。有效根应是离开球体的交点，而不是因为光线在物体内部就直接 miss。这也是需要检查 frontFace 与法线约定的反例。
+
+<div className="ray-counterexample"><strong>共有边反例：图元身份不同，未必是出现裂缝。</strong><p>“三角形与解析球”中的方片由两个三角形组成。光线恰好命中它们的共有边时，两者都可能给出相同交点。本实现为近似等距结果约定稳定 ID 的选择次序；CPU/GPU 的边界接受条件仍可能因舍入而不同。先比较存在性与位置，再检查等距规则；两片都拒绝而漏面则不能接受。</p></div>
+
+把选点移到独立三角形轮廓附近，再小幅平移三角形：跨过真实轮廓会改变 hit/miss，这是正常的几何变化。鼠标点击不保证恰好落在数学意义上的共有边；共有边必须另用确定性光线检查。普通三角形求交通过这些用例，也不能据此宣称具有 watertight 保证。
+
+另一种边界是退化三角形：三个点共线或重合时，叉积无法定义单位法线。射线与平面近乎平行时，除数也可能很小。不能把 NaN、无穷大或达到计算预算后的未完成查询伪装成正常 miss。
+
+<h2 id="verification">06 / 下一步之前，保留这些证据</h2>
+
+本篇的最小验收包括内部命中、明确未命中、背向表面、区间截断、近似平行、退化三角形与共有边。CPU 数学用例负责已知答案，实际 GPU 读回负责检查 Shader、浮点纹理和数据布局。二者验证不同环节，不能互相替代。
+
+改变场景、平移、相机或查询范围后，旧读数不再属于当前问题；应等待本次查询完成。分享链接用于恢复可复现的输入条件，不是保存 GPU 输出或任意运行历史。
+
+现在可以回答“哪一个表面最先被碰到”。下一篇保持这个答案不变，追问[怎样减少必须检查的几何](/articles/ray-bvh/)。完整参数仍在<a href={rayLabHref('rays',{learning:{article:'ray-intersections',chapter:'lab'}})}>光线实验室</a>中。
+
+<p className="ray-source-note">公式是解释用的数学表达；下方运行源码由 RuntimeSource 从实际 query.glsl 自动提取，与实验共用同一份代码。参考：PBRT 第四版的 <a href="https://pbr-book.org/4ed/Geometry_and_Transformations/Rays">Rays</a>、<a href="https://pbr-book.org/4ed/Shapes/Basic_Shape_Interface">Basic Shape Interface</a> 与 <a href="https://pbr-book.org/4ed/Shapes/Triangle_Meshes">Triangle Meshes</a>。本实验是独立教学实现，不是 PBRT 的 GPU 移植。</p>
+
+</RayArticleLayout>

@@ -1,0 +1,9 @@
+---
+import {topicArticles,topicHref,type topics} from '../../lib/content/catalog';
+import TopicArt from './TopicArt.astro';
+interface Props {topic:typeof topics[number];featured?:boolean}
+const {topic,featured=false}=Astro.props,items=topicArticles(topic.id);
+---
+<a class:list={['topic-card',{'featured':featured}]} href={topicHref(topic.id)} style={'--accent:'+topic.color}>
+<div class="topic-card-copy"><div class="catalog-meta"><span class="mono">{topic.number} / {topic.english}</span><span>{items.length} 篇文章</span></div><h3>{topic.name}</h3><p>{topic.question}</p><span class="topic-card-link">进入主题 <span aria-hidden="true">↗</span></span></div><div class="topic-card-art"><TopicArt topic={topic.id}/></div>
+</a>

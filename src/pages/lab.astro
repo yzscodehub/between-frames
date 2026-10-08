@@ -1,0 +1,5 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AOLab from '../components/AOLab';
+---
+<Layout title="AO 实验室"><div class="lab-page"><span class="eyebrow">LAB 01 / AMBIENT OCCLUSION</span><h1>把样本、边界与贡献，放回同一个画面。</h1><p>固定条件比较 SSAO、HBAO 教学版与 GTAO，再生成完整几何参考，验证噪声、积分目标和深度缺失分别带来什么变化。</p><AOLab client:load/><div class="note">推荐顺序：接触与距离 → 样本与噪声 → 薄板反例 → 实际应用。每一步先预测变化，再观察对照；完整参数可在“高级参数与检查模式”中展开。右下参考面板只展示参考状态与结果；“无 AO”用于单独观察形状着色。</div></div></Layout>

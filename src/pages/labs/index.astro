@@ -1,0 +1,5 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import {labs,getArticle,getTopic,articleHref,articleLabHref} from '../../lib/content/catalog';
+---
+<Layout title="实验室总览"><div class="catalog-shell"><header class="catalog-page-head"><span class="catalog-kicker">THE LAB / 实验室</span><h1>先动手，<br/>再回到原理。</h1><p>{labs.length} 个实验入口与正文共用实现。可以自由探索，也可以从关联文章载入对应方法的起点。</p></header><div class="lab-directory">{labs.map((lab,index)=><article class="lab-directory-card"><span class="catalog-kicker">LAB {String(index+1).padStart(2,'0')}</span><h2><a href={lab.href}>{lab.name} ↗</a></h2><p>{lab.description}</p><div class="lab-directory-articles">{lab.articles.map(id=>{const article=getArticle(id);return <div><a href={articleHref(article)}><span style={'color:'+getTopic(article.topic).color}>{getTopic(article.topic).name}</span>{article.shortTitle}</a><a href={articleLabHref(article)} aria-label={'启动'+article.shortTitle+'实验'}>启动 ↗</a></div>})}</div></article>)}</div><div class="catalog-planned"><span class="mono">阅读与实验</span><p>正文保留公式、反例与运行源码。没有 WebGL 时，也可以完整阅读；分享链接保存参数，不保存 GPU 资源。</p><a href="/topics/">回到主题地图 →</a></div></div></Layout>

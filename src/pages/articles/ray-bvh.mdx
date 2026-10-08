@@ -1,0 +1,109 @@
+import RayArticleLayout from '../../layouts/RayArticleLayout.astro';
+import RayLab from '../../components/ray/RayLab';
+import Formula from '../../components/Formula.astro';
+import {rayLabHref} from '../../lib/ray/catalog';
+
+<RayArticleLayout lesson="bvh" chapters={[
+ ['same-answer','01 保持同一个问题'],['bounds','02 包围盒如何排除几何'],['lab','03 少测了哪些图元'],['construction','04 中位数与 SAH'],['budgets','05 规模与边界'],['verification','06 对照与验收']
+]}>
+
+上一篇已经定义了[光线与求交](/articles/ray-intersections/)的输入和输出。最直接的实现把每个图元都检查一遍，再留下最近的有效命中。它容易理解，也适合作为参考；当图元数量增加，大多数测试却可能与最终命中无关。
+
+BVH（Bounding Volume Hierarchy，包围体层级）把图元分组，再给每一组套上包围盒。射线错过一个盒子，就能跳过整组。**目标是减少工作，同时保持查询结果。** 包围盒命中只表示值得继续检查，不等于已经碰到了表面。
+
+<h2 id="same-answer">01 / 先规定什么不能变</h2>
+
+暴力遍历与 BVH 必须接收同一份几何、同一条光线和同一个有效区间。它们也必须共享三角形/球体求交规则，以及 closest 或 any 的查询语义。如果换方法时还换了相机、几何数量或 tMax，就无法把差异归因于加速结构。
+
+closest 查询应得到同一个最近位置，容许浮点误差及共有边上的等距 ID 歧义。any 查询只要求对“是否有交点”作出一致判断；不同遍历顺序可以提前返回不同的有效图元。先用 closest 验证本篇实验，再单独观察 any 的提前结束。
+
+本实验的树由 CPU 构建，节点与图元随后上传为 GPU 可读取的数据。GPU 片元着色器执行包围盒测试、遍历和图元求交。这是 **GPU 软件遍历**，不是硬件光追管线，也没有在 GPU 上构建 BVH。
+
+<h2 id="bounds">02 / 射线穿过盒子，是三个区间同时成立</h2>
+
+轴对齐包围盒（AABB）在 x、y、z 方向各有一个最小值和最大值。把每一对平行平面想成一道厚墙：射线进入与离开它时，对应一个 t 区间。三道厚墙与查询范围有共同部分，射线才可能进入盒子。
+
+<Formula tex={'t_{\\mathrm{enter}}=\\max(t_{\\min},t_{x,\\mathrm{near}},t_{y,\\mathrm{near}},t_{z,\\mathrm{near}}),\\qquad t_{\\mathrm{exit}}=\\min(t_{\\max},t_{x,\\mathrm{far}},t_{y,\\mathrm{far}},t_{z,\\mathrm{far}})'} />
+
+若进入晚于离开，就可以排除整个盒子。某个方向分量为零时，不能不加区分地用普通除法：起点在这道厚墙之外应拒绝，在里面则不额外收窄该轴的区间。擦过边界的光线需要一致且保守的约定。[PBRT 的包围盒求交说明](https://pbr-book.org/4ed/Shapes/Basic_Shape_Interface)给出了这一解释及浮点处理的背景。
+
+对 closest 来说，每找到更近的图元，还可以收短后续测试的上界。另一个子树的盒子如果已经在当前最近交点之后，就不必继续。无论先走哪个孩子，安全剪枝都要以有效区间和已有命中为依据，不能只因为画面里它“看起来远”。
+
+<span id="traversal" aria-hidden="true"></span>
+<h2 id="lab">03 / 实验一：答案相同，工作量不同</h2>
+
+从“均匀散布”开始，保持默认 512 图元预算与 closest 查询。先检查中心，再选几个有命中的像素。切换暴力与 BVH 时，保持场景、相机、数量和查询区间不变。
+
+<RayLab client:visible lesson="bvh" embedded />
+
+<section className="ray-task" aria-labelledby="bvh-task-one">
+<h3 id="bvh-task-one">实验 1 / 被跳过的一组，真的可以不检查吗？</h3>
+<dl>
+<dt>问题</dt><dd>BVH 怎样省下图元测试，同时保留最近命中？</dd>
+<dt>预测</dt><dd>在分散几何中，许多盒子会被排除；图元测试数减少，最近命中保持一致。</dd>
+<dt>操作</dt><dd>固定一个像素，交替查询 brute 与 bvh；再逐步查看本次 GPU 查询记录的节点访问列表。</dd>
+<dt>证据</dt><dd>比较命中状态、t、法线和稳定图元 ID；分别记录节点访问数与图元测试数，再查看暴力/BVH 图像对照。</dd>
+<dt>结论</dt><dd>可验证的收益来自安全地排除一整组几何，包围盒测试只是实现这种排除的额外成本。</dd>
+<dt>边界</dt><dd>一次射线省了测试，不保证整帧更快；节点数和图元数也不是可直接相加的 GPU 毫秒。</dd>
+</dl>
+</section>
+
+访问记录显示的是实际执行的查询顺序。它不是为了讲故事而重新生成的一棵理想树；日志有长度上限时，应明确显示截断。**日志截断**和**遍历未完成**是两个状态：前者可能只少了可视化记录，后者则不能交付有效命中结论。
+
+<h2 id="construction">04 / 实验二：数量均分，不等于空间分得好</h2>
+
+构树需要决定如何把一组图元分成两组。中位数划分（median）按选定轴上的中心位置排序，再把数量分成近似相等的两半，容易得到比较均衡的树。但两组包围盒仍可能很大、很重叠。
+
+表面积启发式（SAH）估计一条光线进入子包围盒的机会，再结合子树中的图元数量比较候选划分。常见的局部成本表达是：
+
+<Formula tex={'C_{\\mathrm{split}}=C_T+\\frac{A_L}{A_P}N_L C_I+\\frac{A_R}{A_P}N_R C_I'} />
+
+A 表示包围盒表面积，N 是组内图元数；CT 与 CI 分别近似描述遍历和图元求交成本。面积比是估计访问概率的启发式，不是当前相机所有射线的精确分布。它也没有自动包含纹理访问、分支分歧等 GPU 成本。[PBRT 的 BVH 章节](https://pbr-book.org/4ed/Primitives_and_Intersection_Acceleration/Bounding_Volume_Hierarchies)详细说明了这种构建思路。
+
+<section className="ray-task" aria-labelledby="bvh-task-two">
+<h3 id="bvh-task-two">实验 2 / 改变分组规则，哪些射线少走了路？</h3>
+<dl>
+<dt>问题</dt><dd>空间里出现密集簇时，median 和 SAH 的工作量会怎样变化？</dd>
+<dt>预测</dt><dd>SAH 可能形成更适合空间分布的分组，使部分射线少测图元；构建成本可能增加，单条射线也未必受益。</dd>
+<dt>操作</dt><dd>切换到“簇状分布”，固定 512 图元与查询像素，只改变“中位数分割 / 12-bin SAH”；再选一个穿过空隙的像素重复。</dd>
+<dt>证据</dt><dd>核对最近命中一致，比较树节点数、深度、CPU 构建时间、当前光线节点访问数和图元测试数。</dd>
+<dt>结论</dt><dd>构建更好的分组需要成本；要看目标射线实际省下什么，不能只用树更矮来评判。</dd>
+<dt>边界</dt><dd>这里比较的是本实验的两种 CPU 构建策略，不代表所有 SAH 实现，更不能推出 SAH 对所有场景必胜。</dd>
+</dl>
+</section>
+
+<h2 id="budgets">05 / 实验三：规模增大，收益会一直增加吗？</h2>
+
+在均匀分散的几何中，增加图元往往让暴力查询的成本明显上升。但将大量图元放在重叠区域，会让很多包围盒同时与射线相交。此时树仍存在，排除能力却可能很弱。
+
+<section className="ray-task" aria-labelledby="bvh-task-three">
+<h3 id="bvh-task-three">实验 3 / 更多图元，一定让 BVH 更值得吗？</h3>
+<dl>
+<dt>问题</dt><dd>BVH 的收益由图元总数单独决定吗？</dd>
+<dt>预测</dt><dd>在相同数量下，重叠场景可能比散布场景需要更多遍历；小规模时，额外盒子测试也可能抵消收益。</dd>
+<dt>操作</dt><dd>按 16、128、512、2048 四档改变“图元预算”；每档分别在“均匀散布”和“重叠包围盒”中，用固定中心射线比较暴力遍历与 BVH。</dd>
+<dt>证据</dt><dd>每档单独核对结果，再记录节点/图元测试数及 CPU 构建时间。几何数量改变后重新生成比较，不沿用上一档读数。</dd>
+<dt>结论</dt><dd>几何分布、查询方向和规模共同影响收益；有效排除的能力比“用了树”本身更重要。</dd>
+<dt>边界</dt><dd>跨数量或跨场景是在比较不同工作负载，不能当作同一图像的精确性能对照；最大支持量也不是性能承诺。</dd>
+</dl>
+</section>
+
+<div className="ray-counterexample"><strong>反例：所有包围盒都穿过同一条光线。</strong><p>射线可能不得不继续进入大部分子树。遍历既支付包围盒测试，也保留了许多图元测试；BVH 并不保证最坏情况下只做对数级工作。即使图像完全正确，工作量也可能接近暴力遍历。</p></div>
+
+预算还包括树深度、遍历栈、节点访问和调试记录长度。它们限制的是不同资源。达到查询预算时，正确的行为是明确报告未完成或溢出，不能把尚未找到交点的部分计算当作 miss，也不能把暂时最好的交点伪装成已确认的最近命中。
+
+本阶段最多支持 2048 图元，默认预算为 512。每次场景或构建方法变化都会产生新的树与场景版本；当前读数应属于当前版本。改变构树方法后的首帧成本包含构建和上传，不应与已经准备好的稳态查询混成一个性能数字。
+
+<h2 id="verification">06 / 把“看起来一样”拆成可检查的条件</h2>
+
+整幅图像中 brute 与 bvh 一致，可以帮助发现漏掉一整片几何的错误，但二者仍可能共用同一个有缺陷的图元求交函数。因此还要保留独立 CPU 参考和已知几何的确定性光线测试。
+
+至少要覆盖空场景、轴平行光线、从盒内出发、擦边、重叠图元、近处命中后的剪枝、共有边及上限场景。CPU 与 GPU 比较的 t 都是同一条单位方向光线上的场景距离，法线是同一世界空间的单位向量。原语重新排列后的数组下标不能代替稳定图元 ID。
+
+**三个不同的量应分开报告：** CPU 构建用时说明准备这棵树的成本；节点与图元测试数说明查询做了哪些工作；“GPU 核心执行”需要有效的 GPU 计时数据。不支持计时时显示“不可用”，不拿浏览器帧率或 CPU 提交时间替代。
+
+现在我们拥有一个能核对答案、能解释工作量的查询底座。阴影和反射也可以调用同一查询接口。你可以继续在<a href={rayLabHref('bvh',{learning:{article:'ray-bvh',chapter:'lab'}})}>BVH 完整实验室</a>中保存参数并复现实验。
+
+<p className="ray-source-note">参考：PBRT 第四版的 <a href="https://pbr-book.org/4ed/Shapes/Basic_Shape_Interface">Basic Shape Interface</a>、<a href="https://pbr-book.org/4ed/Primitives_and_Intersection_Acceleration/Primitive_Interface_and_Geometric_Primitives">Primitive Interface</a> 与 <a href="https://pbr-book.org/4ed/Primitives_and_Intersection_Acceleration/Bounding_Volume_Hierarchies">Bounding Volume Hierarchies</a>。下方运行源码由 RuntimeSource 从实际 query.glsl 自动提取；数学公式用于解释这些操作。</p>
+
+</RayArticleLayout>

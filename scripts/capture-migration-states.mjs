@@ -1,0 +1,10 @@
+import {writeFile} from 'node:fs/promises';
+import {defaultState,encodeState} from '../src/lib/state.ts';
+import {pbrTaskState,encodePbrState} from '../src/lib/pbr/state.ts';
+import {defaultRayState,encodeRayState,rayLessons} from '../src/lib/ray/state.ts';
+import {defaultShadowState,shadowLabHref} from '../src/lib/shadow/state.ts';
+import {defaultSSRState,ssrHref} from '../src/lib/ssr/state.ts';
+import {defaultTAAState,taaLabHref} from '../src/lib/taa/state.ts';
+import {lightingTask,lightingHash} from '../src/lib/lighting/state.ts';
+const fixtures=[{id:'ao',state:defaultState(),href:'/lab/'+encodeState(defaultState())},...Array.from({length:3},(_,task)=>({id:'pbr-'+task,state:pbrTaskState(task),href:'/labs/materials/'+encodePbrState(pbrTaskState(task))})),...Object.keys(rayLessons).map(lesson=>({id:'ray-'+lesson,state:defaultRayState(lesson),hash:encodeRayState(defaultRayState(lesson))})),...['mapping','filtering'].map(lesson=>({id:'shadow-'+lesson,state:defaultShadowState(lesson),href:shadowLabHref(lesson)})),{id:'ssr',state:defaultSSRState(),href:ssrHref(defaultSSRState())},{id:'taa',state:defaultTAAState(),href:taaLabHref(defaultTAAState())},...['ibl','transparency'].flatMap(kind=>Array.from({length:3},(_,task)=>({id:kind+'-'+task,state:lightingTask(kind,task),hash:lightingHash(lightingTask(kind,task))})))];
+await writeFile('docs/migration/baseline-2026-10-07/states.json',JSON.stringify({version:1,fixtures},null,2),{flag:'wx'});console.log(fixtures.length,'legacy share fixtures');

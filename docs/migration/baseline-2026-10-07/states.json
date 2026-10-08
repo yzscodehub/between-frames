@@ -1,0 +1,695 @@
+{
+  "version": 1,
+  "fixtures": [
+    {
+      "id": "ao",
+      "state": {
+        "version": 2,
+        "comparison": "beauty",
+        "scene": "bench",
+        "mode": "explore",
+        "algorithm": "gtao",
+        "view": "beauty",
+        "radius": 1.4,
+        "slices": 4,
+        "steps": 6,
+        "filter": true,
+        "lift": 0,
+        "seed": 17,
+        "camera": {
+          "position": [
+            4.65,
+            4.2,
+            5.6
+          ],
+          "target": [
+            0,
+            0.3,
+            0
+          ]
+        }
+      },
+      "href": "/lab/#state=%7B%22version%22%3A2%2C%22comparison%22%3A%22beauty%22%2C%22scene%22%3A%22bench%22%2C%22mode%22%3A%22explore%22%2C%22algorithm%22%3A%22gtao%22%2C%22view%22%3A%22beauty%22%2C%22radius%22%3A1.4%2C%22slices%22%3A4%2C%22steps%22%3A6%2C%22filter%22%3Atrue%2C%22lift%22%3A0%2C%22seed%22%3A17%2C%22camera%22%3A%7B%22position%22%3A%5B4.65%2C4.2%2C5.6%5D%2C%22target%22%3A%5B0%2C0.3%2C0%5D%7D%7D"
+    },
+    {
+      "id": "pbr-0",
+      "state": {
+        "version": 1,
+        "roughness": 0.32,
+        "metallic": 0,
+        "baseColor": "#c9784f",
+        "intensity": 3,
+        "lightAzimuth": 30,
+        "lightElevation": 45,
+        "exposure": 0,
+        "view": "beauty",
+        "compare": true,
+        "shadows": false,
+        "task": 0,
+        "camera": {
+          "position": [
+            3.6,
+            2.5,
+            6.5
+          ],
+          "target": [
+            0,
+            0.65,
+            0
+          ]
+        }
+      },
+      "href": "/labs/materials/#pbr=%7B%22version%22%3A1%2C%22roughness%22%3A0.32%2C%22metallic%22%3A0%2C%22baseColor%22%3A%22%23c9784f%22%2C%22intensity%22%3A3%2C%22lightAzimuth%22%3A30%2C%22lightElevation%22%3A45%2C%22exposure%22%3A0%2C%22view%22%3A%22beauty%22%2C%22compare%22%3Atrue%2C%22shadows%22%3Afalse%2C%22task%22%3A0%2C%22camera%22%3A%7B%22position%22%3A%5B3.6%2C2.5%2C6.5%5D%2C%22target%22%3A%5B0%2C0.65%2C0%5D%7D%7D"
+    },
+    {
+      "id": "pbr-1",
+      "state": {
+        "version": 1,
+        "roughness": 0.4,
+        "metallic": 0,
+        "baseColor": "#c9784f",
+        "intensity": 3,
+        "lightAzimuth": 30,
+        "lightElevation": 45,
+        "exposure": 0,
+        "view": "f",
+        "compare": false,
+        "shadows": false,
+        "task": 1,
+        "camera": {
+          "position": [
+            2.1,
+            1.5,
+            3.7
+          ],
+          "target": [
+            0,
+            0.7,
+            0
+          ]
+        }
+      },
+      "href": "/labs/materials/#pbr=%7B%22version%22%3A1%2C%22roughness%22%3A0.4%2C%22metallic%22%3A0%2C%22baseColor%22%3A%22%23c9784f%22%2C%22intensity%22%3A3%2C%22lightAzimuth%22%3A30%2C%22lightElevation%22%3A45%2C%22exposure%22%3A0%2C%22view%22%3A%22f%22%2C%22compare%22%3Afalse%2C%22shadows%22%3Afalse%2C%22task%22%3A1%2C%22camera%22%3A%7B%22position%22%3A%5B2.1%2C1.5%2C3.7%5D%2C%22target%22%3A%5B0%2C0.7%2C0%5D%7D%7D"
+    },
+    {
+      "id": "pbr-2",
+      "state": {
+        "version": 1,
+        "roughness": 0.55,
+        "metallic": 0.65,
+        "baseColor": "#c9784f",
+        "intensity": 3,
+        "lightAzimuth": 30,
+        "lightElevation": 45,
+        "exposure": 0,
+        "view": "specular",
+        "compare": false,
+        "shadows": false,
+        "task": 2,
+        "camera": {
+          "position": [
+            2.1,
+            1.5,
+            3.7
+          ],
+          "target": [
+            0,
+            0.7,
+            0
+          ]
+        }
+      },
+      "href": "/labs/materials/#pbr=%7B%22version%22%3A1%2C%22roughness%22%3A0.55%2C%22metallic%22%3A0.65%2C%22baseColor%22%3A%22%23c9784f%22%2C%22intensity%22%3A3%2C%22lightAzimuth%22%3A30%2C%22lightElevation%22%3A45%2C%22exposure%22%3A0%2C%22view%22%3A%22specular%22%2C%22compare%22%3Afalse%2C%22shadows%22%3Afalse%2C%22task%22%3A2%2C%22camera%22%3A%7B%22position%22%3A%5B2.1%2C1.5%2C3.7%5D%2C%22target%22%3A%5B0%2C0.7%2C0%5D%7D%7D"
+    },
+    {
+      "id": "ray-rays",
+      "state": {
+        "version": 1,
+        "lesson": "rays",
+        "preset": "triangle",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 0,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 256,
+        "batch": 1,
+        "estimator": "bsdf",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "standard",
+        "camera": {
+          "position": [
+            6,
+            4.5,
+            8
+          ],
+          "target": [
+            0,
+            0.6,
+            0
+          ]
+        }
+      },
+      "hash": "#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22rays%22%2C%22preset%22%3A%22triangle%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A0%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A256%2C%22batch%22%3A1%2C%22estimator%22%3A%22bsdf%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22standard%22%2C%22camera%22%3A%7B%22position%22%3A%5B6%2C4.5%2C8%5D%2C%22target%22%3A%5B0%2C0.6%2C0%5D%7D%7D"
+    },
+    {
+      "id": "ray-bvh",
+      "state": {
+        "version": 1,
+        "lesson": "bvh",
+        "preset": "scatter",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 0,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 256,
+        "batch": 1,
+        "estimator": "bsdf",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "standard",
+        "camera": {
+          "position": [
+            6,
+            4.5,
+            8
+          ],
+          "target": [
+            0,
+            0.6,
+            0
+          ]
+        }
+      },
+      "hash": "#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22bvh%22%2C%22preset%22%3A%22scatter%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A0%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A256%2C%22batch%22%3A1%2C%22estimator%22%3A%22bsdf%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22standard%22%2C%22camera%22%3A%7B%22position%22%3A%5B6%2C4.5%2C8%5D%2C%22target%22%3A%5B0%2C0.6%2C0%5D%7D%7D"
+    },
+    {
+      "id": "ray-shadows",
+      "state": {
+        "version": 1,
+        "lesson": "shadows",
+        "preset": "room",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 0,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 256,
+        "batch": 1,
+        "estimator": "bsdf",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "standard",
+        "camera": {
+          "position": [
+            5,
+            4.8,
+            6.4
+          ],
+          "target": [
+            0,
+            0.5,
+            -0.4
+          ]
+        }
+      },
+      "hash": "#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22shadows%22%2C%22preset%22%3A%22room%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A0%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A256%2C%22batch%22%3A1%2C%22estimator%22%3A%22bsdf%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22standard%22%2C%22camera%22%3A%7B%22position%22%3A%5B5%2C4.8%2C6.4%5D%2C%22target%22%3A%5B0%2C0.5%2C-0.4%5D%7D%7D"
+    },
+    {
+      "id": "ray-reflections",
+      "state": {
+        "version": 1,
+        "lesson": "reflections",
+        "preset": "room",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 1,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 256,
+        "batch": 1,
+        "estimator": "bsdf",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "standard",
+        "camera": {
+          "position": [
+            0,
+            2.3,
+            8.8
+          ],
+          "target": [
+            0,
+            2.1,
+            0
+          ]
+        }
+      },
+      "hash": "#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22reflections%22%2C%22preset%22%3A%22room%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A1%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A256%2C%22batch%22%3A1%2C%22estimator%22%3A%22bsdf%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22standard%22%2C%22camera%22%3A%7B%22position%22%3A%5B0%2C2.3%2C8.8%5D%2C%22target%22%3A%5B0%2C2.1%2C0%5D%7D%7D"
+    },
+    {
+      "id": "ray-path",
+      "state": {
+        "version": 1,
+        "lesson": "path",
+        "preset": "room",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 0,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 256,
+        "batch": 1,
+        "estimator": "bsdf",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "standard",
+        "camera": {
+          "position": [
+            0,
+            2.3,
+            8.8
+          ],
+          "target": [
+            0,
+            2.1,
+            0
+          ]
+        }
+      },
+      "hash": "#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22path%22%2C%22preset%22%3A%22room%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A0%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A256%2C%22batch%22%3A1%2C%22estimator%22%3A%22bsdf%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22standard%22%2C%22camera%22%3A%7B%22position%22%3A%5B0%2C2.3%2C8.8%5D%2C%22target%22%3A%5B0%2C2.1%2C0%5D%7D%7D"
+    },
+    {
+      "id": "ray-mis",
+      "state": {
+        "version": 1,
+        "lesson": "mis",
+        "preset": "room",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 0,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 256,
+        "batch": 1,
+        "estimator": "mis",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "standard",
+        "camera": {
+          "position": [
+            0,
+            2.3,
+            8.8
+          ],
+          "target": [
+            0,
+            2.1,
+            0
+          ]
+        }
+      },
+      "hash": "#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22mis%22%2C%22preset%22%3A%22room%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A0%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A256%2C%22batch%22%3A1%2C%22estimator%22%3A%22mis%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22standard%22%2C%22camera%22%3A%7B%22position%22%3A%5B0%2C2.3%2C8.8%5D%2C%22target%22%3A%5B0%2C2.1%2C0%5D%7D%7D"
+    },
+    {
+      "id": "ray-denoise",
+      "state": {
+        "version": 1,
+        "lesson": "denoise",
+        "preset": "room",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 0,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 256,
+        "batch": 1,
+        "estimator": "mis",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "standard",
+        "camera": {
+          "position": [
+            0,
+            2.3,
+            8.8
+          ],
+          "target": [
+            0,
+            2.1,
+            0
+          ]
+        }
+      },
+      "hash": "#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22denoise%22%2C%22preset%22%3A%22room%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A0%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A256%2C%22batch%22%3A1%2C%22estimator%22%3A%22mis%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22standard%22%2C%22camera%22%3A%7B%22position%22%3A%5B0%2C2.3%2C8.8%5D%2C%22target%22%3A%5B0%2C2.1%2C0%5D%7D%7D"
+    },
+    {
+      "id": "shadow-mapping",
+      "state": {
+        "version": 1,
+        "lesson": "mapping",
+        "preset": "contact",
+        "algorithm": "hard",
+        "resolution": 512,
+        "fov": 75,
+        "bias": 0.002,
+        "planeCorrection": true,
+        "filterRadius": 2,
+        "lightSize": 0.5,
+        "height": 0.8,
+        "seed": 17,
+        "view": "lit",
+        "compare": false,
+        "camera": {
+          "position": [
+            7,
+            5.5,
+            8
+          ],
+          "target": [
+            0,
+            0.6,
+            0
+          ]
+        }
+      },
+      "href": "/labs/shadows/#shadow=%7B%22version%22%3A1%2C%22lesson%22%3A%22mapping%22%2C%22preset%22%3A%22contact%22%2C%22algorithm%22%3A%22hard%22%2C%22resolution%22%3A512%2C%22fov%22%3A75%2C%22bias%22%3A0.002%2C%22planeCorrection%22%3Atrue%2C%22filterRadius%22%3A2%2C%22lightSize%22%3A0.5%2C%22height%22%3A0.8%2C%22seed%22%3A17%2C%22view%22%3A%22lit%22%2C%22compare%22%3Afalse%2C%22camera%22%3A%7B%22position%22%3A%5B7%2C5.5%2C8%5D%2C%22target%22%3A%5B0%2C0.6%2C0%5D%7D%7D"
+    },
+    {
+      "id": "shadow-filtering",
+      "state": {
+        "version": 1,
+        "lesson": "filtering",
+        "preset": "contact",
+        "algorithm": "pcss",
+        "resolution": 512,
+        "fov": 75,
+        "bias": 0.002,
+        "planeCorrection": true,
+        "filterRadius": 2,
+        "lightSize": 0.5,
+        "height": 0.8,
+        "seed": 17,
+        "view": "lit",
+        "compare": false,
+        "camera": {
+          "position": [
+            7,
+            5.5,
+            8
+          ],
+          "target": [
+            0,
+            0.6,
+            0
+          ]
+        }
+      },
+      "href": "/labs/shadows/#shadow=%7B%22version%22%3A1%2C%22lesson%22%3A%22filtering%22%2C%22preset%22%3A%22contact%22%2C%22algorithm%22%3A%22pcss%22%2C%22resolution%22%3A512%2C%22fov%22%3A75%2C%22bias%22%3A0.002%2C%22planeCorrection%22%3Atrue%2C%22filterRadius%22%3A2%2C%22lightSize%22%3A0.5%2C%22height%22%3A0.8%2C%22seed%22%3A17%2C%22view%22%3A%22lit%22%2C%22compare%22%3Afalse%2C%22camera%22%3A%7B%22position%22%3A%5B7%2C5.5%2C8%5D%2C%22target%22%3A%5B0%2C0.6%2C0%5D%7D%7D"
+    },
+    {
+      "id": "ssr",
+      "state": {
+        "version": 1,
+        "preset": "gallery",
+        "method": "screen",
+        "steps": 192,
+        "stride": 1,
+        "viewStep": 0.25,
+        "thickness": 0.08,
+        "range": 24,
+        "offset": 0,
+        "epsilon": 0.001,
+        "shading": "flat",
+        "view": "reflection",
+        "compare": true,
+        "camera": {
+          "position": [
+            0,
+            3.2,
+            7.8
+          ],
+          "target": [
+            0,
+            0.5,
+            -0.5
+          ]
+        }
+      },
+      "href": "/labs/ssr/#ssr=%7B%22version%22%3A1%2C%22preset%22%3A%22gallery%22%2C%22method%22%3A%22screen%22%2C%22steps%22%3A192%2C%22stride%22%3A1%2C%22viewStep%22%3A0.25%2C%22thickness%22%3A0.08%2C%22range%22%3A24%2C%22offset%22%3A0%2C%22epsilon%22%3A0.001%2C%22shading%22%3A%22flat%22%2C%22view%22%3A%22reflection%22%2C%22compare%22%3Atrue%2C%22camera%22%3A%7B%22position%22%3A%5B0%2C3.2%2C7.8%5D%2C%22target%22%3A%5B0%2C0.5%2C-0.5%5D%7D%7D"
+    },
+    {
+      "id": "taa",
+      "state": {
+        "version": 1,
+        "frame": 0,
+        "scene": "studio",
+        "motion": "static",
+        "jitter": true,
+        "validation": true,
+        "clipping": true,
+        "weight": 0.9,
+        "quality": "standard",
+        "view": "final",
+        "compare": false,
+        "exposure": 0,
+        "seed": 17,
+        "camera": {
+          "position": [
+            5.4,
+            3.7,
+            7.8
+          ],
+          "target": [
+            0,
+            1,
+            0
+          ]
+        }
+      },
+      "href": "/labs/taa/#taa=%7B%22version%22%3A1%2C%22frame%22%3A0%2C%22scene%22%3A%22studio%22%2C%22motion%22%3A%22static%22%2C%22jitter%22%3Atrue%2C%22validation%22%3Atrue%2C%22clipping%22%3Atrue%2C%22weight%22%3A0.9%2C%22quality%22%3A%22standard%22%2C%22view%22%3A%22final%22%2C%22compare%22%3Afalse%2C%22exposure%22%3A0%2C%22seed%22%3A17%2C%22camera%22%3A%7B%22position%22%3A%5B5.4%2C3.7%2C7.8%5D%2C%22target%22%3A%5B0%2C1%2C0%5D%7D%7D"
+    },
+    {
+      "id": "ibl-0",
+      "state": {
+        "version": 1,
+        "kind": "ibl",
+        "task": 0,
+        "roughness": 0.52,
+        "environment": 1,
+        "rotation": 0,
+        "diffuse": true,
+        "exposure": 0,
+        "alpha": 0.45,
+        "crossing": true,
+        "reverse": false,
+        "power": 3
+      },
+      "hash": "#ibl=%7B%22version%22%3A1%2C%22kind%22%3A%22ibl%22%2C%22task%22%3A0%2C%22roughness%22%3A0.52%2C%22environment%22%3A1%2C%22rotation%22%3A0%2C%22diffuse%22%3Atrue%2C%22exposure%22%3A0%2C%22alpha%22%3A0.45%2C%22crossing%22%3Atrue%2C%22reverse%22%3Afalse%2C%22power%22%3A3%7D"
+    },
+    {
+      "id": "ibl-1",
+      "state": {
+        "version": 1,
+        "kind": "ibl",
+        "task": 1,
+        "roughness": 0.52,
+        "environment": 1,
+        "rotation": 0,
+        "diffuse": true,
+        "exposure": 0,
+        "alpha": 0.45,
+        "crossing": true,
+        "reverse": false,
+        "power": 3
+      },
+      "hash": "#ibl=%7B%22version%22%3A1%2C%22kind%22%3A%22ibl%22%2C%22task%22%3A1%2C%22roughness%22%3A0.52%2C%22environment%22%3A1%2C%22rotation%22%3A0%2C%22diffuse%22%3Atrue%2C%22exposure%22%3A0%2C%22alpha%22%3A0.45%2C%22crossing%22%3Atrue%2C%22reverse%22%3Afalse%2C%22power%22%3A3%7D"
+    },
+    {
+      "id": "ibl-2",
+      "state": {
+        "version": 1,
+        "kind": "ibl",
+        "task": 2,
+        "roughness": 0.36,
+        "environment": 2,
+        "rotation": 0,
+        "diffuse": true,
+        "exposure": 0,
+        "alpha": 0.45,
+        "crossing": true,
+        "reverse": false,
+        "power": 3
+      },
+      "hash": "#ibl=%7B%22version%22%3A1%2C%22kind%22%3A%22ibl%22%2C%22task%22%3A2%2C%22roughness%22%3A0.36%2C%22environment%22%3A2%2C%22rotation%22%3A0%2C%22diffuse%22%3Atrue%2C%22exposure%22%3A0%2C%22alpha%22%3A0.45%2C%22crossing%22%3Atrue%2C%22reverse%22%3Afalse%2C%22power%22%3A3%7D"
+    },
+    {
+      "id": "transparency-0",
+      "state": {
+        "version": 1,
+        "kind": "transparency",
+        "task": 0,
+        "roughness": 0.52,
+        "environment": 1,
+        "rotation": 0,
+        "diffuse": false,
+        "exposure": 0,
+        "alpha": 0.45,
+        "crossing": true,
+        "reverse": false,
+        "power": 0
+      },
+      "hash": "#transparency=%7B%22version%22%3A1%2C%22kind%22%3A%22transparency%22%2C%22task%22%3A0%2C%22roughness%22%3A0.52%2C%22environment%22%3A1%2C%22rotation%22%3A0%2C%22diffuse%22%3Afalse%2C%22exposure%22%3A0%2C%22alpha%22%3A0.45%2C%22crossing%22%3Atrue%2C%22reverse%22%3Afalse%2C%22power%22%3A0%7D"
+    },
+    {
+      "id": "transparency-1",
+      "state": {
+        "version": 1,
+        "kind": "transparency",
+        "task": 1,
+        "roughness": 0.52,
+        "environment": 1,
+        "rotation": 0,
+        "diffuse": false,
+        "exposure": 0,
+        "alpha": 0.45,
+        "crossing": true,
+        "reverse": false,
+        "power": 3
+      },
+      "hash": "#transparency=%7B%22version%22%3A1%2C%22kind%22%3A%22transparency%22%2C%22task%22%3A1%2C%22roughness%22%3A0.52%2C%22environment%22%3A1%2C%22rotation%22%3A0%2C%22diffuse%22%3Afalse%2C%22exposure%22%3A0%2C%22alpha%22%3A0.45%2C%22crossing%22%3Atrue%2C%22reverse%22%3Afalse%2C%22power%22%3A3%7D"
+    },
+    {
+      "id": "transparency-2",
+      "state": {
+        "version": 1,
+        "kind": "transparency",
+        "task": 2,
+        "roughness": 0.52,
+        "environment": 1,
+        "rotation": 0,
+        "diffuse": false,
+        "exposure": 0,
+        "alpha": 0.95,
+        "crossing": true,
+        "reverse": false,
+        "power": 3
+      },
+      "hash": "#transparency=%7B%22version%22%3A1%2C%22kind%22%3A%22transparency%22%2C%22task%22%3A2%2C%22roughness%22%3A0.52%2C%22environment%22%3A1%2C%22rotation%22%3A0%2C%22diffuse%22%3Afalse%2C%22exposure%22%3A0%2C%22alpha%22%3A0.95%2C%22crossing%22%3Atrue%2C%22reverse%22%3Afalse%2C%22power%22%3A3%7D"
+    }
+  ]
+}

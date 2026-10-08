@@ -1,0 +1,11 @@
+---
+import ReaderLayout from './ReaderLayout.astro';
+import RuntimeSource from '../components/ray/RuntimeSource.astro';
+import {getRayArticle,rayLabHref,type RayLesson} from '../lib/ray/catalog';
+interface Props {lesson:RayLesson;chapters:[string,string][]}
+const {lesson,chapters}=Astro.props,article=getRayArticle(lesson);
+---
+<ReaderLayout articleId={article.slug} chapters={chapters} labHref={rayLabHref(lesson)}>
+<div class="ray-runtime-note"><strong>这里的光线在 GPU 上用 Shader 求交。</strong><span>几何与 BVH 由 CPU 准备；WebGL2 执行软件查询。它没有调用硬件光追 API，交互速度不能代表硬件光追性能。</span></div>
+<slot/><RuntimeSource lesson={lesson}/>
+</ReaderLayout>

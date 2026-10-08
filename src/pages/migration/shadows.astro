@@ -1,0 +1,6 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ShadowMigration from '../../components/shadow/ShadowMigration';
+---
+<Layout title="阴影 WebGPU 迁移核对"><div class="lab-page"><h1>同一张光图，核对新的执行后端。</h1><p>迁移验证页；通过独立几何、采样与状态测试之后，再切换正式入口。</p><ShadowMigration client:load/></div></Layout>
+<style>.lab-page :global(canvas){width:100%;height:100%;display:block}</style>

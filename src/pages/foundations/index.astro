@@ -1,0 +1,5 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import {foundations,articles,articleHref} from '../../lib/content/catalog';
+---
+<Layout title="基础说明"><div class="catalog-shell"><header class="catalog-page-head"><span class="catalog-kicker">FOUNDATIONS / 基础说明</span><h1>需要时，<br/>回到最基本的约定。</h1><p>这些短篇由不同主题共用。已经熟悉的部分可以跳过，遇到坐标或单位问题时再回来核对。</p></header><div class="foundation-directory">{foundations.map(f=><article><span class="catalog-kicker">FOUNDATION {f.number}</span><h2><a href={f.href}>{f.title} ↗</a></h2><p>{f.description}</p><div class="catalog-tags">{articles.filter(a=>a.prerequisiteReading.includes(f.id)).map(a=><a href={articleHref(a)}>{a.shortTitle}</a>)}</div></article>)}</div><div class="catalog-start"><div><h2>把基础用在一帧画面里</h2><p>从基础说明出发，逐步连接可见性、材质与重建。</p></div><a class="catalog-button" href="/learn/first-frame/">开始入门路线 ↗</a></div></div></Layout>

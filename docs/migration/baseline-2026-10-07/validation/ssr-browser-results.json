@@ -1,0 +1,115 @@
+{
+  "passed": [
+    "task presets are explicit and reset returns the exact loaded task state",
+    "all three raster scenes expose real screen steps and independent full-geometry hits",
+    "view-space and screen-space quality settings change the actual samples, not the reference",
+    "a hidden layer remains missing despite a full step budget",
+    "budget exhaustion is distinct from a depth hit and selected logs are real data",
+    "shared local shading still agrees between complete GPU geometry and CPU",
+    "pause hides stale inspection and step computes edited conditions",
+    "camera drag and versioned share restore the complete experiment",
+    "rapid scene changes and offscreen edits resume without stale GPU state",
+    "mobile controls and actual-step diagrams do not overflow",
+    "the full article, six-element tasks, formulas and extracted source survive without JavaScript",
+    "missing WebGL shows a labeled static explanation and retry"
+  ],
+  "evidence": [
+    {
+      "preset": "gallery",
+      "uv": [
+        0.3578125,
+        0.2875
+      ],
+      "status": 1,
+      "steps": 48,
+      "reference": {
+        "status": 1,
+        "position": [
+          -1.6154980659484863,
+          0.8883686661720276,
+          0.11534464359283447
+        ],
+        "objectId": 1,
+        "t": 1.9219236373901367,
+        "color": [
+          0.4858216345310211,
+          0.19913777709007263,
+          0.10501392185688019
+        ]
+      },
+      "positionError": 3.287383598255608e-7,
+      "colorError": 6.395975915562957e-9
+    },
+    {
+      "preset": "thin",
+      "uv": [
+        0.3234375,
+        0.3225
+      ],
+      "status": 1,
+      "steps": 84,
+      "reference": {
+        "status": 1,
+        "position": [
+          -2.681537628173828,
+          1.9487864971160889,
+          -2.575000286102295
+        ],
+        "objectId": 7,
+        "t": 4.498207092285156,
+        "color": [
+          0.11078433692455292,
+          0.21194525063037872,
+          0.3243768811225891
+        ]
+      },
+      "positionError": 3.255867129366718e-7,
+      "colorError": 8.857012262497577e-9
+    },
+    {
+      "preset": "hidden",
+      "uv": [
+        0.4890625,
+        0.3725
+      ],
+      "status": 2,
+      "steps": 126,
+      "reference": {
+        "status": 1,
+        "position": [
+          -0.14130806922912598,
+          0.795928418636322,
+          -1.1499998569488525
+        ],
+        "objectId": 1,
+        "t": 1.9504725933074951,
+        "color": [
+          0.4809170067310333,
+          0.16913487017154694,
+          0.07509414106607437
+        ]
+      },
+      "positionError": 1.6009745776300182e-7,
+      "colorError": 5.0452998168193375e-8
+    },
+    {
+      "sampling": {
+        "screenSteps": 48,
+        "viewSteps": 2,
+        "thinStatus": 1
+      }
+    },
+    {
+      "hidden": {
+        "uv": [
+          0.4890625,
+          0.3725
+        ],
+        "status": 2,
+        "ssrObject": -1,
+        "referenceObject": 1
+      }
+    }
+  ],
+  "errors": []
+}

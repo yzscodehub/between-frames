@@ -1,0 +1,8 @@
+{
+  "passed": [
+    "reflection color model switches invalidate the image and keep RT and mirror comparison available"
+  ],
+  "errors": [],
+  "records": [],
+  "environment": "System Chrome with SwiftShader; software execution, no hardware-performance claim"
+}

@@ -1,0 +1,13 @@
+{
+  "passed": [
+    "GPU queries agree with independent CPU oracle at selected pixels",
+    "median, SAH and brute preserve closest result",
+    "any-hit only checks visibility identity",
+    "node traversal has actual GPU events",
+    "share roundtrip restores camera and construction settings",
+    "pause edits hide old inspection until step",
+    "comparison and mobile layout are usable",
+    "articles remain readable without JavaScript"
+  ],
+  "errors": []
+}

@@ -1,0 +1,8 @@
+---
+import ReaderLayout from './ReaderLayout.astro';
+import {lessonState} from '../lib/lessons';
+import {encodeState} from '../lib/state';
+const {chapters=[['slice','切片与积分']]}=Astro.props;
+const labHref='/lab/'+encodeState({...lessonState('room'),view:'compare',learning:{chapter:'limits',lesson:'room'}});
+---
+<ReaderLayout articleId="gtao" chapters={chapters} labHref={labHref}><slot/></ReaderLayout>

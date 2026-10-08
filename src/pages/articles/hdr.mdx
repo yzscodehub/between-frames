@@ -1,0 +1,72 @@
+import ReaderLayout from '../../layouts/ReaderLayout.astro';
+import HdrLab from '../../components/lighting/HdrLab';
+import Formula from '../../components/Formula.astro';
+import source from '../../shaders/gpu/hdr.wgsl?raw';
+
+<ReaderLayout articleId="hdr" chapters={[
+ ['signal','01 保存哪一种数值'],['lab','02 曝光与原始光照'],['bloom','03 提取与扩散'],['order','04 合成与显示的顺序'],['validation','05 单点与滤波验证'],['limits','06 边界与诊断'],['source','07 运行源码']
+]}>
+
+一根明亮灯带既可能在 HDR 缓冲中远大于 1，也可能在最终画面上已经接近白色。只看截图，很难判断光照发生了什么。本篇保留线性中间缓冲，并把曝光、Bloom 和显示映射拆开观察。
+
+先阅读 [线性颜色、HDR 与曝光](/foundations/color/)。本篇在实际 WebGPU 展厅上执行后处理，不把 HTML 色块计算当作 GPU 输出；也不把屏幕上的光晕当成照亮墙面的间接光。
+
+<h2 id="signal">01 / 从场景光照到屏幕颜色</h2>
+
+展厅先写入 RGBA16F 线性 HDR 图像，随后执行四个计算阶段：半分辨率亮区提取、水平滤波、垂直滤波、全分辨率合成。最后才进行曝光、Reinhard 映射与 sRGB 编码。
+
+<Formula tex={'L_{combined}=L_{scene}+kB,\\qquad x=2^{EV}L_{combined},\\qquad T(x)=\\frac{x}{1+x}'} />
+
+k 是人为选择的 Bloom 强度，B 是已经提取和扩散的亮区信号。这个加法是后处理模型，不是完整镜头散射模型，也不保证物理能量守恒。本篇固定使用手动曝光，不实现自动曝光或亮度适应。
+
+<h2 id="lab">02 / 实验一：曝光改变哪个阶段？</h2>
+
+保持场景、相机和灯光不变，先检查一个表面点，再改变曝光。GPU 单点检查分别读取原始 HDR、滤波后的 Bloom 和合成结果；这些值与最终屏幕颜色不是同一表示。
+
+<HdrLab client:visible embedded />
+
+<section className="ray-task"><h3>实验 1 / 原始光照是否被改写？</h3><dl><dt>问题</dt><dd>提高一档曝光，会不会让原始光照缓冲也加倍？</dd><dt>预测</dt><dd>原始线性输入保持不变，显示前的乘法发生在后处理阶段。</dd><dt>操作</dt><dd>任务一检查同一点，比较 EV=0 与 EV=1；不要移动相机。</dd><dt>证据</dt><dd>原始 RGB 应保持相同；正确顺序下，曝光也不改变线性合成 RGB。</dd><dt>结论</dt><dd>显示变化不能自动解释为材质或光源变化。</dd><dt>边界</dt><dd>相机变化会改变选中表面，不能再把原来的屏幕坐标当作同一个世界点。</dd></dl></section>
+
+<h2 id="bloom">03 / 实验二：只扩散提取出来的信号</h2>
+
+先平均相邻 2×2 线性像素，再计算近似亮度 Y=0.2126R+0.7152G+0.0722B。超过阈值 τ 的部分按比例保留：
+
+<Formula tex={'C_{bright}=C\\,\\frac{\\max(0,Y-\\tau)}{\\max(Y,\\epsilon)}'} />
+
+随后用 `[1,4,6,4,1]/16` 分别做水平与垂直滤波。边界使用夹取，最终按对应半分辨率纹素取回 Bloom。这里有意使用小型可核对滤波器，不宣称完整的多尺度生产 Bloom。
+
+<section className="ray-task"><h3>实验 2 / 更低阈值为什么会让画面发灰？</h3><dl><dt>问题</dt><dd>降低阈值，是扩大扩散范围，还是让更多信号参与？</dd><dt>预测</dt><dd>更多暗部与中间调会进入亮区提取，可能形成大范围泛光。</dd><dt>操作</dt><dd>任务二依次看原始、提取、模糊和合成视图；固定曝光，比较阈值 0、1、3。</dd><dt>证据</dt><dd>提取视图先改变，滤波再传播这些变化；强度 k 只改变合成贡献。</dd><dt>结论</dt><dd>阈值、扩散核和合成强度是三个不同控制。</dd><dt>边界</dt><dd>半分辨率会丢失细亮源形态；边界夹取也不保证有限图像上的总量严格保持。</dd></dl></section>
+
+<h2 id="order">04 / 实验三：非线性映射不能随意移动</h2>
+
+正确分支先在线性空间相加，再执行 T。反例分支先分别映射，再相加并夹到显示范围：
+
+<Formula tex={'C_{correct}=T(2^{EV}(L+kB)),\\qquad C_{wrong}=\\operatorname{clamp}(T(2^{EV}L)+kT(2^{EV}B),0,1)'} />
+
+两者通常不相等。反例输出已经经过映射，检查器会明确标为“已映射的反例输出”；不能将它和线性辐射度直接作差后称为光照误差。
+
+<section className="ray-task"><h3>实验 3 / 先映射，会丢掉哪些关系？</h3><dl><dt>问题</dt><dd>为什么两次看似合理的显示映射组合后会改变高光？</dd><dt>预测</dt><dd>非线性压缩改变加法关系，额外夹取还会进一步丢失信息。</dd><dt>操作</dt><dd>任务三固定参数，切换错误顺序；比较灯带和亮球周围，选点查看输出信号类型。</dd><dt>证据</dt><dd>CPU 分别按两条明确公式计算，与实际 GPU 合成读数核对。</dd><dt>结论</dt><dd>一条后处理链必须先说明每个缓冲的数值含义。</dd><dt>边界</dt><dd>Reinhard 是本篇固定演示映射，不代表完整影视色彩管理流程。</dd></dl></section>
+
+<h2 id="validation">05 / 验证中间量，而不只比较截图</h2>
+
+单点检查只异步读取三个半精度像素，再由独立 CPU 公式计算合成期望。误差允许包含 RGBA16F 的舍入。另以合成输入测试亮区与滤波算子，区分算法错误和最终场景的艺术选择。
+
+曝光和阈值操作复用已有场景 HDR，不重新改变材质或灯光；相机移动才重新生成场景图像。所有读回带有修订号，过期结果不会覆盖新状态。GPU 主着色与 Bloom 时间分开，二者都不等于完整帧时间。
+
+<h2 id="limits">06 / 先定位信号层</h2>
+
+- 整幅泛白：先查看提取亮区是否包含了过多中间调。
+- 细亮源不稳定：检查内部与提取分辨率，再检查过滤，而不是盲目提高强度。
+- 改曝光后“误差消失”：核对线性缓冲，避免映射压缩掩盖偏差。
+- 墙面没有被光晕照亮：Bloom 是屏幕扩散，不是间接光输运。
+
+本实验使用展厅的现有单图阴影和显式艺术补光。CSM 与 HDR 的独立算子先分别验证，完整组合管线、庭院和法线贴图仍属于 P1 的后续整合工作。
+
+<h2 id="source">07 / 实际 WGSL 阶段</h2>
+
+<details><summary>亮区提取</summary><pre><code>{source.split('// @snippet hdr-extract-start')[1].split('// @snippet hdr-extract-end')[0]}</code></pre></details>
+<details><summary>正确顺序与反例分支</summary><pre><code>{source.split('// @snippet hdr-combine-start')[1].split('// @snippet hdr-combine-end')[0]}</code></pre></details>
+
+回到 [颜色基础](/foundations/color/#hdr) 核对编码，或在 [透明与 WBOIT](/articles/transparency/) 中继续追踪合成顺序的另一种影响。
+
+</ReaderLayout>

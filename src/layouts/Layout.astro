@@ -1,0 +1,9 @@
+---
+import '../styles/global.css';
+import '../styles/site.css';
+import 'katex/dist/katex.min.css';
+const {title='一帧之间',description='交互式实时渲染：看见结果，也看见计算。'}=Astro.props;
+const path=Astro.url.pathname;
+const nav=[{href:'/topics/',label:'主题',active:path.startsWith('/topics/')||path.startsWith('/articles/')},{href:'/learn/',label:'学习路线',active:path.startsWith('/learn/')},{href:'/labs/',label:'实验室',active:path.startsWith('/labs/')||path==='/lab/'},{href:'/foundations/',label:'基础说明',active:path.startsWith('/foundations/')}];
+---
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content={description}/><meta name="theme-color" content="#f6f5f0"/><link rel="icon" href="/favicon.svg"/><title>{title} · 一帧之间</title></head><body><a class="skip" href="#main">跳至正文</a><header class="site-header"><a class="brand" href="/" aria-label="一帧之间 首页"><span class="brand-mark">◒</span><span>一帧之间<span class="brand-en">BETWEEN FRAMES</span></span></a><nav class="site-nav" aria-label="主导航">{nav.map(item=><a href={item.href} aria-current={item.active?'true':undefined}>{item.label}</a>)}</nav></header><main id="main"><slot/></main><footer class="site-footer"><div><a class="brand" href="/">一帧之间</a><p>看见结果，也看见计算。</p></div><div class="footer-links"><a href="/topics/">主题地图</a><a href="/learn/">学习路线</a><a href="/labs/">动手实验</a></div><span class="mono">INTERACTIVE RENDERING NOTES<br/>用原理与实验，理解一帧画面。</span></footer></body></html>

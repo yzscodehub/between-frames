@@ -1,0 +1,7 @@
+---
+import ReaderLayout from './ReaderLayout.astro';
+import type {StudyId} from '../lib/study/catalog';
+interface Props {lesson:StudyId;chapters:[string,string][]}
+const {lesson,chapters}=Astro.props;
+---
+<ReaderLayout articleId={lesson} chapters={chapters}><slot/></ReaderLayout>

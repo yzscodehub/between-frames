@@ -1,0 +1,92 @@
+import RayArticleLayout from '../../layouts/RayArticleLayout.astro';
+import RayLab from '../../components/ray/RayLab';
+import Formula from '../../components/Formula.astro';
+import {rayLabHref} from '../../lib/ray/catalog';
+
+<RayArticleLayout lesson="path" chapters={[
+ ['transport','01 命中之后继续走'],['throughput','02 一条路径携带什么'],['lab','03 增加一次散射'],['accumulation','04 样本增加了什么'],['roulette','05 提前停止而不随意变暗'],['reference','06 有限路径的参考']
+]}>
+
+单次求交告诉我们表面在哪里，单次镜面反射让查询继续走了一段。现在换成漫反射：一个表面可能从许多方向收到光，无法只追踪唯一的反射方向。路径追踪随机选择方向，再用正确的权重，把许多条路径汇成一个估计。
+
+本篇从 Lambert 漫反射开始，使用矩形发光面与可选的常量环境。默认最多处理两次表面散射，界面上限为八次。它是一个有限路径的教学积分器，不是所有材质与光学现象都已支持的渲染器。
+
+<h2 id="transport">01 / 一条路径，怎样找到发光的地方？</h2>
+
+相机光线命中非发光表面后，抽取一个方向继续查询；后续可能命中发光面、离开场景、达到散射上限，或被俄罗斯轮盘赌终止。每种终止原因代表不同的事情。只有真的获得发射或环境贡献时，路径才给图像加入相应能量。
+
+这里的 maxScattering 统计**已处理的表面散射次数**。它不是所有查询的数量：允许 N 次散射后，仍需要查询第 N 段的终点，判断那里是不是发光面或环境。因此八次散射可能对应九次主射线与延续射线查询；调试日志长度与路径本身的上限也要分开。
+
+路径表达式与这种逐顶点估计的背景，见 [PBRT 的 Path Tracing](https://pbr-book.org/4ed/Light_Transport_I_Surface_Reflection/Path_Tracing)。
+
+<h2 id="throughput">02 / 每换一个方向，都要更新权重</h2>
+
+路径吞吐量 β 表示此前所有散射与采样共同留下的乘积。初始化为 1，在非 delta 表面上按下面的式子更新：
+
+<Formula tex={'\\beta_{k+1}=\\beta_k\\,\\frac{f(\\omega_o,\\omega_i)\\,|n\\cdot\\omega_i|}{p_\\omega(\\omega_i)}'} />
+
+f 是 BSDF，pω 是相对于立体角的概率密度。PDF 不是“这个方向发生的百分比”，也不必小于 1；它的单位是每球面度。这里的 β 是 RGB 权重。不要把它、表面颜色和最终显示亮度当作同一个量。
+
+Lambert 的 f=ρ/π。若方向按余弦半球分布采样，pω=cosθ/π，二者相消后该次权重就是 ρ；均匀半球采样则得到 2ρcosθ。**改变采样分布时，分母必须一起改变。** 更完整的路径积分实现与权重维护可参照 [PBRT 的 A Better Path Tracer](https://pbr-book.org/4ed/Light_Transport_I_Surface_Reflection/A_Better_Path_Tracer)。
+
+<h2 id="lab">03 / 实验一：再允许一次表面散射</h2>
+
+<RayLab client:visible lesson="path" embedded />
+
+<section className="ray-task" aria-labelledby="path-task-one">
+<h3 id="path-task-one">实验 1 / 房间里的颜色如何影响别的表面？</h3>
+<dl>
+<dt>问题</dt><dd>从一次增加到两次散射，能够表示哪一类此前缺失的光路？</dd>
+<dt>预测</dt><dd>允许通过另一个表面后再到发光面的路径，部分暗区可获得间接贡献，并带上途中表面的颜色。</dd>
+<dt>操作</dt><dd>保持本篇默认的 BSDF-only、房间、相机和灯面，关闭 RR，把“最大散射次数”从 1 改为 2；分别积累到相同目标样本数。</dd>
+<dt>证据</dt><dd>在同一接收区域比较结果，并查看一条贡献路径的逐事件命中、前后 β 与终止原因。</dd>
+<dt>结论</dt><dd>增加散射预算扩展了被模拟的光路集合，和对原有光路多取一些样本是两件事。</dd>
+<dt>边界</dt><dd>更多散射不保证每个像素都有明显变化；低样本的偶然亮点也不能单独证明间接光已经收敛。</dd>
+</dl>
+</section>
+
+<h2 id="accumulation">04 / 实验二：保持问题不变，增加独立样本</h2>
+
+冻结帧号和相机后，每次生成新的随机路径，在线性 RGB 中求平均，最后才进行显示变换。静态累积改变的是同一目标的估计误差。移动物体、调整光源或修改散射上限后，目标已经变化，旧累积必须失效。
+
+<section className="ray-task" aria-labelledby="path-task-two">
+<h3 id="path-task-two">实验 2 / 一个亮点为什么忽然出现，又逐渐变弱？</h3>
+<dl>
+<dt>问题</dt><dd>有限路径样本如何形成有噪声的图像？</dd>
+<dt>预测</dt><dd>少量样本可能错过小光源，也可能偶然得到大贡献；样本增多后，局部平均通常更稳定。</dd>
+<dt>操作</dt><dd>固定两次散射、相机和照明条件，把“目标样本数”依次设为 1、16、64、256；打开“并排对照”，生成同状态的高样本参考。</dd>
+<dt>证据</dt><dd>记录实际样本数与参考误差，点击像素并选择“冻结样本编号”，检查这一条路径的线性贡献、β、PDF 和发光面命中；该读数不是像素累积均值。</dd>
+<dt>结论</dt><dd>累积是在平均路径估计，不是逐帧把图像变亮；少样本的黑色也未必代表没有能量路径。</dd>
+<dt>边界</dt><dd>单次随机序列的误差不保证单调下降；默认相机没有像素抖动，高 spp 只减轻随机路径噪声，不解决几何抗锯齿。</dd>
+</dl>
+</section>
+
+<h2 id="roulette">05 / 实验三：随机结束一条路径，为什么要补偿？</h2>
+
+如果根据“权重太小”直接丢弃所有后续贡献，图像会系统性丢失能量。俄罗斯轮盘赌（RR）以存活概率 s 决定是否继续；存活时把 β 除以 s，终止时贡献为零。这个条件期望仍等于原来的权重：
+
+<Formula tex={'s\\left(\\frac{\\beta}{s}\\right)+(1-s)\\,0=\\beta'} />
+
+本实现从第三次已处理的散射之后开始考虑 RR，并且只有后面还允许散射时才启用。默认上限为 2，因此在默认设置下开关 RR 不应改变路径。这一点可以用来检查界面是否在解释真正执行的操作。[PBRT 的效率章节](https://pbr-book.org/4ed/Monte_Carlo_Integration/Improving_Efficiency)说明了 RR 的期望与代价。
+
+<section className="ray-task" aria-labelledby="path-task-three">
+<h3 id="path-task-three">实验 3 / 少追踪一些路径，会不会让平均值变暗？</h3>
+<dl>
+<dt>问题</dt><dd>带存活补偿的 RR 与硬截断有什么不同？</dd>
+<dt>预测</dt><dd>在相同有限散射目标下，RR 可减少部分后续查询，但增加随机波动；平均值不应因无补偿丢弃而系统性降低。</dd>
+<dt>操作</dt><dd>将“最大散射次数”设为 8，固定其他条件，分别关闭和开启“俄罗斯轮盘赌 RR”；比较相同 spp，并查看路径终止原因。</dd>
+<dt>证据</dt><dd>确认出现 RR 终止而非查询错误；结合路径权重、射线数与高样本均值检查补偿，不要求两幅低样本图逐像素相同。</dd>
+<dt>结论</dt><dd>RR 改变计算分配并保持条件期望；硬散射上限直接限定能够贡献的路径长度。</dd>
+<dt>边界</dt><dd>RR 不能恢复超过 maxScattering 的光路，也不保证相同时间下每个场景都更低噪声。</dd>
+</dl>
+</section>
+
+<div className="ray-counterexample"><strong>反例：用一百万个样本，只允许一次散射。</strong><p>图像可以十分平滑，但没有被模型允许的多次表面传输仍然缺席。低噪声不等于完整光照，高样本参考也必须注明它的散射上限。</p></div>
+
+<h2 id="reference">06 / 参考图，同样要写清估计目标</h2>
+
+本篇参考固定相机、场景、帧号、灯面、环境与有限散射预算。提高参考 spp 是收敛检查，不是误差上界。路径调试来自实际 GPU 查询与随机维度，若日志因长度限制而截断，不能编造后续顶点；查询溢出也不能按零贡献悄悄累积。
+
+环境开关在这里适用于 BSDF-only：路径离开场景时读取常量环境。本阶段 NEE/MIS 没有环境重要性采样，比较这些策略时使用黑色环境，避免换方法的同时换了目标。进入<a href={rayLabHref('path',{learning:{article:'path-tracing',chapter:'throughput'}})}>最小路径追踪实验室</a>可检查完整参数与路径记录。
+
+</RayArticleLayout>

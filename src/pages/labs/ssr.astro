@@ -1,0 +1,5 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SSRLab from '../../components/ssr/SSRLab';
+---
+<Layout title="SSR 屏幕空间反射实验室" description="真实深度输入、实际GPU步进与同模型完整几何对照。"><div class="lab-page"><span class="eyebrow">SSR LAB / SINGLE-LAYER DEPTH</span><h1>一步一步，检查镜中的信息从哪里来。</h1><p>透视校正屏幕步进与固定视空间基线，共用实际光栅化深度和颜色。选中镜面，核对真实采样、终止原因与完整几何参考。</p><SSRLab client:load/><noscript><p>交互需要 JavaScript；<a href="/articles/ssr/">SSR 文章</a>保留完整静态论证、公式和运行源码。</p></noscript></div></Layout>

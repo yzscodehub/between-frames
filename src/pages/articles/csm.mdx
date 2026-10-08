@@ -1,0 +1,75 @@
+import ReaderLayout from '../../layouts/ReaderLayout.astro';
+import CsmLab from '../../components/shadow/CsmLab';
+import Formula from '../../components/Formula.astro';
+import shader from '../../shaders/gpu/csm.wgsl?raw';
+import math from '../../lib/gpu/csm.ts?raw';
+
+<ReaderLayout articleId="csm" chapters={[
+ ['budget','01 纹素应该花在哪里'],['lab','02 分割与覆盖'],['fit','03 拟合接收视锥'],['blend','04 接缝与过渡'],['stable','05 稳定投影'],['limits','06 证据与边界'],['source','07 运行源码']
+]}>
+
+把方向光的阴影图扩大到远处，近处的台阶便会更明显。增加分辨率能缓解，却同时增加存储与绘制成本。CSM 将相机可见范围分成几段，分别分配深度图，让近处保持更多纹素。
+
+本篇讨论的是**阴影覆盖与分辨率分配**。CSM 没有自动产生面积光源半影，也没有消除偏移与过滤误差。先理解 [阴影贴图](/articles/shadow-mapping/)，再把多个有效比较组织起来。
+
+<h2 id="budget">01 / 四张图不等于四倍正确性</h2>
+
+本实验采用普通 Z、四级方向光阴影：桌面标准档每级 2048²，移动低档每级 1024²。仅四张 depth32float 纹理的登记大小分别约为 64 MiB 与 16 MiB，不包含其他缓冲，也不是驱动实际显存的全部占用。
+
+每一级使用相同几何与光源方向。默认相机近远范围为 0.1–80 米。均匀分割把距离平均分成四段，对数分割将更多分辨率分给近处；混合分割用 λ 连续连接二者：
+
+<Formula tex={'d_i=(1-\\lambda)[n+(f-n)i/N]+\\lambda n(f/n)^{i/N},\\quad N=4'} />
+
+λ 变大并不意味着所有位置都更清晰。总地图数量与分辨率不变，资源只是重新分配。若所有重要物体都集中在远处，过度照顾近处也可能浪费预算。
+
+<h2 id="lab">02 / 实验一：先看距离与级联</h2>
+
+使用风格化展厅的真实网格，打开级联颜色后观察近处长凳、展台和后墙。颜色只是实际 GPU 级联结果的覆盖层；阴影仍由四张深度图查询产生。背景不属于任何接收面。
+
+<CsmLab client:visible embedded />
+
+<section className="ray-task"><h3>实验 1 / 相同纹素预算，怎样分配？</h3><dl><dt>问题</dt><dd>改变分割，哪些表面被分到另一张图？</dd><dt>预测</dt><dd>λ 增大将级联边界向近处集中，远处级联承担更大范围。</dd><dt>操作</dt><dd>保持相机，比较 λ=0、0.6、1；打开级联颜色并检查接收点。</dd><dt>证据</dt><dd>界面列出四个分割距离；GPU 读回视空间距离与实际级联，CPU 用同一输入独立选择。</dd><dt>结论</dt><dd>分割改变的是覆盖分配，不是光源或几何。</dd><dt>边界</dt><dd>颜色变了不能证明阴影误差更小，仍需检查局部轮廓与纹素密度。</dd></dl></section>
+
+<h2 id="fit">03 / 把一段接收视锥放进光源正交投影</h2>
+
+每一级取接收视锥的八个角点，计算中心与包围球半径；用固定光源方向构造正交投影。半径向上量化到 1/16 米，并额外保留稳定化移动的纹素余量。这里选择包围球，是为了使拟合尺寸不随相机旋转剧烈变化；它通常没有逐帧紧包围盒那么紧凑。
+
+次级级联向前扩展，覆盖前一级最后 10% 的距离区间。**必须先保证接收范围重叠，再混合两次查询**；如果只在 Shader 中插值，却没有让下一张图覆盖过渡接收点，就可能把无效覆盖混成亮边。
+
+偏移按该级的世界纹素大小与接收面斜率估计，再转换到光源深度单位。这样能减轻远级斜面的条纹，但过大的偏移仍可能让接触阴影脱离；它不是没有代价的修正。
+
+本页光源轴向范围固定为 0.1–200 米，光源相机位于拟合中心朝太阳方向 100 米处。这个范围覆盖当前有限展厅与受限相机；它不是任意大场景的通用 caster 拟合方案。延伸到大型场景时，需要显式纳入可能向接收范围投影的遮挡物。
+
+<h2 id="blend">04 / 实验二：混合接缝，保留差异</h2>
+
+在每级最后 10% 区间，用平滑权重混合本级与下一级的 PCF 可见率。最后一级不再向外混合。CPU 检查使用独立的区间判断和平滑权重，与实际 GPU 读数核对。
+
+<section className="ray-task"><h3>实验 2 / 接缝为何变得不明显？</h3><dl><dt>问题</dt><dd>两张图的纹素密度不同，切换为何可能出现明显边界？</dd><dt>预测</dt><dd>相同表面在两张图中可能得到不同采样结果；过渡降低突然切换。</dd><dt>操作</dt><dd>缓慢移动相机找到级联交界，切换过渡开关；选点读取级联与混合权重。</dd><dt>证据</dt><dd>权重应在当前区间末端从 0 变到 1，CPU 与 GPU 应在浮点容差内一致。</dd><dt>结论</dt><dd>混合改善连续性，没有恢复远处图中丢掉的细节。</dd><dt>边界</dt><dd>两级偏移和分辨率差异较大时，仍可能出现过渡带或双边缘。</dd></dl></section>
+
+<h2 id="stable">05 / 实验三：让光图跟着纹素移动</h2>
+
+稳定投影在光源的右、上两个轴上，将拟合中心对齐到世界空间纹素步长。步长为正交投影宽度除以地图分辨率；沿光源前向的中心坐标保持连续。额外的投影余量用于保证对齐后的接收角点仍然被覆盖。
+
+<section className="ray-task"><h3>实验 3 / 少量相机移动，为什么会让阴影游动？</h3><dl><dt>问题</dt><dd>连续移动投影时，几何边缘与采样网格的相对位置如何变化？</dd><dt>预测</dt><dd>纹素对齐可减少亚纹素平移导致的游动，代价是投影中心离散跳转。</dd><dt>操作</dt><dd>保持分割，缓慢横向拖动相机，分别观察稳定开关下的长凳、格栅和球面阴影。</dd><dt>证据</dt><dd>固定半径和步长时，中心以整纹素移动；相机条件变化会立即清除旧选点结果。</dd><dt>结论</dt><dd>稳定化控制采样网格运动，不等于消除所有锯齿。</dd><dt>边界</dt><dd>改变 FOV、远平面或级联分割会改变拟合尺寸，不能要求此前的网格继续保持不变。</dd></dl></section>
+
+<h2 id="limits">06 / 这篇验证了什么？</h2>
+
+CPU 检查分割单调性、范围末端、过渡权重及所有重叠视锥角点的光图覆盖。GPU 检查读取真实栅格接收点的级联编号、权重与可见率。精确位于分割边界附近时，需要考虑 CPU 双精度与 GPU 单精度差异。
+
+- 接缝明显：先检查覆盖重叠，再检查混合和偏移。
+- 远处太粗：检查分割和远平面，不要只增加近级分辨率。
+- 相机移动仍闪烁：检查稳定投影是否开启，再看几何轮廓与过滤预算。
+- 漏影：检查光源轴向范围和 caster 覆盖；颜色分区正确不代表遮挡物都被捕获。
+
+该演示使用 3×3 PCF，不实现面积光源软阴影。展厅的艺术补光也不是 GI。GPU 时间只覆盖主着色，不包含四次阴影图生成，不能用它宣称整帧性能目标已经达成。
+
+<h2 id="source">07 / 实际运行代码</h2>
+
+<details><summary>WGSL：相邻级联的实际查询与混合</summary><pre><code>{shader.split('// @snippet csm-select-start')[1].split('// @snippet csm-select-end')[0]}</code></pre></details>
+<details><summary>CPU：分割与独立权重计算</summary><pre><code>{math.slice(math.indexOf('export function cascadeSplits'),math.indexOf('export function frustumCorners'))}</code></pre></details>
+
+继续对照 [PCF / PCSS](/articles/pcf-pcss/)：一篇处理阴影范围的资源分配，另一篇处理局部过滤与半影近似，二者可以组合，但不能互相代替。
+
+分割背景可参照 [GPU Gems 的 Parallel-Split Shadow Maps](https://developer.nvidia.com/gpugems/gpugems3/part-ii-light-and-shadows/chapter-10-parallel-split-shadow-maps-programmable-gpus)，工程取舍可参照 [Microsoft 的级联阴影说明](https://learn.microsoft.com/en-us/windows/win32/dxtecharts/cascaded-shadow-maps)。本页球形拟合、固定轴向范围与预留重叠按上面的具体实现为准。
+
+</ReaderLayout>

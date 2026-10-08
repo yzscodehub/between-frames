@@ -1,0 +1,24 @@
+---
+import Layout from './Layout.astro';
+import {readingEntries} from '../components/reading/content';
+import ArticleOrientation from '../components/reading/ArticleOrientation.astro';
+import '../components/reading/reading.css';
+import {getArticle,getTopic,topicHref,topicArticles,articleHref,articlePaths,articleLabHref,resource} from '../lib/content/catalog';
+import '../styles/ray-article.css';
+interface Props {articleId:string;chapters:[string,string][];labHref?:string}
+const {articleId,chapters,labHref}=Astro.props,article=getArticle(articleId),topic=getTopic(article.topic),siblings=topicArticles(topic.id).filter(a=>a.id!==articleId),paths=articlePaths(articleId).map(path=>{const index=path.steps.indexOf(articleId);return {...path,index,previous:index>0?resource(path.steps[index-1]):null,next:index+1<path.steps.length?resource(path.steps[index+1]):null};});
+---
+<Layout title={article.title} description={article.description}>
+<div class="ray-reading reader" style={'--accent:'+topic.color}>
+<header class="reading-head"><div class="catalog-breadcrumb"><a href="/topics/">主题地图</a><span>/</span><a href={topicHref(topic.id)}>{topic.name}</a></div><span class="catalog-kicker">{article.code} / {topic.english}</span><h1>{article.title}</h1><p class="dek">{article.description}</p><div class="meta"><span>{article.level}</span><span>先备知识：{article.knowledge}</span><span>正文 + 交互实验 + 运行源码</span></div>{article.prerequisiteReading.length>0&&<div class="reader-prerequisites"><span>按需补充</span>{article.prerequisiteReading.map(id=><a href={resource(id).href}>{resource(id).title} ↗</a>)}</div>}</header>
+<div class="article-grid"><aside class="toc reader-toc" aria-label="本篇目录"><div class="toc-main"><span class="eyebrow">IN THIS ARTICLE</span>{readingEntries[articleId]&&<a data-chapter href="#reading-map">阅读地图 · 方法与代价</a>}{chapters.map(([id,label])=><a data-chapter href={'#'+id}>{label}</a>)}{readingEntries[articleId]&&<a data-chapter href="#diagnosis">问题诊断 · 学以致用</a>}</div><a class="ray-toc-lab reader-lab-link" href={labHref??articleLabHref(article)}>打开对应实验 ↗</a><details class="reader-topic-links"><summary>{topic.name}</summary>{topicArticles(topic.id).map(a=><a href={articleHref(a)} aria-current={a.id===articleId?'page':undefined}>{a.shortTitle}</a>)}</details></aside>
+<article class="article ray-article"><ArticleOrientation articleId={articleId} position="opening"/><slot/><ArticleOrientation articleId={articleId} position="diagnosis"/>
+<footer class="reader-end"><div class="reader-end-heading"><span class="catalog-kicker">KEEP EXPLORING</span><h2>把这一篇，接到更大的问题里。</h2></div>{siblings.length>0&&<section class="reader-related"><h3>同主题继续探索</h3><div>{siblings.map(a=><a href={articleHref(a)}><span class="mono">{a.code}</span><strong>{a.shortTitle} ↗</strong><p>{a.description}</p></a>)}</div></section>}
+<section class="reader-paths"><h3>这篇文章所在的学习路线</h3><p class="reader-path-note">下面是各路线的推荐衔接，不代表唯一顺序或必须先读的文章。</p>{paths.map(path=><div class="reader-path-row"><a href={'/learn/'+path.id+'/'}><span>{path.name}</span><small>第 {path.index+1} / {path.steps.length} 站</small></a><div>{path.previous&&<a href={path.previous.href}>← {path.previous.title}</a>}{path.next&&<a href={path.next.href}>{path.next.title} →</a>}</div></div>)}</section><a class="reader-back" href={topicHref(topic.id)}>返回 {topic.name} →</a></footer>
+</article></div></div>
+<script>
+const links=[...document.querySelectorAll<HTMLAnchorElement>('.reader-toc [data-chapter]')];
+const sections=links.map(link=>document.getElementById(decodeURIComponent(link.hash.slice(1)))).filter((section):section is HTMLElement=>!!section);
+if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)[0];if(!visible)return;for(const link of links){if(link.hash==='#'+visible.target.id)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');}},{rootMargin:'-10% 0px -65% 0px'});sections.forEach(section=>observer.observe(section));}
+</script>
+</Layout>

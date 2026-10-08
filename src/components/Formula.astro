@@ -1,0 +1,6 @@
+---
+import katex from 'katex';
+const {tex,inline=false}=Astro.props;
+const html=katex.renderToString(tex,{displayMode:!inline,throwOnError:true,output:'htmlAndMathml'});
+---
+<div class="formula" set:html={html}/>

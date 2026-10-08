@@ -1,0 +1,6 @@
+---
+import {articleHref,getTopic,type Article} from '../../lib/content/catalog';
+interface Props {items:readonly Article[];showTopic?:boolean}
+const {items,showTopic=false}=Astro.props;
+---
+<div class="catalog-articles">{items.map((article,index)=><a class="catalog-article" href={articleHref(article)} style={'--accent:'+getTopic(article.topic).color}><span class="catalog-order mono">{String(index+1).padStart(2,'0')}</span><div><div class="catalog-meta"><span>{showTopic?getTopic(article.topic).name:article.code}</span><span>{article.level}</span></div><h3>{article.shortTitle}</h3><p>{article.description}</p><div class="catalog-tags">{article.tags.map(tag=><span>{tag}</span>)}</div></div><span class="catalog-arrow" aria-hidden="true">↗</span></a>)}</div>

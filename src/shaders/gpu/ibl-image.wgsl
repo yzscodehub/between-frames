@@ -1,0 +1,8 @@
+@group(0) @binding(1) var atlas:texture_2d<f32>;
+@group(0) @binding(2) var image:texture_storage_2d<rgba32float,write>;
+@group(0) @binding(3) var<storage,read_write> debug:array<vec4f,3>;
+fn mapAt(d:vec3f,level:i32)->vec3f {let uv=vec2f(atan2(d.z,d.x)/(2*PI)+.5,acos(clamp(d.y,-1,1))/PI);let pixel=clamp(uv*vec2f(64,32)-.5,vec2f(0),vec2f(63,31));let lo=vec2i(floor(pixel));let hi=min(lo+1,vec2i(63,31));let f=fract(pixel);let a=textureLoad(atlas,vec2i(lo.x+64*level,lo.y),0).rgb;let b=textureLoad(atlas,vec2i(hi.x+64*level,lo.y),0).rgb;let c=textureLoad(atlas,vec2i(lo.x+64*level,hi.y),0).rgb;let d1=textureLoad(atlas,vec2i(hi.x+64*level,hi.y),0).rgb;return mix(mix(a,b,f.x),mix(c,d1,f.x),f.y);}
+fn approximate(n:vec3f,v:vec3f)->vec3f {if(u.values.z>.5){return mapAt(n,6);}let f=(u.values.x-.2)/.16;let lo=i32(floor(f));let hi=min(lo+1,5);let r=reflect(-v,n);let filtered=mix(mapAt(r,lo),mapAt(r,hi),fract(f));let ab=brdfIntegral(n,v,u.values.x);return filtered*(.04*ab.x+ab.y);}
+fn shade(uv:vec2f,panel:u32)->vec3f {let p=(uv-.5)*2.4;let z=1-dot(p,p);if(z<=0){return vec3f(.018,.025,.035);}let n=normalize(vec3f(p,sqrt(z)));let v=vec3f(0,0,1);let exact=integrate(n,v,u.values.x);let approx=approximate(n,v);if(panel==0u){return exact;}if(panel==1u){return approx;}return abs(exact-approx)*4;}
+@compute @workgroup_size(8,8) fn render(@builtin(global_invocation_id) id:vec3u){if(id.x>=480u||id.y>=160u){return;}let uv=vec2f((f32(id.x%160u)+.5)/160,1-(f32(id.y)+.5)/160);textureStore(image,vec2i(id.xy),vec4f(shade(uv,id.x/160u),1));}
+@compute @workgroup_size(1) fn inspect(){for(var i=0u;i<3u;i++){debug[i]=vec4f(shade(u.inspect.xy,i),1);}}

@@ -1,0 +1,7 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {defaultPbrState,decodePbrState,encodePbrState,pbrIntegrandKey,pbrTaskState} from '../src/lib/pbr/state';
+test('share restores material, task and camera exactly',()=>{const state={...pbrTaskState(2),roughness:.67,metallic:1,exposure:2,learning:{article:'pbr' as const,chapter:'components'}};assert.deepEqual(decodePbrState(encodePbrState(state)).state,state);});
+test('old and malformed state safely falls back with a notice',()=>{for(const patch of [{version:0},{roughness:0},{metallic:2},{baseColor:'#zzzzzz'},{task:7},{view:'bad'},{learning:null},{learning:0},{learning:false},{camera:{position:[0,0,0],target:[0,0,0]}}]){const result=decodePbrState('#pbr='+encodeURIComponent(JSON.stringify({...defaultPbrState(),...patch})));assert.ok(result.notice);assert.deepEqual(result.state,defaultPbrState());}});
+test('exposure and component visualization do not change the BRDF integrand key',()=>{const state=defaultPbrState();assert.equal(pbrIntegrandKey(state),pbrIntegrandKey({...state,exposure:3,view:'d'}));assert.notEqual(pbrIntegrandKey(state),pbrIntegrandKey({...state,roughness:.8}));});
+test('each task has a deterministic independent reset state',()=>{for(const task of [0,1,2] as const){const first=pbrTaskState(task),second=pbrTaskState(task);first.camera.position[0]=17;assert.equal(second.task,task);assert.notEqual(second.camera.position[0],17);}});

@@ -1,0 +1,40 @@
+.contribution-experiment{margin:32px 0;background:#fff;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.contribution-heading{padding:25px;border-bottom:1px solid var(--line)}
+.contribution-heading .eyebrow{font-size:11px;margin:0 0 10px}
+.contribution-heading h3{font-size:21px;font-weight:550;margin:0}
+.contribution-heading p{font-size:13px!important;line-height:1.8!important;margin:10px 0 17px;color:var(--muted)}
+.contribution-presets{display:flex;gap:7px;flex-wrap:wrap}
+.contribution-presets button{font-size:12px;padding:8px 11px}
+.contribution-presets button[aria-pressed=true]{background:#183e52;color:white;border-color:#183e52}
+.contribution-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.85fr)}
+.contribution-visuals{padding:14px 20px 22px;min-width:0}
+.contribution-visuals figure{margin:0}
+.contribution-visuals svg{display:block;width:100%;height:auto;overflow:visible}
+.contribution-visuals svg text{font-size:12px}
+.contribution-visuals svg .contribution-normal-label{fill:#245ab5;font-weight:600}
+.contribution-visuals figcaption{display:flex;gap:8px 16px;flex-wrap:wrap;color:#617a8a;font-size:11px;line-height:1.7;padding:7px 5px}
+.contribution-visuals figcaption span{display:flex;gap:6px;align-items:center}
+.contribution-key{width:9px;height:9px;flex-shrink:0;border-radius:50%;display:inline-block}
+.contribution-key.visible{background:#e4ab54}.contribution-key.normal{background:#245ab5}.contribution-key.measure{background:#9c774b}
+.contribution-curve{border-top:1px solid var(--line);margin-top:16px!important;padding-top:18px}
+.contribution-plot-title{font-size:12px;font-weight:500;color:#496373;margin-bottom:10px}
+.contribution-controls{padding:28px 24px;background:#fbfcfd;border-left:1px solid var(--line);min-width:0}
+.contribution-controls label{font-size:13px;margin-bottom:20px}
+.contribution-fixed-domain,.contribution-error{font-size:12px!important;line-height:1.8!important;color:var(--muted);margin:0 0 18px}
+.contribution-readouts{margin:0}
+.contribution-readouts>div{border-top:1px solid var(--line);padding:16px 0}
+.contribution-readouts dt{font-size:12px;color:#456375}
+.contribution-readouts small{display:block;font-size:10px;line-height:1.8;color:#718591;margin:5px 0 0;overflow-wrap:anywhere}
+.contribution-readouts dd{margin:9px 0 0;font:25px "SFMono-Regular",Consolas,monospace;letter-spacing:-.04em;color:#245ab5}
+.contribution-readouts .contribution-measure dd{color:#9c774b}
+.contribution-error{font-size:11px!important}.contribution-error strong{font-family:monospace;font-weight:400}
+.contribution-observation{background:#eaf1f6;border-radius:4px;padding:16px}
+.contribution-observation .eyebrow{font-size:10px;margin:0 0 7px}
+.contribution-observation p{font-size:12px!important;line-height:1.8!important;margin:0}
+.contribution-takeaway{border-top:1px solid var(--line);padding:20px 25px}
+.contribution-takeaway>p{font-size:13px!important;line-height:1.8!important;margin:0}
+.contribution-takeaway details{max-width:none!important;margin:16px 0 0!important;border:0!important;border-top:1px solid var(--line)!important;padding:14px 0 0!important;background:transparent!important}
+.contribution-takeaway summary{font-size:12px!important;color:#496373}
+.contribution-takeaway details p{font-size:12px!important;line-height:1.8!important;color:var(--muted);margin:12px 0 0}
+@media(max-width:700px){.contribution-heading{padding:20px}.contribution-body{grid-template-columns:1fr}.contribution-visuals{padding:12px 15px 20px}.contribution-visuals figure:first-child svg{max-height:310px}.contribution-controls{border-left:0;border-top:1px solid var(--line);padding:23px 20px}.contribution-readouts{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}.contribution-readouts>div:first-child{grid-column:1/-1}.contribution-readouts dd{font-size:22px}.contribution-takeaway{padding:20px}.contribution-presets{gap:6px}.contribution-presets button{padding:8px;font-size:11px}}
+@media(max-width:360px){.contribution-readouts{display:block}.contribution-controls label{font-size:12px}.contribution-presets button{font-size:10px;padding:7px}}

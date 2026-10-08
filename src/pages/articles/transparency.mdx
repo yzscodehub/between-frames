@@ -1,0 +1,74 @@
+import ReaderLayout from '../../layouts/ReaderLayout.astro';
+import LightingLab from '../../components/lighting/LightingLab';
+import LightingSource from '../../components/lighting/LightingSource.astro';
+import Formula from '../../components/Formula.astro';
+
+<ReaderLayout articleId="transparency" chapters={[
+ ['over','01 合成为什么有顺序'],['lab','02 交叉平面实验'],['sorting','03 物体排序的边界'],['weighted','04 WBOIT 累积什么'],['weights','05 权重与顺序'],['failure','06 高 alpha 反例'],['validation','07 验证与边界'],['source','08 运行源码']
+]}>
+
+两张透明彩纸互换前后顺序，颜色通常会变。若两张纸互相穿过，就连“哪张在前”也要逐像素回答。先按物体中心排序能解决一部分场景，却不能给交叉区域找到一个全局正确顺序。
+
+本篇沿着 **over 合成 → 对象排序 → 逐像素排序参考 → 加权混合近似** 展开。WBOIT 的目标是在有限存储与不逐片元排序的条件下获得稳定近似，不保证复现所有有序透明结果。
+
+<h2 id="over">01 / 先约定线性颜色与 alpha</h2>
+
+使用线性、非预乘的表面颜色 C 和 alpha a，对不透明背景 B：
+
+<Formula tex={'C_{out}=aC+(1-a)B'} />
+
+把 A 放在 B 前面，与把 B 放在 A 前面一般不同。alpha 在这里表示合成不透明度，没有按 sRGB 解码；颜色在线性空间计算，最后编码显示。详见 [线性颜色基础](/foundations/color/#alpha)。本篇没有折射、吸收路径长度与 Fresnel 透射，不把彩色半透明片称作真实玻璃。
+
+<h2 id="lab">02 / 实验一：交叉后，中心顺序还够吗？</h2>
+
+三张有限平面使用正交投影，平面倾斜使每个像素的深度不同。左图按中心深度从远到近绘制，可用“反转提交顺序”故意打乱；中图每像素对三次平面命中排序并执行 over；右图执行 WBOIT。
+
+<LightingLab kind="transparency" client:visible embedded />
+
+<section className="ray-task"><h3>实验 1 / 同一个物体能否一直在前？</h3><dl><dt>问题</dt><dd>按中心深度排序是否足以处理交叉？</dd><dt>预测</dt><dd>交叉区域的局部前后关系不同，全局顺序会在部分像素失败。</dd><dt>操作</dt><dd>任务一先关闭交叉核对中心排序，再打开交叉；最后反转提交顺序。</dd><dt>证据</dt><dd>检查同点的 GPU 三种颜色、CPU 平面深度与精确排序颜色。</dd><dt>结论</dt><dd>排序粒度决定了能够表达的前后关系。</dd><dt>边界</dt><dd>本例只有三张平面，专用精确参考不等于通用透明排序方案。</dd></dl></section>
+
+<h2 id="sorting">03 / 精确参考为什么不直接作为实现？</h2>
+
+本实验知道所有三个平面的解析表达，因而可以逐像素求命中并排序。一般网格场景需要获取数量不定的透明片元；逐像素链表、深度剥离等方法会引入额外存储、同步或多遍成本。本篇不实现这些通用方案，而用已知几何提供清楚的正确性基线。
+
+CPU 参考独立计算正交射线与平面的距离，再排序并合成；GPU 参考用平面深度表达与固定长度排序。它们共享几何定义，但不共享排序实现。恰好相交且深度完全相同时，按稳定 ID 决定次序，定量检查优先避开这些退化点与外轮廓。
+
+<h2 id="weighted">04 / 累加颜色，保留背景透过率</h2>
+
+WBOIT 不试图恢复完整深度顺序，而分别保存加权颜色与剩余透过率：
+
+<Formula tex={'A_{rgb}=\\sum_i C_i a_i w_i,\\quad A_a=\\sum_i a_i w_i,\\quad T=\\prod_i(1-a_i)'} />
+
+<Formula tex={'C_{out}=\\frac{A_{rgb}}{\\max(A_a,\\epsilon)}(1-T)+BT'} />
+
+没有贡献时颜色平均按零处理。背景的剩余比例由乘积 T 保留；颜色则被一个加权平均概括。因此，交换提交顺序不应在实数运算下改变结果，但这并不能证明其颜色等于精确 over。浮点累积仍可能有微小顺序差。
+
+算法依据 [McGuire 与 Bavoil 的 WBOIT 论文](https://jcgt.org/published/0002/02/09/)。本实验使用一个单独声明的教学权重 w=max(0.01,(1−z)^p)，z 是本场景归一化深度，p 可调。它强调前层颜色，没有复制论文完整工程权重，也不宣称对所有场景最优。
+
+实现使用两个 RGBA16F 缓冲：颜色累积以 ONE / ONE 相加；透过率先清为 1，再用 ZERO / ONE_MINUS_SRC_ALPHA 相乘。为避免依赖逐附件独立混合，分别绘制两遍透明层，再合成到线性输出。没有把 CPU 求和或预先排序伪装成 GPU WBOIT。
+
+<h2 id="weights">05 / 实验二：权重改了什么？</h2>
+
+<section className="ray-task"><h3>实验 2 / 顺序无关是否意味着没有偏差？</h3><dl><dt>问题</dt><dd>改变权重、改变提交顺序，分别影响哪些量？</dd><dt>预测</dt><dd>权重影响平均颜色；透过率只依赖 alpha；反转顺序不应显著改变 WBOIT。</dd><dt>操作</dt><dd>任务二固定 alpha，比较 p=0、3、8，再反转提交顺序。</dd><dt>证据</dt><dd>读取 GPU 累积 RGBA 与 T，对照独立 CPU 值和逐像素排序结果。</dd><dt>结论</dt><dd>稳定性来自累积形式，颜色准确性仍取决于近似。</dd><dt>边界</dt><dd>半精度缓冲产生舍入；任意增大权重可能带来范围和精度问题。</dd></dl></section>
+
+<h2 id="failure">06 / 实验三：几乎不透明，后层为什么还在？</h2>
+
+<section className="ray-task"><h3>实验 3 / alpha 接近 1 的反例</h3><dl><dt>问题</dt><dd>前层几乎不透明时，加权颜色是否自动只剩前层？</dd><dt>预测</dt><dd>T 接近零，但颜色平均仍可能保留后层颜色。</dd><dt>操作</dt><dd>任务三在重叠区选点，把 alpha 设为 0.95，再设为 1。</dd><dt>证据</dt><dd>精确参考趋向最近层颜色；WBOIT 的混合色仍可与之明显不同。</dd><dt>结论</dt><dd>背景透过率正确不保证前后颜色关系正确。</dd><dt>边界</dt><dd>本例有意保留 alpha=1 的失败情形。生产系统可将确定不透明表面另行处理，但这不解决所有高 alpha 透明情况。</dd></dl></section>
+
+<h2 id="validation">07 / 把正确性问题拆开</h2>
+
+- alpha=0：三种方法都应返回背景，不能出现除零或非法颜色。
+- 单层：加权平均中的权重抵消，应与 over 一致。
+- 多层交叉：中心排序可能失败；逐像素参考与 CPU 应在非退化点一致。
+- 顺序反转：WBOIT 在半精度容差内保持稳定；左图可以明显变化。
+- alpha=1：明确展示 WBOIT 的颜色偏差，不为“好看”隐藏反例。
+
+透明度参数、几何倾斜或权重改变后，旧检查读数立即失效。只有选点或改变已选点的条件才读取小缓冲；正常交互不做全屏同步读回。此处深度权重不是距离吸收模型，也没有与不透明深度缓冲集成、MSAA、折射或体积输运。
+
+<h2 id="source">08 / 两遍累积与合成的实际 WGSL</h2>
+
+<LightingSource kind="transparency" />
+
+每种方法均为 160×160。双遍累积与比较参考的成本分别说明；CPU 提交时间不是 GPU 时间；支持时间戳时另报加权颜色与透过率两遍的 GPU 时间，不包含排序对照与合成。有关合成发生在哪个颜色空间，返回 [颜色基础](/foundations/color/#encoding)；材质反射与透明覆盖的区别，可参照 [PBR](/articles/pbr/#limits)。
+
+</ReaderLayout>

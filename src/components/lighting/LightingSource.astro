@@ -1,0 +1,10 @@
+---
+import ibl from '../../shaders/gpu/ibl-common.wgsl?raw';
+import oitMain from '../../shaders/gpu/transparency.wgsl?raw';
+import oitResolve from '../../shaders/gpu/transparency-resolve.wgsl?raw';
+const oit=oitMain+oitResolve;
+const {kind}=Astro.props;
+const source=kind==='ibl'?ibl:oit;
+const snippets=kind==='ibl'?['ibl-integral']:['oit-accum','oit-resolve'];
+---
+<div class="lighting-source">{snippets.map(name=><details><summary>展开实际 WGSL：{name}</summary><pre><code>{source.split('// @snippet '+name+'-start')[1].split('// @snippet '+name+'-end')[0].trim()}</code></pre></details>)}</div>

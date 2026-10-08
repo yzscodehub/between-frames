@@ -1,0 +1,8 @@
+---
+interface Props {articleId:string; position:'opening'|'diagnosis'}
+const {articleId,position}=Astro.props;
+import {readingEntries} from './content';
+
+const entry=readingEntries[articleId];
+---
+{entry&&(position==='opening'?<section class="reading-orientation" aria-label="本篇观察起点"><figure><img src={'/images/reading/'+articleId+'.png'} width="800" height={800/(entry.aspect??1.6)} style={{aspectRatio:entry.aspect??1.6}} alt={entry.caption} loading="eager"/><figcaption>{entry.caption} 静态截图，不是基准参考。</figcaption></figure><div class="reading-observe"><span class="eyebrow">先看现象</span><h2>{entry.question}</h2><p>{entry.look}</p><a href={articleId==='gtao'?'#contact':'#lab'}>进入第一个实验 ↓</a></div><h2 id="reading-map">方法为什么继续变化？</h2><p>{articleId==='pbr'?'这里是建模问题的递进，不是完整历史年表。':'这里按问题组织理解路线，不代表一项技术全面替代另一项。'}</p><div class="reading-evolution">{entry.steps.map((step,i)=><section><span class="eyebrow">{String(i+1).padStart(2,'0')} / {step[0]}</span><dl><dt>解决什么</dt><dd>{step[1]}</dd><dt>仍有什么问题</dt><dd>{step[2]}</dd><dt>下一步与代价</dt><dd>{step[3]}</dd></dl></section>)}</div></section>:<section class="reading-diagnosis"><h2 id="diagnosis">遇到问题，先查哪一层？</h2><div class="reading-diagnostic-list">{entry.diagnosis.map(row=><details><summary>{row[0]}</summary><p><strong>先检查：</strong>{row[1]}</p><p><strong>避免误判：</strong>{row[2]}</p></details>)}</div><aside><strong>换个场景再想一次</strong><p>{entry.check}</p><p>先写下判断，再回到实验核对；不能仅凭画面是否好看判断正确性。</p></aside><a href={entry.href}>{entry.next} →</a></section>) }

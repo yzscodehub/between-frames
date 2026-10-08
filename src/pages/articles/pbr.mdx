@@ -1,0 +1,157 @@
+import StudyArticleLayout from '../../layouts/StudyArticleLayout.astro';
+import PbrLab from '../../components/pbr/PbrLab';
+import PbrSource from '../../components/pbr/PbrSource.astro';
+import Formula from '../../components/Formula.astro';
+import {pbrLabHref,pbrTaskState} from '../../lib/pbr/state';
+
+<StudyArticleLayout lesson="pbr" chapters={[
+ ['signal','01 亮点不是能量计'],['lab','02 粗糙度实验'],['distribution','03 D：微法线分布'],['fresnel','04 F：视角与金属度'],['geometry','05 G 与几何阴影'],['components','06 分量实验'],['integral','07 半球积分的约束'],['linear','08 线性值与显示'],['limits','09 本模型的边界'],['runtime','10 运行源码']
+]}>
+
+把粗糙度从 0.8 降到 0.12，高光会变窄，也常常变得很亮。只盯着最亮的像素，很容易得出“光滑材质反射更多能量”的结论。可是一个方向上的峰值，和整个半球里分配出去的能量，是两种测量。
+
+本篇从这一区别出发：先固定入射条件，再把同一个像素拆成 D、F、G、余弦、可见性与显示映射。我们使用单散射 GGX 加 Lambert 基底的教学金属工作流；每一项都有实际 GPU 读数和独立 CPU 公式可以核对。
+
+<h2 id="signal">01 / 一个像素先回答哪个问题？</h2>
+
+法线 n、朝向观察者的 v、朝向光源的 l 都是从表面指向外部的单位向量。半向量 h 是 v 与 l 的和归一化。检查器中的 NoL、NoV、NoH、VoH 分别表示对应点积的非负部分。
+
+对本实验的一束方向光，线性出射辐射度计算为：
+
+<Formula tex={'L_o=\\left(f_d+f_s\\right)L_i\\,\\max(0,\\mathbf n\\!\\cdot\\!\\mathbf l)\\,V'} />
+
+这里的 BRDF 描述每单位立体角的反射响应；NoL 是投影余弦，V 是场景几何可见性。一个像素变暗，可以是 BRDF 变小，也可以是朝向光源的投影面积变小，或者光被另一颗球挡住。诊断时先分清变化发生在哪一项。
+
+本页场景由 GPU 对球与有限地面进行解析求交，再在真实命中处计算 BRDF。它没有环境贴图或隐藏的补光；球背面的暗处并不证明材质公式失效。三球采用相同半径和高度；左右球分别固定 r=0.12 和 r=0.8，中间球使用滑块值，三者的基础色、金属度和入射光相同。默认关闭几何遮挡，先隔离材质响应。
+
+透视相机会让三个位置的观察方向不同，屏幕上相似位置也不保证有相同的 N、V、L。三球用于定性观察高光形态；定量比较应固定选点记录的方向，再用相同 N/V/L 的 CPU 公式或固定 NoV 的半球积分核对，而不是直接相减两个球的像素。
+
+<h2 id="lab">02 / 实验一：粗糙度改变反射分配</h2>
+
+先使用三球对照，保持光强与曝光不动。检查中间球时，比较“实际 roughness / α”，不要把左右固定材质的读数误认为滑块未生效。
+
+<PbrLab client:visible embedded />
+
+<section className="ray-task" aria-labelledby="pbr-task-one">
+<h3 id="pbr-task-one">实验 1 / 尖高光是否等于更多能量？</h3>
+<dl>
+<dt>问题</dt><dd>降低粗糙度后，一个更亮的像素能否证明总反射能量增加？</dd>
+<dt>预测</dt><dd>光滑材质把响应集中到更窄的方向范围；峰值可能上升，但它不等于半球积分。</dd>
+<dt>操作</dt><dd>载入任务 1，关闭几何阴影以隔离材质，保持方向光强与曝光，将中间球粗糙度设为 0.12、0.32、0.8。分别检查高光内外的像素；再固定选点的 NoV 计算半球积分。</dd>
+<dt>证据</dt><dd>比较 D、Specular BRDF、线性辐射度与独立积分。下方剖面图使用同一对数纵轴，不能把它的二维面积当作半球能量。</dd>
+<dt>结论</dt><dd>粗糙度控制分布和遮蔽，不是简单的“亮度旋钮”。必须同时考察峰值、方向范围和带余弦的立体角积分。</dd>
+<dt>边界</dt><dd>很窄的高光可能只落在少数像素上，屏幕分辨率会影响看到的峰值。单散射模型在粗糙材质上还会丢失未建模的多次微表面反射。</dd>
+</dl>
+</section>
+
+<a href={pbrLabHref({...pbrTaskState(0),learning:{article:'pbr',chapter:'lab'}})}>用任务一的初始条件打开完整实验室 →</a>
+
+<h2 id="distribution">03 / D 是分布密度，不是直接亮度</h2>
+
+微表面模型把一个宏观表面视为许多朝向不同的小镜面。D 描述这些微法线的分布。它可以大于 1：密度的峰值不是概率，也不是已经积分过的反射率。有关投影面积归一化及遮蔽的物理含义，可对照 [PBRT 第四版的微表面理论章节](https://www.pbr-book.org/4ed/Reflection_Models/Roughness_Using_Microfacet_Theory)。
+
+本站采用各向同性 GGX，并明确约定：
+
+<Formula tex={'\\alpha=r^2,\\quad r\\in[0.03,1],\\qquad D(\\mathbf h)=\\frac{\\alpha^2}{\\pi\\left[(\\mathbf n\\!\\cdot\\!\\mathbf h)^2(\\alpha^2-1)+1\\right]^2}'} />
+
+其归一化条件带有投影因子：
+
+<Formula tex={'\\int_{\\Omega^+}D(\\mathbf h)\\,(\\mathbf n\\!\\cdot\\!\\mathbf h)\\,d\\omega_h=1'} />
+
+把 D 单独画出来，能看到粗糙度怎样拓宽法线分布。最终镜面 BRDF 还要结合 Fresnel、遮蔽与方向变换，不能把 D 当作高光颜色直接贴回场景。界面的 D 图采用 <code>log₂(1+D)/8</code> 便于同时观察窄峰与尾部；原始值仍在检查器中。
+
+**反例：把 r 直接当 α。** 对 r=0.3，本站 α=0.09；若误用 α=0.3，高光形状会显著变宽。参数名字相同不代表映射约定相同。PBRT 的粗糙度映射、其高度相关 G 形式与本站均有差异；本篇不声称逐字复现该实现。
+
+<h2 id="fresnel">04 / F：视角相关的界面反射</h2>
+
+Fresnel 项描述光在界面处被反射的比例。这里使用 Schlick RGB 近似，输入是 VoH，而不是随意用 NoV 替代：
+
+<Formula tex={'\\mathbf F=\\mathbf F_0+(1-\\mathbf F_0)(1-\\mathbf v\\!\\cdot\\!\\mathbf h)^5,\\qquad \\mathbf F_0=(1-m)\\,0.04+m\\,\\mathbf c_{base}'} />
+
+金属度为 0 时，基础颜色主要进入漫反射基底，法向入射的 F₀ 固定为 0.04；金属度为 1 时，基础颜色进入镜面 F₀，并关闭漫反射。中间金属度是材质混合参数，不表示一块均匀物质“有一半电子像金属”。[Epic 的 Real Shading in Unreal Engine 4](https://cdn2.unrealengine.com/Resources/files/2013SiggraphPresentationsNotes-26915738.pdf)提供了此类少量艺术家参数与实时材质工作流的背景；本站使用精确的 GGX Smith G₁ 乘积，不使用其中所有实时近似与重映射。
+
+<section className="ray-task" aria-labelledby="pbr-task-two">
+<h3 id="pbr-task-two">实验 2 / 从中性 F₀ 到有色镜面</h3>
+<dl>
+<dt>问题</dt><dd>改变基础颜色和金属度，哪些反射分量会变？</dd>
+<dt>预测</dt><dd>介电材质的 F₀ 保持 0.04；全金属的 F₀ 跟随线性基础颜色，Diffuse BRDF 变为零。</dd>
+<dt>操作</dt><dd>载入任务 2。保持粗糙度，分别设 metallic=0 与 1，修改基础颜色；在球中央与轮廓内侧分别选点，记录 NoV、VoH 和 F。移动相机后重新选点。</dd>
+<dt>证据</dt><dd>检查器直接显示线性基础色、F₀、F 和 Diffuse BRDF。F 诊断图不受曝光与灯光强度影响。</dd>
+<dt>结论</dt><dd>金属度决定颜色进入哪个反射部分；Fresnel 决定界面响应随半向量角度如何变化。两者不能用一个固定“高光颜色”替代。</dd>
+<dt>边界</dt><dd>球中央的法线会朝向观察者；只绕球转动并每次点中央，NoV 未必明显变化。Schlick RGB 近似也没有模拟金属的完整复折射率与光谱。</dd>
+</dl>
+</section>
+
+<a href={pbrLabHref({...pbrTaskState(1),learning:{article:'pbr',chapter:'fresnel'}})}>用任务二的初始条件打开完整实验室 →</a>
+
+固定方向光与较远相机下，不同法线位置的 VoH 可能相近，因此 F 诊断图可能近似均匀。改变光源或观察方向，并选 NoL、NoV 均为正的表面，才能核对半向量角度的影响；不能把球边缘的 NoV 直接代进 F。
+
+<h2 id="geometry">05 / G 不是场景的阴影测试</h2>
+
+本站使用分离的 Smith 遮蔽近似：
+
+<Formula tex={'G_1(c)=\\frac{2c}{c+\\sqrt{\\alpha^2+(1-\\alpha^2)c^2}},\\qquad G=G_1(NoL)G_1(NoV)'} />
+
+G 描述同一微表面模型内部可见的微面比例。场景中另一颗球挡住方向光，则属于前面公式里的几何可见性 V。开启或关闭“几何遮挡”时，D、F、G 可以保持不变，而线性辐射度随 V 变为 0 或 1。这是区分材质响应与场景可见性的直接实验。
+
+当 NoL 或 NoV 不大于零时，本页的单面反射 BRDF 返回零。分母附近不能靠随意加入很大的 epsilon 把能量抹平；实现会先判断合法半球，再计算各项。粗糙度下限用于避开理想镜面 delta 的奇异情况，r=0.03 仍是有限宽度的 GGX，而非真正的离散镜面事件。
+
+<h2 id="components">06 / 实验三：拆开再相加</h2>
+
+完整定义写成：
+
+<Formula tex={'f_s=\\frac{D\\,\\mathbf F\\,G}{4\\,NoL\\,NoV},\\qquad f_d=\\frac{(1-m)(1-\\mathbf F)\\,\\mathbf c_{base}}{\\pi},\\qquad f_r=f_d+f_s'} />
+
+这是常见金属工作流的教学耦合。Lambert 基底采用 1/π；它的权重随同一方向对的 F 调整。此处并非一个包含所有界面内部路径的完整分层 BSDF。
+
+<section className="ray-task" aria-labelledby="pbr-task-three">
+<h3 id="pbr-task-three">实验 3 / 哪一项解释了变化？</h3>
+<dl>
+<dt>问题</dt><dd>一个亮点变化时，能否只凭最终颜色判断是哪项公式出错？</dd>
+<dt>预测</dt><dd>分量图和线性读数能区分 D 的尖峰、F 的颜色与角度变化、G 的掠射衰减，以及阴影 V。</dd>
+<dt>操作</dt><dd>载入任务 3，选择一个球面像素，依次切换 Diffuse、Specular、D、F、G。再固定参数，把方向光强加倍，最后只增加一档显示曝光。</dd>
+<dt>证据</dt><dd>Diffuse 与 Specular 的线性辐射度相加得到完整直接光；GPU/CPU 差只比较线性公式。光强加倍会改变原始辐射度，曝光变化不会改变检查器里的 D/F/G 或线性辐射度。</dd>
+<dt>结论</dt><dd>先定位变化发生的阶段，再核对公式。一个色调映射后的像素无法代替 BRDF 的数值检查。</dd>
+<dt>边界</dt><dd>阴影、NoL=0 或饱和显示会让不同 BRDF 看起来相近。诊断分量有各自的显示尺度，不能把不同图层的屏幕亮度直接相加。</dd>
+</dl>
+</section>
+
+<a href={pbrLabHref({...pbrTaskState(2),learning:{article:'pbr',chapter:'components'}})}>用任务三的初始条件打开完整实验室 →</a>
+
+<h2 id="integral">07 / 半球积分检查什么，不检查什么？</h2>
+
+固定出射方向 v，方向半球反射量为：
+
+<Formula tex={'\\rho(\\mathbf v)=\\int_{\\Omega^+}f_r(\\mathbf l,\\mathbf v)\\,NoL\\,d\\omega_l'} />
+
+它回答单位均匀入射辐射下，材质向该观察方向表现出的反射响应。检查器按 RGB 分别报告 diffuse、specular 与合计。镜面项使用 GGX 半向量重要性采样；漫反射项使用余弦采样，避免用稀疏均匀角度格完全漏掉低粗糙度窄峰。
+
+测试会核对微法线分布的归一化、互易性、金属漫反射为零，以及纯镜面单散射项在一组已声明条件下不产生能量增益。8192 样本结果与 4096 前缀的变化是收敛线索，不是严格误差界。
+
+**两个不同的边界都应保留。** 粗糙单散射 GGX 会损失本应通过更多次微面反射离开的能量；另一方面，当前 diffuse/specular 耦合在极端白色、掠射等配置下也可能超过 1。界面不会把结果强行夹到 1，也不会把有限参数扫描当作全域守恒证明。若要构建生产级材质，需要继续处理多次散射、层间能量分配和更完整的测量验证。
+
+<h2 id="linear">08 / 曝光不是材质参数</h2>
+
+色选器给出 sRGB 编码，进入 BRDF 前先转换为线性 RGB。D、F、G、BRDF、入射光强和积分均在线性空间计算。完整图像最后经过曝光、Reinhard 映射和显示编码：
+
+<Formula tex={'\\mathbf L_e=2^{EV}\\mathbf L_o,\\qquad \\mathbf C_{display}=\\left(\\frac{\\mathbf L_e}{1+\\mathbf L_e}\\right)^{1/2.2}'} />
+
+本页用这条明确、简单的显示曲线便于比较，不把它当作色彩管理的完整实现。两个线性值相差一倍，屏幕值通常不会相差一倍；接近白色时差异还会被压缩。因此，把经过 tone mapping 的图像差直接称为“BRDF 误差”，会混入另一套非线性变换。
+
+反过来，只提高曝光就让粗糙球“看起来和光滑球一样亮”，也没有改变反射瓣。修改光强与修改曝光的视觉效果可能相似，原始读数会明确区分它们。
+
+<h2 id="limits">09 / 这张材质图还没有包含什么？</h2>
+
+本实验没有完整 IBL、法线贴图、透射、各向异性、分层清漆或多次散射补偿。方向光的阴影用场景球体解析求交，材质球没有纹理。三球模式保证的是相同材质颜色、金属度和入射光设置，不保证每个屏幕像素都有相同 NoL、NoV。
+
+PBR 约束的是反射模型和参数含义；它本身不会告诉我们反射方向能找到哪些场景信息。下一篇 [SSR](/articles/ssr/) 会把这两件事接起来：材质给出方向与响应，屏幕深度却只有有限可见信息。若要研究如何高效采样同一 GGX 响应，可继续看 [采样与 MIS](/articles/ray-mis/)；RT06 的 GLSL 与本篇 WGSL 使用相同的 D、Smith G₁、Schlick F 定义，RT06 后端尚待迁移，其 Lambert、delta 与 MIS 目标保持独立。
+
+<h2 id="runtime">10 / 可核对的实现路径</h2>
+
+React 只管理低频控件、SVG 和读数。场景与 BRDF 在 WebGPU 计算着色器执行；点击像素时向 12 个 vec4 的存储缓冲写入检查结果，再异步读回实际中间量。CPU 参考独立使用双精度斜率域 NDF 和 λ 形式的 Smith 函数，不导入 GLSL 计算结果。
+
+<PbrSource />
+
+公式背景与延伸阅读：[PBRT 微表面理论](https://www.pbr-book.org/4ed/Reflection_Models/Roughness_Using_Microfacet_Theory)、[Epic 2013 Real Shading](https://cdn2.unrealengine.com/Resources/files/2013SiggraphPresentationsNotes-26915738.pdf)。它们采用的参数化和工程近似并不完全相同；判断本页数值时，以公开的运行源码和上面的约定为准。
+
+</StudyArticleLayout>

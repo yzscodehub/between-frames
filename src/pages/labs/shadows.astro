@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ShadowLab from '../../components/shadow/ShadowLab';
+---
+<Layout title="阴影贴图与 PCF / PCSS 实验室" description="在真实光栅深度图中检查投影、偏移、可见性过滤与单点完整几何参考。">
+  <div class="lab-page">
+    <span class="eyebrow">SHADOW LAB / RASTER DEPTH & VISIBILITY</span>
+    <h1>从光源看一遍，再检查每一次比较。</h1>
+    <p>保持同一场景，观察光图覆盖、深度偏移与滤波窗口。四格比较不同方法；选中表面后，另行计算这个点的完整几何面积可见率。</p>
+    <ShadowLab client:load lesson="mapping"/>
+    <noscript>
+      <p>交互实验需要 JavaScript。可继续阅读 <a href="/articles/shadow-mapping/">阴影贴图</a> 与 <a href="/articles/pcf-pcss/">从 PCF 到 PCSS</a> 的完整静态论证、公式和运行源码。</p>
+    </noscript>
+  </div>
+</Layout>

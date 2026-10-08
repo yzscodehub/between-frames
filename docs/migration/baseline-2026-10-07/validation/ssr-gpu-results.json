@@ -1,0 +1,41 @@
+[
+  {
+    "preset": "gallery",
+    "mirror": 8581,
+    "screenHits": 942,
+    "screenMisses": 7639,
+    "referenceDifferences": 179,
+    "checks": 24,
+    "referenceHits": 21,
+    "maxPosition": 0.000003444520878116736,
+    "maxColor": 3.6309998230343865e-8,
+    "maxPrimaryPixelError": 0.01925927000219737,
+    "budgetStatus": 6
+  },
+  {
+    "preset": "thin",
+    "mirror": 8674,
+    "screenHits": 1152,
+    "screenMisses": 7522,
+    "referenceDifferences": 64,
+    "checks": 24,
+    "referenceHits": 20,
+    "maxPosition": 4.082355042007133e-7,
+    "maxColor": 3.6309998230343865e-8,
+    "maxPrimaryPixelError": 0.01925927000219737,
+    "budgetStatus": 6
+  },
+  {
+    "preset": "hidden",
+    "mirror": 8825,
+    "screenHits": 1343,
+    "screenMisses": 7482,
+    "referenceDifferences": 347,
+    "checks": 24,
+    "referenceHits": 21,
+    "maxPosition": 5.236958361196941e-7,
+    "maxColor": 1.3183639679947845e-8,
+    "maxPrimaryPixelError": 0.01925927000219737,
+    "budgetStatus": 6
+  }
+]

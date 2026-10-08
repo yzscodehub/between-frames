@@ -1,0 +1,59 @@
+import Layout from '../../layouts/Layout.astro';
+import Formula from '../../components/Formula.astro';
+import ColorExplorer from '../../components/lighting/ColorExplorer';
+import mathSource from '../../lib/lighting/math.ts?raw';
+
+<Layout title="线性颜色、HDR 与曝光" description="从黑白中点理解编码、线性运算与显示映射。">
+<article className="foundation">
+<div className="catalog-breadcrumb"><a href="/foundations/">基础说明</a><span>/</span><span>颜色与显示</span></div>
+<span className="eyebrow">FOUNDATION 03 / 原理与数值实验</span>
+<h1>黑与白的中点，为什么不是同一个灰？</h1>
+
+把黑和白各取一半，如果直接平均编码值，会得到 0.5；如果先按线性光量平均，再编码到 sRGB，会得到约 0.735。两者都能显示成灰，但表达的线性量不同。颜色输入、光照计算与显示输出需要分别说明。
+
+<h2 id="encoding">编码不等于光量</h2>
+
+本篇的 sRGB 数字是归一化编码通道，线性 RGB 是解码后的相对值。在同一颜色空间内，光照相加、加权平均和本文的 alpha 合成在线性值上执行。sRGB 编码 0.5 解码后约为 0.214，不是白色线性量的一半。
+
+<Formula tex={'c_{linear}=\\begin{cases}c_{sRGB}/12.92,&c_{sRGB}\\leq0.04045\\\\((c_{sRGB}+0.055)/1.055)^{2.4},&\\text{otherwise}\\end{cases}'} />
+
+<Formula tex={'c_{sRGB}=\\begin{cases}12.92c_{linear},&c_{linear}\\leq0.0031308\\\\1.055c_{linear}^{1/2.4}-0.055,&\\text{otherwise}\\end{cases}'} />
+
+这两段函数比一个统一的 2.2 次幂更明确。它们处理的是通道传递函数，不是把任意色域都转换成 sRGB 的万能公式。[W3C 托管的 sRGB 解释文档](https://www.w3.org/Graphics/Color/srgb)提供了传递函数与颜色空间的背景。本站较早实验的简化显示曲线仍按各篇声明保留，本篇不悄悄更改旧图像的数学口径。
+
+<h2 id="lab">先预测，再看黑白中点</h2>
+
+操作一：保持黑白与 0.5 比例，比较两个灰块及线性读数。操作二：改成红与蓝，观察编码平均与线性平均的差异；这不是在估计颜料混色。操作三：固定 HDR 输入，只改变曝光，核对哪一项读数保持不变。
+
+<ColorExplorer client:visible />
+
+关闭 JavaScript 时仍可使用以下基准：黑白各半，正确线性结果为 0.5，对应 sRGB 约 0.73536；直接混合编码得到 0.5，实际线性值约 0.21404。
+
+<h2 id="hdr">超过 1 的值去了哪里？</h2>
+
+HDR 缓冲可以保存超过显示白色范围的线性值。曝光先乘以 2 的 EV 次方，再由显示映射压缩范围。本实验使用简单 Reinhard 曲线演示：
+
+<Formula tex={'x=2^{EV}L,\\qquad T(x)=\\frac{x}{1+x}'} />
+
+输入 L=2、EV=0 时，映射结果为 2/3；EV=1 后 x=4，映射结果为 4/5。原始 L 没有变，显示结果也没有简单加倍。不要拿压缩后的截图差值当作 BRDF 或积分误差。
+
+<h2 id="alpha">透明合成先约定颜色的含义</h2>
+
+非预乘颜色 C 与 alpha 分开保存。预乘颜色则保存 Cα。对已不透明的背景 B，over 合成为 Cα+(1−α)B。预乘输入若再乘一次 alpha，会使边缘过暗；非预乘输入若跳过这次乘法，会使颜色过亮。透明度本身不是 sRGB 颜色通道，不使用上述 sRGB 解码。
+
+<h2 id="diagnosis">快速诊断</h2>
+
+- 中间灰过暗：检查是否直接平均了编码值。
+- 边缘出现黑边：检查 alpha 是否重复预乘，以及过滤前后的表示是否一致。
+- 曝光后“误差消失”：检查映射前的线性读数，避免显示压缩掩盖差异。
+- 同一个颜色在不同设备不同：本实验未覆盖显示校准、色域转换与 HDR 输出链路。
+
+<h2 id="source">运行源码</h2>
+
+以下摘录直接来自本实验运行的 TypeScript 函数。
+
+<pre><code>{mathSource.split('export const dot=')[0]}</code></pre>
+
+继续阅读：[PBR 的线性值与显示](/articles/pbr/#linear)、[IBL](/articles/ibl/)、[透明与 WBOIT](/articles/transparency/)。
+</article>
+</Layout>

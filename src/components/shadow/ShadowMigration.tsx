@@ -1,0 +1,5 @@
+import {useEffect,useRef,useState} from 'react';
+import {ShadowWebGPURenderer} from '../../lib/shadow/webgpu-renderer';
+import {decodeShadowState} from '../../lib/shadow/state';
+import type {ShadowReport} from '../../lib/shadow/types';
+export default function ShadowMigration(){const host=useRef<HTMLDivElement>(null),[report,setReport]=useState<ShadowReport>({});useEffect(()=>{let disposed=false;let engine:ShadowWebGPURenderer|undefined;ShadowWebGPURenderer.create(host.current!,decodeShadowState(location.hash,'mapping').state,r=>setReport(v=>({...v,...r}))).then(e=>{if(disposed)e.dispose();else{engine=e;(window as any).__migrationShadow=e;}}).catch(error=>setReport({error:String(error)}));return()=>{disposed=true;engine?.dispose();delete (window as any).__migrationShadow;};},[]);return <section><div ref={host}/><p role="status">{report.error??(report.ready?'WebGPU 就绪':'初始化 WebGPU 阴影…')}</p><pre style={{whiteSpace:'pre-wrap',overflowWrap:'anywhere'}}>{JSON.stringify(report.inspection,null,2)}</pre></section>;}

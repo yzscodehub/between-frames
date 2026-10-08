@@ -1,0 +1,10 @@
+---
+import ReaderLayout from './ReaderLayout.astro';
+import {shadowLabHref} from '../lib/shadow/state';
+import type {ShadowLesson} from '../lib/shadow/types';
+interface Props {lesson:ShadowLesson;chapters:[string,string][]}
+const {lesson,chapters}=Astro.props;
+---
+<ReaderLayout articleId={lesson==='mapping'?'shadow-mapping':'pcf-pcss'} chapters={chapters} labHref={shadowLabHref(lesson)}>
+<div class="ray-runtime-note"><strong>光图来自真实网格光栅化写入的深度纹理。</strong><span>四格是硬阴影、PCF、PCSS 与光图；完整几何参考只计算选中的表面点。没有 JavaScript 时，正文、公式与源码仍可阅读。</span></div><slot/>
+</ReaderLayout>

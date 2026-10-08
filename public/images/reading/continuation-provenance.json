@@ -1,0 +1,494 @@
+{
+  "date": "2026-10-07",
+  "device": "Chrome / SwiftShader",
+  "records": [
+    {
+      "article": "pcf-pcss",
+      "href": "/labs/shadows/#shadow=%7B%22version%22%3A1%2C%22lesson%22%3A%22filtering%22%2C%22preset%22%3A%22contact%22%2C%22algorithm%22%3A%22pcss%22%2C%22resolution%22%3A512%2C%22fov%22%3A75%2C%22bias%22%3A0.002%2C%22planeCorrection%22%3Atrue%2C%22filterRadius%22%3A2%2C%22lightSize%22%3A0.5%2C%22height%22%3A0.8%2C%22seed%22%3A17%2C%22view%22%3A%22lit%22%2C%22compare%22%3Afalse%2C%22camera%22%3A%7B%22position%22%3A%5B7%2C5.5%2C8%5D%2C%22target%22%3A%5B0%2C0.6%2C0%5D%7D%2C%22learning%22%3A%7B%22article%22%3A%22pcf-pcss%22%2C%22chapter%22%3A%22lab%22%7D%7D",
+      "state": {
+        "version": 1,
+        "lesson": "filtering",
+        "preset": "contact",
+        "algorithm": "pcss",
+        "resolution": 512,
+        "fov": 75,
+        "bias": 0.002,
+        "planeCorrection": true,
+        "filterRadius": 2,
+        "lightSize": 0.5,
+        "height": 0.8,
+        "seed": 17,
+        "view": "lit",
+        "compare": false,
+        "camera": {
+          "position": [
+            7,
+            5.5,
+            8
+          ],
+          "target": [
+            0,
+            0.6,
+            0
+          ]
+        },
+        "learning": {
+          "article": "pcf-pcss",
+          "chapter": "lab"
+        }
+      },
+      "progress": null,
+      "purpose": "真实 GPU 静态阅读预览；不是高样本参考或性能证据"
+    },
+    {
+      "article": "ray-shadows",
+      "href": "/labs/ray-effects/#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22shadows%22%2C%22preset%22%3A%22room%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A0%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A16%2C%22batch%22%3A1%2C%22estimator%22%3A%22bsdf%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22low%22%2C%22camera%22%3A%7B%22position%22%3A%5B5%2C4.8%2C6.4%5D%2C%22target%22%3A%5B0%2C0.5%2C-0.4%5D%7D%7D",
+      "state": {
+        "version": 1,
+        "lesson": "shadows",
+        "preset": "room",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 0,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 16,
+        "batch": 1,
+        "estimator": "bsdf",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "low",
+        "camera": {
+          "position": [
+            5,
+            4.8,
+            6.4
+          ],
+          "target": [
+            0,
+            0.5,
+            -0.4
+          ]
+        }
+      },
+      "progress": {
+        "samples": 16,
+        "referenceReady": false,
+        "reference": null,
+        "historyFrame": -1,
+        "replayTarget": -1
+      },
+      "purpose": "真实 GPU 静态阅读预览；不是高样本参考或性能证据"
+    },
+    {
+      "article": "ssr",
+      "href": "/labs/ssr/",
+      "state": {
+        "version": 1,
+        "preset": "gallery",
+        "method": "screen",
+        "steps": 192,
+        "stride": 1,
+        "viewStep": 0.25,
+        "thickness": 0.08,
+        "range": 24,
+        "offset": 0,
+        "epsilon": 0.001,
+        "shading": "flat",
+        "view": "reflection",
+        "compare": true,
+        "camera": {
+          "position": [
+            0,
+            3.2,
+            7.8
+          ],
+          "target": [
+            0,
+            0.5,
+            -0.5
+          ]
+        }
+      },
+      "progress": null,
+      "purpose": "真实 GPU 静态阅读预览；不是高样本参考或性能证据"
+    },
+    {
+      "article": "ray-reflections",
+      "href": "/labs/ray-effects/#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22reflections%22%2C%22preset%22%3A%22room%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A1%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A16%2C%22batch%22%3A1%2C%22estimator%22%3A%22bsdf%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22low%22%2C%22camera%22%3A%7B%22position%22%3A%5B0%2C2.3%2C8.8%5D%2C%22target%22%3A%5B0%2C2.1%2C0%5D%7D%7D",
+      "state": {
+        "version": 1,
+        "lesson": "reflections",
+        "preset": "room",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 1,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 16,
+        "batch": 1,
+        "estimator": "bsdf",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "low",
+        "camera": {
+          "position": [
+            0,
+            2.3,
+            8.8
+          ],
+          "target": [
+            0,
+            2.1,
+            0
+          ]
+        }
+      },
+      "progress": {
+        "samples": 1,
+        "referenceReady": false,
+        "reference": null,
+        "historyFrame": -1,
+        "replayTarget": -1
+      },
+      "purpose": "真实 GPU 静态阅读预览；不是高样本参考或性能证据"
+    },
+    {
+      "article": "path-tracing",
+      "href": "/labs/path-tracing/#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22path%22%2C%22preset%22%3A%22room%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A0%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A16%2C%22batch%22%3A1%2C%22estimator%22%3A%22bsdf%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22low%22%2C%22camera%22%3A%7B%22position%22%3A%5B0%2C2.3%2C8.8%5D%2C%22target%22%3A%5B0%2C2.1%2C0%5D%7D%7D",
+      "state": {
+        "version": 1,
+        "lesson": "path",
+        "preset": "room",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 0,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 16,
+        "batch": 1,
+        "estimator": "bsdf",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "low",
+        "camera": {
+          "position": [
+            0,
+            2.3,
+            8.8
+          ],
+          "target": [
+            0,
+            2.1,
+            0
+          ]
+        }
+      },
+      "progress": {
+        "samples": 16,
+        "referenceReady": false,
+        "reference": null,
+        "historyFrame": -1,
+        "replayTarget": -1
+      },
+      "purpose": "真实 GPU 静态阅读预览；不是高样本参考或性能证据"
+    },
+    {
+      "article": "ray-mis",
+      "href": "/labs/path-tracing/#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22mis%22%2C%22preset%22%3A%22room%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A0%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A16%2C%22batch%22%3A1%2C%22estimator%22%3A%22mis%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22low%22%2C%22camera%22%3A%7B%22position%22%3A%5B0%2C2.3%2C8.8%5D%2C%22target%22%3A%5B0%2C2.1%2C0%5D%7D%7D",
+      "state": {
+        "version": 1,
+        "lesson": "mis",
+        "preset": "room",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 0,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 16,
+        "batch": 1,
+        "estimator": "mis",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "low",
+        "camera": {
+          "position": [
+            0,
+            2.3,
+            8.8
+          ],
+          "target": [
+            0,
+            2.1,
+            0
+          ]
+        }
+      },
+      "progress": {
+        "samples": 16,
+        "referenceReady": false,
+        "reference": null,
+        "historyFrame": -1,
+        "replayTarget": -1
+      },
+      "purpose": "真实 GPU 静态阅读预览；不是高样本参考或性能证据"
+    },
+    {
+      "article": "taa",
+      "href": "/labs/taa/",
+      "state": {
+        "version": 1,
+        "frame": 0,
+        "scene": "studio",
+        "motion": "static",
+        "jitter": true,
+        "validation": true,
+        "clipping": true,
+        "weight": 0.9,
+        "quality": "standard",
+        "view": "final",
+        "compare": false,
+        "exposure": 0,
+        "seed": 17,
+        "camera": {
+          "position": [
+            5.4,
+            3.7,
+            7.8
+          ],
+          "target": [
+            0,
+            1,
+            0
+          ]
+        }
+      },
+      "progress": null,
+      "purpose": "真实 GPU 静态阅读预览；不是高样本参考或性能证据"
+    },
+    {
+      "article": "ray-denoising",
+      "href": "/labs/path-tracing/#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22denoise%22%2C%22preset%22%3A%22room%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A0%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A16%2C%22batch%22%3A1%2C%22estimator%22%3A%22mis%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22low%22%2C%22camera%22%3A%7B%22position%22%3A%5B0%2C2.3%2C8.8%5D%2C%22target%22%3A%5B0%2C2.1%2C0%5D%7D%7D",
+      "state": {
+        "version": 1,
+        "lesson": "denoise",
+        "preset": "room",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 0,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 16,
+        "batch": 1,
+        "estimator": "mis",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "low",
+        "camera": {
+          "position": [
+            0,
+            2.3,
+            8.8
+          ],
+          "target": [
+            0,
+            2.1,
+            0
+          ]
+        }
+      },
+      "progress": {
+        "samples": 1,
+        "referenceReady": false,
+        "reference": null,
+        "historyFrame": 0,
+        "replayTarget": -1
+      },
+      "purpose": "真实 GPU 静态阅读预览；不是高样本参考或性能证据"
+    },
+    {
+      "article": "ray-intersections",
+      "href": "/labs/rays/#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22rays%22%2C%22preset%22%3A%22triangle%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A0%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A16%2C%22batch%22%3A1%2C%22estimator%22%3A%22bsdf%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22standard%22%2C%22camera%22%3A%7B%22position%22%3A%5B6%2C4.5%2C8%5D%2C%22target%22%3A%5B0%2C0.6%2C0%5D%7D%7D",
+      "state": {
+        "version": 1,
+        "lesson": "rays",
+        "preset": "triangle",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 0,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 16,
+        "batch": 1,
+        "estimator": "bsdf",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "standard",
+        "camera": {
+          "position": [
+            6,
+            4.5,
+            8
+          ],
+          "target": [
+            0,
+            0.6,
+            0
+          ]
+        }
+      },
+      "progress": {
+        "replayTarget": -1
+      },
+      "purpose": "真实 GPU 静态阅读预览；不是高样本参考或性能证据"
+    },
+    {
+      "article": "ray-bvh",
+      "href": "/labs/rays/#ray=%7B%22version%22%3A1%2C%22lesson%22%3A%22bvh%22%2C%22preset%22%3A%22scatter%22%2C%22count%22%3A512%2C%22builder%22%3A%22median%22%2C%22traversal%22%3A%22bvh%22%2C%22query%22%3A%22closest%22%2C%22origin%22%3A%22camera%22%2C%22tMin%22%3A0.0001%2C%22tMax%22%3A50%2C%22offsetScale%22%3A1%2C%22variant%22%3A0%2C%22frame%22%3A0%2C%22motion%22%3A%22object%22%2C%22view%22%3A0%2C%22compare%22%3Afalse%2C%22history%22%3Atrue%2C%22spatial%22%3Atrue%2C%22seed%22%3A17%2C%22maxScattering%22%3A2%2C%22targetSpp%22%3A16%2C%22batch%22%3A1%2C%22estimator%22%3A%22bsdf%22%2C%22sampling%22%3A%22cosine%22%2C%22roughness%22%3A0.35%2C%22lightSize%22%3A1%2C%22environment%22%3A0%2C%22rr%22%3Afalse%2C%22exposure%22%3A0%2C%22quality%22%3A%22standard%22%2C%22camera%22%3A%7B%22position%22%3A%5B6%2C4.5%2C8%5D%2C%22target%22%3A%5B0%2C0.6%2C0%5D%7D%7D",
+      "state": {
+        "version": 1,
+        "lesson": "bvh",
+        "preset": "scatter",
+        "count": 512,
+        "builder": "median",
+        "traversal": "bvh",
+        "query": "closest",
+        "origin": "camera",
+        "tMin": 0.0001,
+        "tMax": 50,
+        "offsetScale": 1,
+        "variant": 0,
+        "frame": 0,
+        "motion": "object",
+        "view": 0,
+        "compare": false,
+        "history": true,
+        "spatial": true,
+        "seed": 17,
+        "maxScattering": 2,
+        "targetSpp": 16,
+        "batch": 1,
+        "estimator": "bsdf",
+        "sampling": "cosine",
+        "roughness": 0.35,
+        "lightSize": 1,
+        "environment": 0,
+        "rr": false,
+        "exposure": 0,
+        "quality": "standard",
+        "camera": {
+          "position": [
+            6,
+            4.5,
+            8
+          ],
+          "target": [
+            0,
+            0.6,
+            0
+          ]
+        }
+      },
+      "progress": {
+        "replayTarget": -1
+      },
+      "purpose": "真实 GPU 静态阅读预览；不是高样本参考或性能证据"
+    }
+  ]
+}

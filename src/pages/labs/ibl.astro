@@ -1,0 +1,5 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import LightingLab from '../../components/lighting/LightingLab';
+---
+<Layout title="IBL 环境光照实验室"><div class="lab-page"><span class="eyebrow">ENVIRONMENT LAB</span><h1>环境方向，怎样变成反射？</h1><p>同一球面上的 GPU 直接积分、预滤波近似与独立 CPU 单点参考。</p><LightingLab kind="ibl" client:load/><noscript><p><a href="/articles/ibl/">阅读 IBL 正文、公式与静态步骤</a>。</p></noscript></div></Layout>
